@@ -53,7 +53,7 @@
             if (isMobileDevice || isSmallScreen) {
                 // Store the fact that we're redirecting to mobile in sessionStorage
                 sessionStorage.setItem('redirectedToMobile', 'true');
-                window.location.href = 'mobile.html';
+                window.location.replace('mobile.html');
             }
         })();
     </script>
