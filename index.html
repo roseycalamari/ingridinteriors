@@ -73,7 +73,7 @@
     <!-- Mobile Header -->
     <header class="mobile-header">
         <img src="images/logo white i.png" alt="Logo" class="mobile-logo">
-        <button id="mobileMenuToggle" class="mobile-menu-toggle" style="display: none;">
+        <button id="mobileMenuToggle" class="mobile-menu-toggle">
             <div class="menu-icon">
                 <span></span>
                 <span></span>
@@ -86,9 +86,6 @@
     <div id="mobileMenu" class="mobile-menu">
         <div class="mobile-menu-header">
             <h2>Menu</h2>
-            <div class="mobile-close-btn">
-                <i class="fas fa-times"></i>
-            </div>
         </div>
         <div class="mobile-menu-items">
             <a href="#" class="mobile-menu-item" data-section="home" data-translate="home">Home</a>
@@ -109,7 +106,7 @@
     </div>
 
     <!-- Mobile Main Content - Only visible on mobile -->
-    <main class="mobile-sections mobile-section-scrollable">
+    <main class="mobile-sections">
         <!-- Mobile Pagination Dots -->
         <div class="mobile-pagination">
             <div class="mobile-pagination-dot active" data-section="0"></div>
@@ -126,6 +123,11 @@
                 <p class="mobile-section-description" data-translate="serviceDescription">Ingrid Bergman Interiors is a comprehensive residential and commercial furniture agency, offering full-service solutions. We begin by understanding our clients' practical needs and style preferences, ensuring a personalized experience.</p>
                 <button class="mobile-explore-btn" data-section="service" data-translate="explore">Explore</button>
             </div>
+            <!-- Scroll indicator -->
+            <div class="scroll-indicator">
+                <span class="scroll-indicator-text">Scroll to explore</span>
+                <div class="scroll-indicator-arrow">↓</div>
+            </div>
         </section>
 
         <!-- Section 2: The Person -->
@@ -137,6 +139,11 @@
                 <p class="mobile-section-description" data-translate="personDescription">Ingrid Bergman embarked on her interior design journey in 2013 after spending two decades in the high-end fashion industry. Her extensive background in retail has proven to be a tremendous asset for her clients.</p>
                 <button class="mobile-explore-btn" data-section="person" data-translate="explore">Explore</button>
             </div>
+            <!-- Scroll indicator -->
+            <div class="scroll-indicator">
+                <span class="scroll-indicator-text">Scroll to explore</span>
+                <div class="scroll-indicator-arrow">↓</div>
+            </div>
         </section>
 
         <!-- Section 3: The Brands -->
@@ -147,6 +154,11 @@
                 <h2 class="mobile-section-title" data-translate="brands">The Brands</h2>
                 <p class="mobile-section-description" data-translate="brandsDescription">We carry the most exclusive brands for any project for any client for any budget. Discover our curated collection of luxury furnishings and accessories.</p>
                 <button class="mobile-explore-btn" data-section="brands" data-translate="explore">Explore</button>
+            </div>
+            <!-- Scroll indicator -->
+            <div class="scroll-indicator">
+                <span class="scroll-indicator-text">Scroll to explore</span>
+                <div class="scroll-indicator-arrow">↓</div>
             </div>
         </section>
     </main>
@@ -212,7 +224,7 @@
             <div style="width: 40px;"></div>
         </div>
         <div class="mobile-section-body">
-            <img src="images/Ingrid Bergman Portret.jpg" alt="Ingrid Bergman" class="mobile-about-image">
+            <img src="images/blank.gif" data-src="images/Ingrid Bergman Portret.jpg" alt="Ingrid Bergman" class="mobile-about-image">
             <h2 class="mobile-about-title" data-translate="aboutTitle">Ingrid Bergman</h2>
             <p class="mobile-about-subtitle" data-translate="aboutSubtitle">Founder of Ingrid Bergman Interiors</p>
             <div class="mobile-about-text">

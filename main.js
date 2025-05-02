@@ -140,7 +140,7 @@ function openProjectDetail(projectId) {
         document.body.classList.add('no-scroll');
         
         // Initialize carousel
-        initializeCarousel();
+        initializeProjectCarousel(projectId);
         
         // Add click handler for close button
         closeBtn.addEventListener('click', () => {
@@ -167,91 +167,114 @@ function openProjectDetail(projectId) {
     }
 }
 
-function initializeCarousel() {
-    const carousel = document.querySelector('.adaptive-carousel');
-    const mainImage = carousel.querySelector('.carousel-main-image');
-    const prevBtn = carousel.querySelector('.carousel-prev-btn');
-    const nextBtn = carousel.querySelector('.carousel-next-btn');
-    const indicators = carousel.querySelector('.carousel-indicators');
-    const imageList = document.querySelectorAll('.carousel-image-list img');
+function initializeProjectCarousel(projectId) {
+    // Get carousel elements
+    const mainImage = document.querySelector('.carousel-main-image');
+    const indicators = document.querySelectorAll('.carousel-indicator');
+    const prevBtn = document.querySelector('.carousel-prev');
+    const nextBtn = document.querySelector('.carousel-next');
+    
+    // Get project images (in a real project, these would be loaded from an API or data attribute)
+    const projectImages = getProjectImages(projectId);
+    
     let currentIndex = 0;
     
-    // Create indicators
-    imageList.forEach((_, index) => {
-        const indicator = document.createElement('div');
-        indicator.className = `carousel-indicator${index === 0 ? ' active' : ''}`;
-        indicator.addEventListener('click', () => goToSlide(index));
-        indicators.appendChild(indicator);
+    // Update the carousel to show the current image
+    function updateCarousel() {
+        if (mainImage && projectImages && projectImages.length > 0) {
+            mainImage.src = projectImages[currentIndex];
+            
+            // Update indicators
+            indicators.forEach((indicator, index) => {
+                if (index === currentIndex) {
+                    indicator.classList.add('active');
+                } else {
+                    indicator.classList.remove('active');
+                }
+            });
+        }
+    }
+    
+    // Set up navigation
+    if (prevBtn) {
+        prevBtn.addEventListener('click', function() {
+            if (currentIndex > 0) {
+                currentIndex--;
+            } else {
+                currentIndex = projectImages.length - 1;
+            }
+            updateCarousel();
+        });
+    }
+    
+    if (nextBtn) {
+        nextBtn.addEventListener('click', function() {
+            if (currentIndex < projectImages.length - 1) {
+                currentIndex++;
+            } else {
+                currentIndex = 0;
+            }
+            updateCarousel();
+        });
+    }
+    
+    // Set up indicator clicks
+    indicators.forEach((indicator, index) => {
+        indicator.addEventListener('click', function() {
+            currentIndex = index;
+            updateCarousel();
+        });
     });
     
-    // Update buttons state
-    function updateButtons() {
-        prevBtn.disabled = currentIndex === 0;
-        nextBtn.disabled = currentIndex === imageList.length - 1;
-    }
+    // Initialize carousel
+    updateCarousel();
+}
+
+// Helper function to get project images
+function getProjectImages(projectId) {
+    // This would typically fetch images from data attributes or an API
+    // For now, returning sample images
+    const defaultImages = [
+        'img/projects/project1-1.jpg',
+        'img/projects/project1-2.jpg',
+        'img/projects/project1-3.jpg'
+    ];
     
-    // Go to specific slide
-    function goToSlide(index) {
-        if (index < 0 || index >= imageList.length) return;
-        
-        // Update image with fade effect
-        mainImage.style.opacity = '0';
-        setTimeout(() => {
-            mainImage.src = imageList[index].src;
-            mainImage.style.opacity = '1';
-        }, 300);
-        
-        // Update indicators
-        indicators.querySelectorAll('.carousel-indicator').forEach((indicator, i) => {
-            indicator.classList.toggle('active', i === index);
-        });
-        
-        currentIndex = index;
-        updateButtons();
-    }
+    // Add more project-specific image sets as needed
+    const projectImages = {
+        'project1': [
+            'img/projects/project1-1.jpg',
+            'img/projects/project1-2.jpg',
+            'img/projects/project1-3.jpg'
+        ],
+        'project2': [
+            'img/projects/project2-1.jpg',
+            'img/projects/project2-2.jpg',
+            'img/projects/project2-3.jpg'
+        ]
+        // Add more projects as needed
+    };
     
-    // Add click handlers for navigation buttons
-    prevBtn.addEventListener('click', () => goToSlide(currentIndex - 1));
-    nextBtn.addEventListener('click', () => goToSlide(currentIndex + 1));
-    
-    // Initialize first slide
-    updateButtons();
+    return projectImages[projectId] || defaultImages;
 }
 
 // Mobile-specific functions
 function initializeMobileNavigation() {
     const menuToggle = document.querySelector('.mobile-menu-toggle');
-    const mobileMenu = document.querySelector('.mobile-menu');
-    const mobileLogo = document.querySelector('.mobile-logo');
+    const mobileNav = document.querySelector('.mobile-nav');
     const closeBtn = document.querySelector('.mobile-close-btn');
     const menuItems = document.querySelectorAll('.mobile-menu-item');
     const sections = document.querySelectorAll('.mobile-section');
     
-    // Add nav hint to the mobile logo
-    const navHint = document.createElement('div');
-    navHint.className = 'nav-hint-mobile';
-    navHint.textContent = 'Click to navigate';
-    document.body.appendChild(navHint);
-    
     // Function to toggle mobile menu
-    function toggleMobileMenu(e) {
-        if (e) e.preventDefault();
-        mobileMenu.classList.toggle('active');
+    function toggleMobileMenu() {
+        mobileNav.classList.toggle('active');
         document.body.classList.toggle('no-scroll');
     }
     
-    // Open menu when clicking logo instead of menu toggle
-    if (mobileLogo) {
-        mobileLogo.addEventListener('click', toggleMobileMenu);
-        
-        // Show/hide navigation hint on hover
-        mobileLogo.addEventListener('mouseenter', () => {
-            navHint.style.opacity = '1';
-        });
-        
-        mobileLogo.addEventListener('mouseleave', () => {
-            navHint.style.opacity = '0.8';
-        });
+    // Open menu when clicking menu toggle
+    if (menuToggle) {
+        menuToggle.addEventListener('click', toggleMobileMenu);
     }
     
     // Close menu when clicking close button
@@ -259,16 +282,11 @@ function initializeMobileNavigation() {
         closeBtn.addEventListener('click', toggleMobileMenu);
     }
     
-    // Hide the mobile menu toggle button since we're using the logo instead
-    if (menuToggle) {
-        menuToggle.style.display = 'none';
-    }
-    
     // Close menu when clicking anywhere in the menu (as a fallback)
-    if (mobileMenu) {
-        mobileMenu.addEventListener('click', function(e) {
+    if (mobileNav) {
+        mobileNav.addEventListener('click', function(e) {
             // Only close if clicking directly on the menu background, not on menu items
-            if (e.target === mobileMenu) {
+            if (e.target === mobileNav) {
                 toggleMobileMenu();
             }
         });
@@ -638,15 +656,23 @@ function initializeDetailPanels() {
 
 // Mobile Navigation
 document.addEventListener('DOMContentLoaded', function() {
+    // Mobile Navigation
     // Handle mobile menu toggle
     const menuToggle = document.querySelector('.mobile-menu-toggle');
     const mobileNav = document.querySelector('.mobile-nav');
+    const mobileLogo = document.querySelector('.mobile-logo');
+    const mobileMenu = document.querySelector('.mobile-menu');
+    
+    // Make the logo also toggle the menu
+    if (mobileLogo && mobileMenu) {
+        mobileLogo.addEventListener('click', function() {
+            mobileMenu.classList.toggle('active');
+        });
+    }
     
     if (menuToggle && mobileNav) {
         menuToggle.addEventListener('click', function() {
-            menuToggle.classList.toggle('active');
             mobileNav.classList.toggle('active');
-            document.body.classList.toggle('no-scroll');
         });
     }
     
@@ -655,128 +681,81 @@ document.addEventListener('DOMContentLoaded', function() {
     if (closeBtn && mobileNav) {
         closeBtn.addEventListener('click', function() {
             mobileNav.classList.remove('active');
-            menuToggle.classList.remove('active');
-            document.body.classList.remove('no-scroll');
         });
     }
     
     // Scroll dots navigation for mobile
-    const scrollDots = document.querySelectorAll('.scroll-dot');
-    const panels = document.querySelectorAll('.mobile-fullscreen-panel');
+    const mobileSections = document.querySelectorAll('.mobile-section');
+    const mobileContainer = document.querySelector('.mobile-sections');
+    const paginationDots = document.querySelectorAll('.mobile-pagination-dot');
     
-    if (scrollDots.length && panels.length) {
-        // Initialize Intersection Observer to detect which panel is visible
-        const panelObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const index = Array.from(panels).indexOf(entry.target);
-                    updateActiveDot(index);
+    if (mobileSections.length > 0 && paginationDots.length > 0) {
+        // Initialize first dot as active
+        paginationDots[0].classList.add('active');
+        
+        // Add click listeners to pagination dots
+        paginationDots.forEach((dot, index) => {
+            dot.addEventListener('click', function() {
+                // Update active dot
+                paginationDots.forEach(d => d.classList.remove('active'));
+                dot.classList.add('active');
+                
+                // Smooth scroll to section
+                if (mobileSections[index]) {
+                    mobileSections[index].scrollIntoView({
+                        behavior: 'smooth'
+                    });
                 }
             });
-        }, { threshold: 0.5 });
-        
-        // Observe all panels
-        panels.forEach(panel => panelObserver.observe(panel));
-        
-        // Update active dot based on index
-        function updateActiveDot(index) {
-            scrollDots.forEach(dot => dot.classList.remove('active'));
-            if (scrollDots[index]) {
-                scrollDots[index].classList.add('active');
-            }
-        }
-        
-        // Add click event for each scroll dot
-        scrollDots.forEach((dot, index) => {
-            dot.addEventListener('click', () => {
-                panels[index].scrollIntoView({ behavior: 'smooth' });
-                updateActiveDot(index);
-            });
         });
+        
+        // Update active dot based on scroll position
+        if (mobileContainer) {
+            mobileContainer.addEventListener('scroll', function() {
+                const scrollPosition = mobileContainer.scrollTop;
+                const windowHeight = window.innerHeight;
+                
+                mobileSections.forEach((section, index) => {
+                    const rect = section.getBoundingClientRect();
+                    if (rect.top < windowHeight/2 && rect.bottom > windowHeight/2) {
+                        paginationDots.forEach(d => d.classList.remove('active'));
+                        paginationDots[index].classList.add('active');
+                    }
+                });
+            });
+        }
     }
     
-    // Detail panel toggle for mobile
-    const panelButtons = document.querySelectorAll('.panel-button');
-    const closeDetailButtons = document.querySelectorAll('.close-detail');
-    const backHomeButtons = document.querySelectorAll('.service-back-home-btn, .about-back-home-btn, .brands-back-home-btn');
+    // Fix for project gallery opening on mobile
+    const projectCards = document.querySelectorAll('.project-card');
+    const projectDetailPopup = document.querySelector('.project-detail-popup');
     
-    panelButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const targetId = button.getAttribute('data-target');
-            const targetPanel = document.getElementById(targetId);
-            if (targetPanel) {
-                targetPanel.classList.add('active');
-                document.body.classList.add('no-scroll');
+    if (projectCards.length > 0 && projectDetailPopup) {
+        projectCards.forEach(card => {
+            const viewButton = card.querySelector('.view-project-btn');
+            if (viewButton) {
+                viewButton.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    const projectId = this.getAttribute('data-project-id');
+                    
+                    // Show project popup
+                    projectDetailPopup.classList.add('active');
+                    
+                    // Initialize carousel for the project
+                    initializeProjectCarousel(projectId);
+                });
             }
         });
-    });
-    
-    closeDetailButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const detailPanel = button.closest('.detail-container');
-            if (detailPanel) {
-                detailPanel.classList.remove('active');
-                document.body.classList.remove('no-scroll');
-            }
-        });
-    });
-    
-    backHomeButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const detailPanel = button.closest('.detail-container');
-            if (detailPanel) {
-                detailPanel.classList.remove('active');
-                document.body.classList.remove('no-scroll');
-            }
-        });
-    });
-
-    // Handle hover effects for mobile devices
-    if ('ontouchstart' in window) {
-        const mobilePanels = document.querySelectorAll('.mobile-fullscreen-panel');
-        mobilePanels.forEach(panel => {
-            panel.addEventListener('touchstart', () => {
-                panel.classList.add('hover-effect');
-            });
-            
-            panel.addEventListener('touchend', () => {
-                setTimeout(() => {
-                    panel.classList.remove('hover-effect');
-                }, 500);
-            });
-        });
-    }
-    
-    // Add animation classes when elements come into view
-    const animateOnScroll = () => {
-        const elements = document.querySelectorAll('.mobile-fullscreen-panel, .service-card, .brand-item');
         
-        elements.forEach(element => {
-            const elementPosition = element.getBoundingClientRect().top;
-            const windowHeight = window.innerHeight;
-            
-            if (elementPosition < windowHeight - 100) {
-                element.classList.add('animate-in');
-            }
-        });
-    };
-    
-    // Run on scroll and on load
-    window.addEventListener('scroll', animateOnScroll);
-    window.addEventListener('load', animateOnScroll);
-    
-    // Handle orientation changes
-    window.addEventListener('orientationchange', () => {
-        if (window.orientation === 90 || window.orientation === -90) {
-            document.body.classList.add('landscape');
-        } else {
-            document.body.classList.remove('landscape');
+        // Close project detail
+        const closeProjectDetail = document.querySelector('.close-project-detail');
+        if (closeProjectDetail) {
+            closeProjectDetail.addEventListener('click', function() {
+                projectDetailPopup.classList.remove('active');
+            });
         }
-    });
-    
-    // Check initial orientation
-    if (window.orientation === 90 || window.orientation === -90) {
-        document.body.classList.add('landscape');
     }
 });
 
@@ -992,312 +971,4 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-});
-
-// Initialize the gallery functionality
-function initializeGallery() {
-    const galleryBtns = document.querySelectorAll('.gallery-btn, .view-gallery-btn');
-    const projectItems = document.querySelectorAll('.project-item');
-    
-    // Create gallery modal if it doesn't exist
-    if (!document.querySelector('.gallery-modal')) {
-        const galleryModal = document.createElement('div');
-        galleryModal.className = 'gallery-modal';
-        galleryModal.innerHTML = `
-            <div class="gallery-header">
-                <div></div>
-                <h3>Project Gallery</h3>
-                <div class="gallery-close"><i class="fas fa-times"></i></div>
-            </div>
-            <div class="gallery-slider">
-                <div class="gallery-slides"></div>
-                <div class="gallery-controls">
-                    <div class="gallery-prev"><i class="fas fa-chevron-left"></i></div>
-                    <div class="gallery-indicators"></div>
-                    <div class="gallery-next"><i class="fas fa-chevron-right"></i></div>
-                </div>
-            </div>
-        `;
-        document.body.appendChild(galleryModal);
-    }
-    
-    const galleryModal = document.querySelector('.gallery-modal');
-    const gallerySlider = document.querySelector('.gallery-slides');
-    const galleryClose = document.querySelector('.gallery-close');
-    const galleryPrev = document.querySelector('.gallery-prev');
-    const galleryNext = document.querySelector('.gallery-next');
-    const galleryIndicators = document.querySelector('.gallery-indicators');
-    
-    // Sample gallery images (replace with your actual gallery data)
-    const sampleGalleryImages = [
-        'images/projects/luxury-penthouse.jpg',
-        'images/projects/coastal-retreat.jpg',
-        'images/projects/mountain-lodge.jpg',
-        'images/projects/urban-loft.jpg',
-        'images/projects/country-estate.jpg',
-    ];
-    
-    let currentSlide = 0;
-    let galleryImages = sampleGalleryImages;
-    
-    // Function to open gallery
-    function openGallery(images = sampleGalleryImages) {
-        galleryImages = images;
-        currentSlide = 0;
-        
-        // Clear existing slides and indicators
-        gallerySlider.innerHTML = '';
-        galleryIndicators.innerHTML = '';
-        
-        // Create slides and indicators
-        galleryImages.forEach((img, index) => {
-            // Create slide
-            const slide = document.createElement('div');
-            slide.className = `gallery-slide ${index === 0 ? 'active' : ''}`;
-            
-            const imgElement = document.createElement('img');
-            imgElement.src = img;
-            imgElement.alt = `Gallery Image ${index + 1}`;
-            
-            slide.appendChild(imgElement);
-            gallerySlider.appendChild(slide);
-            
-            // Create indicator
-            const indicator = document.createElement('div');
-            indicator.className = `gallery-indicator ${index === 0 ? 'active' : ''}`;
-            indicator.addEventListener('click', () => goToSlide(index));
-            galleryIndicators.appendChild(indicator);
-        });
-        
-        // Show modal
-        galleryModal.classList.add('active');
-        document.body.classList.add('no-scroll');
-    }
-    
-    // Function to close gallery
-    function closeGallery() {
-        galleryModal.classList.remove('active');
-        document.body.classList.remove('no-scroll');
-    }
-    
-    // Function to navigate to specific slide
-    function goToSlide(index) {
-        if (index < 0) index = galleryImages.length - 1;
-        if (index >= galleryImages.length) index = 0;
-        
-        const slides = gallerySlider.querySelectorAll('.gallery-slide');
-        const indicators = galleryIndicators.querySelectorAll('.gallery-indicator');
-        
-        // Update slides
-        slides.forEach(slide => slide.classList.remove('active'));
-        slides[index].classList.add('active');
-        
-        // Update indicators
-        indicators.forEach(indicator => indicator.classList.remove('active'));
-        indicators[index].classList.add('active');
-        
-        currentSlide = index;
-    }
-    
-    // Event listeners
-    galleryClose.addEventListener('click', closeGallery);
-    galleryPrev.addEventListener('click', () => goToSlide(currentSlide - 1));
-    galleryNext.addEventListener('click', () => goToSlide(currentSlide + 1));
-    
-    // Add keyboard navigation
-    document.addEventListener('keydown', (e) => {
-        if (!galleryModal.classList.contains('active')) return;
-        
-        if (e.key === 'ArrowLeft') goToSlide(currentSlide - 1);
-        if (e.key === 'ArrowRight') goToSlide(currentSlide + 1);
-        if (e.key === 'Escape') closeGallery();
-    });
-    
-    // Add swipe support for mobile
-    let touchStartX = 0;
-    let touchEndX = 0;
-    
-    gallerySlider.addEventListener('touchstart', (e) => {
-        touchStartX = e.changedTouches[0].screenX;
-    });
-    
-    gallerySlider.addEventListener('touchend', (e) => {
-        touchEndX = e.changedTouches[0].screenX;
-        handleSwipe();
-    });
-    
-    function handleSwipe() {
-        const swipeThreshold = 50;
-        if (touchEndX < touchStartX - swipeThreshold) {
-            // Swipe left
-            goToSlide(currentSlide + 1);
-        } else if (touchEndX > touchStartX + swipeThreshold) {
-            // Swipe right
-            goToSlide(currentSlide - 1);
-        }
-    }
-    
-    // Attach click handlers to gallery buttons
-    galleryBtns.forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            e.preventDefault();
-            openGallery();
-        });
-    });
-    
-    // Handle project gallery opens
-    projectItems.forEach(item => {
-        const galleryBtn = item.querySelector('.gallery-btn, .view-gallery-btn');
-        if (galleryBtn) {
-            galleryBtn.addEventListener('click', (e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                openGallery();
-            });
-        }
-    });
-}
-
-// Improved mobile pagination with smoother transitions
-function initializeMobilePagination() {
-    const sections = document.querySelectorAll('.mobile-section');
-    const paginationDots = document.querySelectorAll('.mobile-pagination-dot');
-    let currentSection = 0;
-    let isSwiping = false;
-    let touchStartY = 0;
-    let touchEndY = 0;
-    
-    // Initialize sections positioning
-    updateSections();
-    
-    // Function to update sections positioning
-    function updateSections() {
-        sections.forEach((section, index) => {
-            const offset = (index - currentSection) * 100;
-            section.style.transform = `translateY(${offset}%)`;
-            section.style.zIndex = sections.length - Math.abs(index - currentSection);
-        });
-        
-        // Update pagination dots
-        paginationDots.forEach((dot, index) => {
-            dot.classList.toggle('active', index === currentSection);
-        });
-    }
-    
-    // Function to navigate to a specific section
-    function goToSection(index) {
-        if (index < 0 || index >= sections.length || index === currentSection) return;
-        
-        // Add transition temporarily
-        sections.forEach(section => {
-            section.style.transition = 'transform 0.5s cubic-bezier(0.65, 0, 0.35, 1)';
-        });
-        
-        currentSection = index;
-        updateSections();
-        
-        // Remove transition after animation completes
-        setTimeout(() => {
-            sections.forEach(section => {
-                section.style.transition = '';
-            });
-        }, 500);
-    }
-    
-    // Add click handlers to pagination dots
-    paginationDots.forEach((dot, index) => {
-        dot.addEventListener('click', () => {
-            goToSection(index);
-        });
-    });
-    
-    // Add touch swipe support
-    const mobileSections = document.querySelector('.mobile-sections');
-    if (mobileSections) {
-        mobileSections.addEventListener('touchstart', (e) => {
-            touchStartY = e.changedTouches[0].screenY;
-            isSwiping = true;
-        });
-        
-        mobileSections.addEventListener('touchmove', (e) => {
-            if (!isSwiping) return;
-            
-            touchEndY = e.changedTouches[0].screenY;
-            const deltaY = touchStartY - touchEndY;
-            const swipePercent = deltaY / window.innerHeight;
-            
-            // Apply live transform during swipe
-            sections.forEach((section, index) => {
-                const offset = ((index - currentSection) * 100) - (swipePercent * 100);
-                section.style.transform = `translateY(${offset}%)`;
-            });
-        });
-        
-        mobileSections.addEventListener('touchend', (e) => {
-            if (!isSwiping) return;
-            
-            touchEndY = e.changedTouches[0].screenY;
-            const deltaY = touchStartY - touchEndY;
-            const swipeThreshold = 50;
-            
-            if (Math.abs(deltaY) > swipeThreshold) {
-                if (deltaY > 0 && currentSection < sections.length - 1) {
-                    // Swipe up, go to next section
-                    goToSection(currentSection + 1);
-                } else if (deltaY < 0 && currentSection > 0) {
-                    // Swipe down, go to previous section
-                    goToSection(currentSection - 1);
-                } else {
-                    // Reset positions if at the end or beginning
-                    updateSections();
-                }
-            } else {
-                // Reset positions if swipe was not significant
-                updateSections();
-            }
-            
-            isSwiping = false;
-        });
-    }
-    
-    // Add keyboard navigation support
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowDown' || e.key === 'PageDown') {
-            goToSection(currentSection + 1);
-        } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
-            goToSection(currentSection - 1);
-        }
-    });
-    
-    // Add wheel/scroll support with debounce
-    let wheelTimeout;
-    let isScrolling = false;
-    
-    document.addEventListener('wheel', (e) => {
-        if (isScrolling) return;
-        
-        clearTimeout(wheelTimeout);
-        
-        if (e.deltaY > 0 && currentSection < sections.length - 1) {
-            // Scroll down, go to next section
-            isScrolling = true;
-            goToSection(currentSection + 1);
-        } else if (e.deltaY < 0 && currentSection > 0) {
-            // Scroll up, go to previous section
-            isScrolling = true;
-            goToSection(currentSection - 1);
-        }
-        
-        wheelTimeout = setTimeout(() => {
-            isScrolling = false;
-        }, 800); // Debounce scrolling
-    });
-}
-
-// Initialize all required functionality when DOM is loaded
-document.addEventListener('DOMContentLoaded', function() {
-    initializeMobileNavigation();
-    initializeGallery();
-    initializeMobilePagination();
-    // Any other initializations...
 }); 
