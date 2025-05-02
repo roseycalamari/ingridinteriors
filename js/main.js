@@ -356,27 +356,43 @@ document.addEventListener('DOMContentLoaded', () => {
     const updateResponsiveLayout = () => {
         // Mobile layout (portrait orientation)
         if (viewportWidth < 768) {
-            // For very small screens in portrait mode
-            if (viewportHeight > viewportWidth) {
-                // If portrait container exists, move it to fit better in mobile layout
-                if (portraitContainer) {
-                    portraitContainer.style.position = 'relative';
-                    portraitContainer.style.transform = 'none';
-                    portraitContainer.style.top = 'auto';
-                    portraitContainer.style.left = 'auto';
-                }
-            } else {
-                // Landscape mobile - revert to default positioning
-                if (portraitContainer) {
-                    portraitContainer.style.position = 'absolute';
-                    portraitContainer.style.transform = 'translate(-50%, -50%)';
-                    portraitContainer.style.top = '50%';
-                    portraitContainer.style.left = '50%';
+            // Simplified mobile layout
+            if (portraitContainer) {
+                portraitContainer.style.position = 'relative';
+                portraitContainer.style.transform = 'none';
+                portraitContainer.style.top = 'auto';
+                portraitContainer.style.left = 'auto';
+                portraitContainer.style.width = '100%';
+                portraitContainer.style.maxWidth = '100%';
+                portraitContainer.style.height = 'auto';
+            }
+
+            // Optimize touch interactions
+            document.body.style.touchAction = 'manipulation';
+            
+            // Remove unnecessary animations on mobile
+            document.body.classList.add('mobile-view');
+            
+            // Optimize scroll performance
+            document.documentElement.style.scrollBehavior = 'smooth';
+            
+            // Handle orientation changes
+            if (window.orientation !== undefined) {
+                if (Math.abs(window.orientation) === 90) {
+                    // Landscape mode
+                    document.body.classList.add('landscape-mode');
+                } else {
+                    // Portrait mode
+                    document.body.classList.remove('landscape-mode');
                 }
             }
         } 
         // Tablet landscape and desktop layout
         else {
+            // Restore desktop layout
+            document.body.classList.remove('mobile-view');
+            document.body.classList.remove('landscape-mode');
+            
             if (portraitContainer) {
                 portraitContainer.style.position = 'absolute';
                 portraitContainer.style.transform = 'translate(-50%, -50%)';
@@ -2176,3 +2192,33 @@ if (projectInfoBtn && projectDescriptionModal && closeProjectDescriptionBtn) {
         }
     });
 }
+
+// Add touch event optimizations
+document.addEventListener('touchstart', (e) => {
+    // Prevent double-tap zoom
+    if (e.touches.length > 1) {
+        e.preventDefault();
+    }
+}, { passive: false });
+
+// Optimize scroll performance
+let lastScrollTop = 0;
+let scrollTimeout;
+
+window.addEventListener('scroll', () => {
+    if (viewportWidth < 768) {
+        clearTimeout(scrollTimeout);
+        
+        // Add scroll class for visual feedback
+        document.body.classList.add('scrolling');
+        
+        scrollTimeout = setTimeout(() => {
+            document.body.classList.remove('scrolling');
+        }, 100);
+    }
+}, { passive: true });
+
+// Handle orientation changes
+window.addEventListener('orientationchange', () => {
+    setTimeout(updateResponsiveLayout, 100);
+});
