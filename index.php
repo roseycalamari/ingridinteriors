@@ -15,6 +15,6 @@ if (isMobile()) {
     exit;
 } else {
     // Include the desktop version
-    include 'index.html';
+    include 'desktop.html';
 }
 ?> 
