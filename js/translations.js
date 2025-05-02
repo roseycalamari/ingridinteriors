@@ -14,6 +14,16 @@ const translations = {
         viewGallery: "View Gallery",
         readAboutProject: "Read About This Project",
         
+        // New mobile specific translations
+        scrollDown: "Scroll Down",
+        projectGallery: "Project Gallery",
+        californiaProject: "California Family Home",
+        galleryDescription: "A transformative project that blends comfort with luxury for a family residence in California.",
+        subject: "Subject",
+        send: "Send Message",
+        followUs: "Follow Us",
+        contactIntro: "We would love to hear from you. Please fill out the form below, and we'll get back to you as soon as possible.",
+        
         // About Section
         aboutTitle: "The Person",
         aboutSubtitle: "Founder of Ingrid Bergman Interiors",
@@ -85,6 +95,16 @@ const translations = {
         viewGallery: "Ver Galeria",
         readAboutProject: "Ler Sobre Este Projeto",
         
+        // New mobile specific translations
+        scrollDown: "Deslizar para Baixo",
+        projectGallery: "Galeria de Projetos",
+        californiaProject: "Casa Familiar na Califórnia",
+        galleryDescription: "Um projeto transformador que combina conforto com luxo para uma residência familiar na Califórnia.",
+        subject: "Assunto",
+        send: "Enviar Mensagem",
+        followUs: "Siga-nos",
+        contactIntro: "Gostaríamos muito de receber o seu contacto. Por favor, preencha o formulário abaixo e entraremos em contacto o mais brevemente possível.",
+        
         // About Section
         aboutTitle: "A Pessoa",
         aboutSubtitle: "Fundadora da Ingrid Bergman Interiors",
@@ -152,12 +172,44 @@ function applyLanguage(lang) {
     elements.forEach(element => {
         const key = element.getAttribute('data-translate');
         if (translations[lang] && translations[lang][key]) {
-            element.textContent = translations[lang][key];
+            // Check if it's an element with placeholder attributes
+            if (element.hasAttribute('placeholder')) {
+                element.setAttribute('placeholder', translations[lang][key]);
+            } else {
+                element.textContent = translations[lang][key];
+            }
         }
     });
+    
+    // Update language buttons active state
+    const langButtons = document.querySelectorAll('.mobile-lang-btn');
+    langButtons.forEach(btn => {
+        if (btn.getAttribute('data-lang') === lang) {
+            btn.classList.add('active');
+        } else {
+            btn.classList.remove('active');
+        }
+    });
+    
+    // Store the preferred language in localStorage
+    localStorage.setItem('preferredLanguage', lang);
 }
 
-// Set default language to English
+// Set default language or use previously selected
 document.addEventListener('DOMContentLoaded', () => {
-    applyLanguage('en');
+    // Check if there's a language preference stored
+    const storedLang = localStorage.getItem('preferredLanguage');
+    const defaultLang = storedLang || 'en';
+    
+    // Apply the language
+    applyLanguage(defaultLang);
+    
+    // Add event listeners to language buttons
+    const langButtons = document.querySelectorAll('.mobile-lang-btn');
+    langButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const lang = btn.getAttribute('data-lang');
+            applyLanguage(lang);
+        });
+    });
 }); 
