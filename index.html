@@ -70,35 +70,50 @@
     <!-- Page transition overlay -->
     <div class="page-transition-overlay"></div>
     
-    <!-- Mobile Header - Only visible on mobile -->
+    <!-- Mobile Header -->
     <header class="mobile-header">
-        <img src="images/logo white i.png" alt="Ingrid Bergman Interiors" class="mobile-logo" id="mobileMenuToggle">
+        <img src="images/logo white i.png" alt="Logo" class="mobile-logo">
+        <button id="mobileMenuToggle" class="mobile-menu-toggle">
+            <div class="menu-icon">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </button>
     </header>
 
-    <!-- Mobile Menu - Only visible on mobile -->
-    <nav class="mobile-menu" id="mobileMenu">
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="mobile-menu">
+        <div class="mobile-menu-header">
+            <h2>Menu</h2>
+        </div>
         <div class="mobile-menu-items">
-            <div class="mobile-menu-item active" data-section="home" data-translate="home">Home</div>
-            <div class="mobile-menu-item" data-section="person" data-translate="person">The Person</div>
-            <div class="mobile-menu-item" data-section="service" data-translate="service">The Service</div>
-            <div class="mobile-menu-item" data-section="brands" data-translate="brands">The Brands</div>
-            <div class="mobile-menu-item" data-section="contact" data-translate="contact">Contact Us</div>
+            <a href="#" class="mobile-menu-item" data-section="home" data-translate="home">Home</a>
+            <a href="#" class="mobile-menu-item" data-section="service" data-translate="theService">The Service</a>
+            <a href="#" class="mobile-menu-item" data-section="person" data-translate="thePerson">The Person</a>
+            <a href="#" class="mobile-menu-item" data-section="brands" data-translate="theBrands">The Brands</a>
+            <a href="#" class="mobile-menu-item" data-section="contact" data-translate="contact">Contact</a>
         </div>
         <div class="mobile-social-links">
-            <a href="https://www.linkedin.com/in/ingridbergman/" class="mobile-social-link" target="_blank" aria-label="LinkedIn">
-                <i class="fab fa-linkedin-in"></i>
-            </a>
-            <a href="https://www.instagram.com/ingrid_bergman_collections/" class="mobile-social-link" target="_blank" aria-label="Instagram">
-                <i class="fab fa-instagram"></i>
-            </a>
-            <a href="mailto:ingrid@ingridbergmaninteriors.com" class="mobile-social-link" aria-label="Email">
-                <i class="far fa-envelope"></i>
-            </a>
+            <a href="#" class="mobile-social-link"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="mobile-social-link"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="mobile-social-link"><i class="fab fa-linkedin-in"></i></a>
         </div>
-    </nav>
+        
+        <!-- Mobile menu background elements -->
+        <div class="menu-background-element menu-bg-1"></div>
+        <div class="menu-background-element menu-bg-2"></div>
+    </div>
 
     <!-- Mobile Main Content - Only visible on mobile -->
     <main class="mobile-sections">
+        <!-- Mobile Pagination Dots -->
+        <div class="mobile-pagination">
+            <div class="mobile-pagination-dot active" data-section="0"></div>
+            <div class="mobile-pagination-dot" data-section="1"></div>
+            <div class="mobile-pagination-dot" data-section="2"></div>
+        </div>
+
         <!-- Section 1: The Service -->
         <section class="mobile-section" id="serviceSection">
             <div class="mobile-section-background" style="background: url('images/the service (2).jpg') center/cover no-repeat;"></div>
@@ -108,9 +123,10 @@
                 <p class="mobile-section-description" data-translate="serviceDescription">Ingrid Bergman Interiors is a comprehensive residential and commercial furniture agency, offering full-service solutions. We begin by understanding our clients' practical needs and style preferences, ensuring a personalized experience.</p>
                 <button class="mobile-explore-btn" data-section="service" data-translate="explore">Explore</button>
             </div>
+            <!-- Scroll indicator -->
             <div class="scroll-indicator">
-                <span class="scroll-indicator-text" data-translate="scrollDown">Scroll Down</span>
-                <i class="fas fa-chevron-down scroll-indicator-arrow"></i>
+                <span class="scroll-indicator-text">Scroll to explore</span>
+                <div class="scroll-indicator-arrow">↓</div>
             </div>
         </section>
 
@@ -123,9 +139,10 @@
                 <p class="mobile-section-description" data-translate="personDescription">Ingrid Bergman embarked on her interior design journey in 2013 after spending two decades in the high-end fashion industry. Her extensive background in retail has proven to be a tremendous asset for her clients.</p>
                 <button class="mobile-explore-btn" data-section="person" data-translate="explore">Explore</button>
             </div>
+            <!-- Scroll indicator -->
             <div class="scroll-indicator">
-                <span class="scroll-indicator-text" data-translate="scrollDown">Scroll Down</span>
-                <i class="fas fa-chevron-down scroll-indicator-arrow"></i>
+                <span class="scroll-indicator-text">Scroll to explore</span>
+                <div class="scroll-indicator-arrow">↓</div>
             </div>
         </section>
 
@@ -137,6 +154,11 @@
                 <h2 class="mobile-section-title" data-translate="brands">The Brands</h2>
                 <p class="mobile-section-description" data-translate="brandsDescription">We carry the most exclusive brands for any project for any client for any budget. Discover our curated collection of luxury furnishings and accessories.</p>
                 <button class="mobile-explore-btn" data-section="brands" data-translate="explore">Explore</button>
+            </div>
+            <!-- Scroll indicator -->
+            <div class="scroll-indicator">
+                <span class="scroll-indicator-text">Scroll to explore</span>
+                <div class="scroll-indicator-arrow">↓</div>
             </div>
         </section>
     </main>
