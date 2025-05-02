@@ -5795,3 +5795,119 @@ body.section-active .header .logo-container {
         scroll-behavior: auto !important;
     }
 }
+
+/* ===== MOBILE-SPECIFIC STYLES ===== */
+@media (max-width: 767px) {
+    /* Base styles */
+    body {
+        background-color: var(--color-background);
+        color: var(--color-text);
+    }
+
+    .main-content {
+        background-color: var(--color-background);
+    }
+
+    /* Section styles */
+    .section {
+        background-color: var(--color-background);
+    }
+
+    .section-left,
+    .section-right {
+        background-color: var(--color-background);
+    }
+
+    /* Content styles */
+    .section-content {
+        background-color: var(--color-background);
+        color: var(--color-text);
+    }
+
+    .about-content,
+    .service-content,
+    .brands-content,
+    .contact-content {
+        background-color: var(--color-background);
+        color: var(--color-text);
+    }
+
+    /* Grid layouts */
+    .about-grid,
+    .service-cards-container,
+    .brands-list,
+    .team-grid {
+        background-color: var(--color-background);
+    }
+
+    /* Typography */
+    h1, h2, h3, h4, h5, h6 {
+        color: var(--color-text);
+    }
+
+    p {
+        color: var(--color-text);
+    }
+
+    /* Navigation */
+    .off-canvas-navigation {
+        background: var(--nav-background);
+        color: var(--nav-text);
+    }
+
+    .off-canvas-menu-item {
+        color: var(--nav-text);
+    }
+
+    /* Touch targets */
+    button,
+    a,
+    .off-canvas-menu-item {
+        color: var(--color-text);
+    }
+
+    /* Footer */
+    .footer {
+        background: var(--nav-background);
+        color: var(--nav-text);
+    }
+
+    /* Form elements */
+    .contact-form-container {
+        background-color: var(--color-background);
+    }
+
+    input,
+    textarea,
+    button {
+        background-color: var(--color-background);
+        color: var(--color-text);
+    }
+
+    /* Brand items */
+    .brand-item {
+        background: var(--color-background);
+    }
+
+    /* Service cards */
+    .service-card {
+        background: var(--color-background);
+    }
+
+    /* Header */
+    .header {
+        background: var(--nav-background);
+        color: var(--nav-text);
+    }
+
+    /* Portrait container */
+    .portrait-container {
+        background-color: var(--color-background);
+    }
+
+    .portrait-image {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+    }
+}
