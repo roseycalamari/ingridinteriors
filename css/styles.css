@@ -5470,18 +5470,38 @@ body.section-active .header .logo-container {
 
 /* ===== MOBILE-SPECIFIC STYLES ===== */
 @media (max-width: 767px) {
-    /* Simplified mobile layout */
-    .main-content {
-        width: 100%;
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        padding: 0;
-        gap: 1rem;
+    /* Reset all animations and transitions */
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
+        transition: none !important;
     }
 
-    /* Simplified section layout */
+    /* Simplified base layout */
+    body {
+        overflow-x: hidden;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .main-content {
+        display: block;
+        width: 100%;
+        min-height: 100vh;
+        padding: 0;
+    }
+
+    /* Simplified sections */
     .section {
+        width: 100%;
+        min-height: auto;
+        padding: 1rem;
+        margin: 0;
+        display: block;
+    }
+
+    .section-left,
+    .section-right {
         width: 100%;
         min-height: auto;
         padding: 1rem;
@@ -5507,6 +5527,7 @@ body.section-active .header .logo-container {
         padding: 1rem;
         margin: 0;
         max-height: none;
+        overflow: visible;
     }
 
     /* Simplified grid layouts */
@@ -5514,23 +5535,21 @@ body.section-active .header .logo-container {
     .service-cards-container,
     .brands-list,
     .team-grid {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 1rem;
+        display: block;
         padding: 1rem;
     }
 
-    /* Simplified typography for better readability */
+    /* Simplified typography */
     h1, h2, h3, h4, h5, h6 {
-        font-size: clamp(1.25rem, 5vw, 1.75rem);
+        font-size: 1.5rem;
         line-height: 1.3;
-        margin-bottom: 0.75rem;
+        margin-bottom: 1rem;
     }
 
     p {
-        font-size: clamp(0.875rem, 4vw, 1rem);
+        font-size: 1rem;
         line-height: 1.5;
-        margin-bottom: 0.75rem;
+        margin-bottom: 1rem;
     }
 
     /* Simplified navigation */
@@ -5541,13 +5560,11 @@ body.section-active .header .logo-container {
         top: 0;
         right: 0;
         transform: translateX(100%);
-        transition: transform 0.3s ease;
         background: var(--nav-background);
         padding: 1rem;
         overflow-y: auto;
     }
 
-    /* Simplified menu items */
     .off-canvas-menu-item {
         padding: 1rem;
         font-size: 1.1rem;
@@ -5596,6 +5613,7 @@ body.section-active .header .logo-container {
         font-size: 1rem;
         padding: 0.75rem;
         border-radius: 0.5rem;
+        border: 1px solid rgba(0, 0, 0, 0.1);
     }
 
     /* Simplified brand items */
@@ -5633,27 +5651,131 @@ body.section-active .header .logo-container {
         width: auto;
     }
 
-    /* Simplified scroll indicator */
-    .scroll-indicator {
-        display: none;
-    }
-
-    /* Simplified pagination */
-    .mobile-pagination {
-        display: none;
+    /* Remove decorative elements */
+    .scroll-indicator,
+    .mobile-pagination,
+    .section-background,
+    .hover-overlay,
+    .expand-btn,
+    .section-title::after,
+    .portrait-bw-wrapper,
+    .portrait::after,
+    .about-btn,
+    .menu-background-element,
+    .menu-bg-1,
+    .menu-bg-2,
+    .close-icon::before,
+    .close-icon::after,
+    .mobile-section-background,
+    .mobile-section-overlay,
+    .mobile-explore-btn::before,
+    .mobile-brand-link::before,
+    .mobile-submit-btn::before,
+    .panel-background::after,
+    .panel-content button::before,
+    .panel-arrow::before,
+    .panel-arrow::after,
+    .mobile-menu-item::before,
+    .mobile-social-link::before,
+    .mobile-section-title::after,
+    .mobile-explore-btn::before,
+    .mobile-section-back::before,
+    .mobile-section-back::after,
+    .mobile-service-card::before,
+    .mobile-brand-link::before,
+    .mobile-submit-btn::before,
+    .mobile-pagination-dot::before,
+    .mobile-pagination-dot::after,
+    .scroll-indicator-arrow::after,
+    .scroll-indicator-text::before,
+    .scroll-indicator-text::after,
+    .mobile-header::before,
+    .mobile-header::after,
+    .mobile-logo::before,
+    .mobile-logo::after,
+    .mobile-menu::before,
+    .mobile-menu::after,
+    .mobile-menu-item::before,
+    .mobile-menu-item::after,
+    .mobile-social-link::before,
+    .mobile-social-link::after,
+    .mobile-section-content::before,
+    .mobile-section-content::after,
+    .mobile-section-title::before,
+    .mobile-section-title::after,
+    .mobile-section-description::before,
+    .mobile-section-description::after,
+    .mobile-explore-btn::before,
+    .mobile-explore-btn::after,
+    .mobile-section-header::before,
+    .mobile-section-header::after,
+    .mobile-section-back::before,
+    .mobile-section-back::after,
+    .mobile-section-header-title::before,
+    .mobile-section-header-title::after,
+    .mobile-section-body::before,
+    .mobile-section-body::after,
+    .mobile-service-card::before,
+    .mobile-service-card::after,
+    .mobile-brand-item::before,
+    .mobile-brand-item::after,
+    .mobile-brand-image::before,
+    .mobile-brand-image::after,
+    .mobile-brand-name::before,
+    .mobile-brand-name::after,
+    .mobile-brand-link::before,
+    .mobile-brand-link::after,
+    .mobile-contact-form::before,
+    .mobile-contact-form::after,
+    .mobile-form-group::before,
+    .mobile-form-group::after,
+    .mobile-submit-btn::before,
+    .mobile-submit-btn::after,
+    .mobile-fullscreen-section::before,
+    .mobile-fullscreen-section::after,
+    .mobile-section::before,
+    .mobile-section::after,
+    .mobile-section-background::before,
+    .mobile-section-background::after,
+    .mobile-section.active .mobile-section-background::before,
+    .mobile-section.active .mobile-section-background::after,
+    .mobile-homepage::before,
+    .mobile-homepage::after,
+    .mobile-panels::before,
+    .mobile-panels::after,
+    .mobile-panel::before,
+    .mobile-panel::after,
+    .panel-background::before,
+    .panel-background::after,
+    .panel-content::before,
+    .panel-content::after,
+    .panel-nav::before,
+    .panel-nav::after,
+    .panel-dot::before,
+    .panel-dot::after,
+    .panel-arrows::before,
+    .panel-arrows::after,
+    .panel-arrow::before,
+    .panel-arrow::after,
+    .panel-instructions::before,
+    .panel-instructions::after,
+    .sr-only::before,
+    .sr-only::after,
+    .arrow-icon::before,
+    .arrow-icon::after {
+        display: none !important;
     }
 }
 
 /* Handle landscape orientation on mobile */
 @media (max-width: 767px) and (orientation: landscape) {
     .main-content {
-        flex-direction: row;
-        flex-wrap: wrap;
+        display: block;
     }
     
     .section {
-        width: 50%;
-        min-height: 50vh;
+        width: 100%;
+        min-height: auto;
     }
     
     .portrait-container {

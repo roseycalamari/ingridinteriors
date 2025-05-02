@@ -370,19 +370,17 @@ document.addEventListener('DOMContentLoaded', () => {
             // Optimize touch interactions
             document.body.style.touchAction = 'manipulation';
             
-            // Remove unnecessary animations on mobile
+            // Remove unnecessary animations
             document.body.classList.add('mobile-view');
             
             // Optimize scroll performance
-            document.documentElement.style.scrollBehavior = 'smooth';
+            document.documentElement.style.scrollBehavior = 'auto';
             
             // Handle orientation changes
             if (window.orientation !== undefined) {
                 if (Math.abs(window.orientation) === 90) {
-                    // Landscape mode
                     document.body.classList.add('landscape-mode');
                 } else {
-                    // Portrait mode
                     document.body.classList.remove('landscape-mode');
                 }
             }
@@ -399,20 +397,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 portraitContainer.style.top = '50%';
                 portraitContainer.style.left = '50%';
             }
-            
-            // Special case for 13-14" laptops (1200px - 1440px)
-            if (viewportWidth >= 1200 && viewportWidth <= 1440) {
-                document.body.classList.add('laptop-14-inch');
-            } else {
-                document.body.classList.remove('laptop-14-inch');
-            }
-        }
-        
-        // Adjust for devices with notches or UI elements that intrude
-        const hasDynamicViewport = CSS.supports('padding-top: env(safe-area-inset-top)');
-        if (hasDynamicViewport && isTouchDevice) {
-            document.documentElement.style.setProperty('--safe-area-top', 'env(safe-area-inset-top)');
-            document.documentElement.style.setProperty('--safe-area-bottom', 'env(safe-area-inset-bottom)');
         }
     };
     
@@ -2201,24 +2185,48 @@ document.addEventListener('touchstart', (e) => {
     }
 }, { passive: false });
 
-// Optimize scroll performance
-let lastScrollTop = 0;
+// Simplified scroll handling
 let scrollTimeout;
-
 window.addEventListener('scroll', () => {
     if (viewportWidth < 768) {
         clearTimeout(scrollTimeout);
-        
-        // Add scroll class for visual feedback
-        document.body.classList.add('scrolling');
-        
         scrollTimeout = setTimeout(() => {
-            document.body.classList.remove('scrolling');
+            // No scroll animations needed
         }, 100);
     }
 }, { passive: true });
 
-// Handle orientation changes
+// Simplified orientation handling
 window.addEventListener('orientationchange', () => {
     setTimeout(updateResponsiveLayout, 100);
 });
+
+// Simplified navigation
+const setupMobileNavigation = () => {
+    if (viewportWidth < 768) {
+        const menuItems = document.querySelectorAll('.off-canvas-menu-item');
+        menuItems.forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+                const target = e.currentTarget.getAttribute('data-target');
+                if (target) {
+                    document.querySelector(target).scrollIntoView({
+                        behavior: 'auto',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    }
+};
+
+// Initialize mobile-specific features
+const initializeMobileFeatures = () => {
+    if (viewportWidth < 768) {
+        setupMobileNavigation();
+        updateResponsiveLayout();
+    }
+};
+
+// Call initialization
+document.addEventListener('DOMContentLoaded', initializeMobileFeatures);
