@@ -994,10 +994,14 @@ function initializeMobilePanels() {
     const prevBtn = document.querySelector('.panel-prev');
     const nextBtn = document.querySelector('.panel-next');
     
+    if (!panels) return; // Safeguard if elements don't exist
+    
     // Tracking variables
     let currentPanel = 0;
     let startX, moveX;
     let panelWidth = window.innerWidth;
+    let isDragging = false;
+    let touchStartTime = 0;
     
     // Initialize panel width on load and resize
     function updatePanelDimensions() {
@@ -1009,7 +1013,7 @@ function initializeMobilePanels() {
     window.addEventListener('resize', updatePanelDimensions);
     updatePanelDimensions();
     
-    // Navigation with dots
+    // Navigation with dots - larger touch area
     dots.forEach((dot, index) => {
         dot.addEventListener('click', () => {
             goToPanel(index);
@@ -1033,9 +1037,14 @@ function initializeMobilePanels() {
         });
     }
     
-    // Touch event handling
+    // Improved touch event handling
     panels.addEventListener('touchstart', (e) => {
         startX = e.touches[0].clientX;
+        touchStartTime = Date.now();
+        isDragging = false;
+        
+        // Stop any running animation
+        panels.style.transition = 'none';
     });
     
     panels.addEventListener('touchmove', (e) => {
@@ -1043,44 +1052,70 @@ function initializeMobilePanels() {
         
         moveX = e.touches[0].clientX;
         const diff = startX - moveX;
+        isDragging = true;
         
-        // Prevent overscrolling at edges
+        // Allow some resistance at edges but still provide feedback
+        let resistance = 1;
         if ((currentPanel === 0 && diff < 0) || (currentPanel === 2 && diff > 0)) {
-            return;
+            resistance = 0.3; // Higher resistance at edges
         }
         
-        // Move panels with finger but with resistance
-        const translateX = -currentPanel * panelWidth + (diff * -0.5);
+        const translateX = -currentPanel * panelWidth + (diff * -resistance);
         panels.style.transform = `translateX(${translateX}px)`;
-        panels.style.transition = 'none';
     });
     
     panels.addEventListener('touchend', (e) => {
-        if (!startX || !moveX) return;
+        if (!startX) return;
         
+        // Calculate swipe velocity for better UX
+        const touchEndTime = Date.now();
+        const touchDuration = touchEndTime - touchStartTime;
         const diff = startX - moveX;
-        const threshold = panelWidth * 0.2; // 20% of panel width
+        const velocity = Math.abs(diff) / touchDuration;
         
-        if (Math.abs(diff) > threshold) {
-            // Swipe was significant enough to change panel
-            if (diff > 0 && currentPanel < 2) {
-                // Swipe left
+        // Threshold based on velocity and distance
+        let threshold = panelWidth * 0.2; // 20% of panel width
+        if (velocity > 0.5) {
+            threshold = panelWidth * 0.1; // Lower threshold for fast swipes
+        }
+        
+        if (isDragging && Math.abs(diff) > 0) {
+            // Swipe was significant enough to change panel or velocity was high
+            if ((diff > threshold || velocity > 0.5) && diff > 0 && currentPanel < 2) {
+                // Swipe left to next
                 goToPanel(currentPanel + 1);
-            } else if (diff < 0 && currentPanel > 0) {
-                // Swipe right
+            } else if ((diff < -threshold || velocity > 0.5) && diff < 0 && currentPanel > 0) {
+                // Swipe right to previous
                 goToPanel(currentPanel - 1);
             } else {
                 // Return to current panel
                 goToPanel(currentPanel);
             }
-        } else {
-            // Return to current panel
-            goToPanel(currentPanel);
+        } else if (!isDragging) {
+            // Tap to navigate (tap right side to advance, left side to go back)
+            const tapX = startX;
+            if (tapX > panelWidth * 0.7 && currentPanel < 2) {
+                goToPanel(currentPanel + 1);
+            } else if (tapX < panelWidth * 0.3 && currentPanel > 0) {
+                goToPanel(currentPanel - 1);
+            }
         }
         
         // Reset touch tracking
         startX = null;
         moveX = null;
+        isDragging = false;
+    });
+    
+    // Keyboard navigation support
+    document.addEventListener('keydown', (e) => {
+        if (window.innerWidth <= 767) {
+            if (e.key === 'ArrowLeft' && currentPanel > 0) {
+                goToPanel(currentPanel - 1);
+            } else if (e.key === 'ArrowRight' && currentPanel < 2) {
+                goToPanel(currentPanel + 1);
+            }
+        }
     });
     
     // Go to specific panel with animation
@@ -1089,21 +1124,23 @@ function initializeMobilePanels() {
         
         currentPanel = index;
         
-        // Update panel position
-        panels.style.transition = animate ? 'transform 0.3s ease' : 'none';
+        // Update panel position with improved animation
+        panels.style.transition = animate ? 'transform 0.5s cubic-bezier(0.165, 0.84, 0.44, 1)' : 'none';
         panels.style.transform = `translateX(${-index * panelWidth}px)`;
         
-        // Update active dot
+        // Update active dot with animation
         dots.forEach((dot, i) => {
             dot.classList.toggle('active', i === index);
         });
         
-        // Update arrow visibility based on position
+        // Update arrow visibility/state based on position
         if (prevBtn) {
             prevBtn.style.opacity = index === 0 ? '0.5' : '1';
+            prevBtn.style.pointerEvents = index === 0 ? 'none' : 'auto';
         }
         if (nextBtn) {
             nextBtn.style.opacity = index === 2 ? '0.5' : '1';
+            nextBtn.style.pointerEvents = index === 2 ? 'none' : 'auto';
         }
     }
     
@@ -1112,6 +1149,12 @@ function initializeMobilePanels() {
     panelButtons.forEach(button => {
         button.addEventListener('click', function() {
             const section = this.getAttribute('data-section');
+            
+            // Visual feedback on click
+            this.classList.add('active');
+            setTimeout(() => {
+                this.classList.remove('active');
+            }, 300);
             
             // Trigger the corresponding section on the desktop site
             const desktopButton = document.querySelector(`.section-content .expand-btn[data-section="${section}"]`);
