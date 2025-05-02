@@ -70,8 +70,79 @@
     <!-- Page transition overlay -->
     <div class="page-transition-overlay"></div>
     
-    <!-- Header -->
-    <header class="header">
+    <!-- Mobile Header - Only visible on mobile -->
+    <header class="mobile-header">
+        <img src="images/logo white i.png" alt="Ingrid Bergman Interiors" class="mobile-logo" id="mobileMenuToggle">
+    </header>
+
+    <!-- Mobile Menu - Only visible on mobile -->
+    <nav class="mobile-menu" id="mobileMenu">
+        <div class="mobile-menu-items">
+            <div class="mobile-menu-item active" data-section="home" data-translate="home">Home</div>
+            <div class="mobile-menu-item" data-section="person" data-translate="person">The Person</div>
+            <div class="mobile-menu-item" data-section="service" data-translate="service">The Service</div>
+            <div class="mobile-menu-item" data-section="brands" data-translate="brands">The Brands</div>
+            <div class="mobile-menu-item" data-section="contact" data-translate="contact">Contact Us</div>
+        </div>
+        <div class="mobile-social-links">
+            <a href="https://www.linkedin.com/in/ingridbergman/" class="mobile-social-link" target="_blank" aria-label="LinkedIn">
+                <i class="fab fa-linkedin-in"></i>
+            </a>
+            <a href="https://www.instagram.com/ingrid_bergman_collections/" class="mobile-social-link" target="_blank" aria-label="Instagram">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="mailto:ingrid@ingridbergmaninteriors.com" class="mobile-social-link" aria-label="Email">
+                <i class="far fa-envelope"></i>
+            </a>
+        </div>
+    </nav>
+
+    <!-- Mobile Main Content - Only visible on mobile -->
+    <main class="mobile-sections">
+        <!-- Section 1: The Service -->
+        <section class="mobile-section" id="serviceSection">
+            <div class="mobile-section-background" style="background: url('images/the service (2).jpg') center/cover no-repeat;"></div>
+            <div class="mobile-section-overlay"></div>
+            <div class="mobile-section-content">
+                <h2 class="mobile-section-title" data-translate="service">The Service</h2>
+                <p class="mobile-section-description" data-translate="serviceDescription">Ingrid Bergman Interiors is a comprehensive residential and commercial furniture agency, offering full-service solutions. We begin by understanding our clients' practical needs and style preferences, ensuring a personalized experience.</p>
+                <button class="mobile-explore-btn" data-section="service" data-translate="explore">Explore</button>
+            </div>
+            <div class="scroll-indicator">
+                <span class="scroll-indicator-text" data-translate="scrollDown">Scroll Down</span>
+                <i class="fas fa-chevron-down scroll-indicator-arrow"></i>
+            </div>
+        </section>
+
+        <!-- Section 2: The Person -->
+        <section class="mobile-section" id="personSection">
+            <div class="mobile-section-background" style="background: url('images/Ingrid Bergman Portret.jpg') center/cover no-repeat;"></div>
+            <div class="mobile-section-overlay"></div>
+            <div class="mobile-section-content">
+                <h2 class="mobile-section-title" data-translate="person">The Person</h2>
+                <p class="mobile-section-description" data-translate="personDescription">Ingrid Bergman embarked on her interior design journey in 2013 after spending two decades in the high-end fashion industry. Her extensive background in retail has proven to be a tremendous asset for her clients.</p>
+                <button class="mobile-explore-btn" data-section="person" data-translate="explore">Explore</button>
+            </div>
+            <div class="scroll-indicator">
+                <span class="scroll-indicator-text" data-translate="scrollDown">Scroll Down</span>
+                <i class="fas fa-chevron-down scroll-indicator-arrow"></i>
+            </div>
+        </section>
+
+        <!-- Section 3: The Brands -->
+        <section class="mobile-section" id="brandsSection">
+            <div class="mobile-section-background" style="background: url('images/the brands.jpg') center/cover no-repeat;"></div>
+            <div class="mobile-section-overlay"></div>
+            <div class="mobile-section-content">
+                <h2 class="mobile-section-title" data-translate="brands">The Brands</h2>
+                <p class="mobile-section-description" data-translate="brandsDescription">We carry the most exclusive brands for any project for any client for any budget. Discover our curated collection of luxury furnishings and accessories.</p>
+                <button class="mobile-explore-btn" data-section="brands" data-translate="explore">Explore</button>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Desktop Header - Only visible on desktop -->
+    <header class="header desktop-only">
         <div class="logo-container">
             <img src="images/logo white i.png" alt="Ingrid Bergman Interiors Logo">
             <div class="close-icon"></div>
@@ -79,8 +150,8 @@
         </div>
     </header>
 
-    <!-- Main Content: 3-Panel Layout -->
-    <main class="main-content">
+    <!-- Main Content: 3-Panel Layout - Only visible on desktop -->
+    <main class="main-content desktop-only">
         <!-- Left Panel: The Service -->
         <section class="section section-left">
             <div class="section-background" style="background: url('images/the service (2).jpg') center/cover no-repeat;"></div>
@@ -120,6 +191,201 @@
         </section>
     </main>
 
+    <!-- Mobile Fullscreen Sections - For mobile expanded views -->
+    <!-- The Person Section -->
+    <div class="mobile-fullscreen-section" id="personFullSection">
+        <div class="mobile-section-header">
+            <div class="mobile-section-back">
+                <i class="fas fa-arrow-left"></i>
+            </div>
+            <h2 class="mobile-section-header-title" data-translate="person">The Person</h2>
+            <div style="width: 40px;"></div>
+        </div>
+        <div class="mobile-section-body">
+            <img src="images/blank.gif" data-src="images/Ingrid Bergman Portret.jpg" alt="Ingrid Bergman" class="mobile-about-image">
+            <h2 class="mobile-about-title" data-translate="aboutTitle">Ingrid Bergman</h2>
+            <p class="mobile-about-subtitle" data-translate="aboutSubtitle">Founder of Ingrid Bergman Interiors</p>
+            <div class="mobile-about-text">
+                <p class="mobile-about-paragraph" data-translate="aboutParagraph1">Ingrid Bergman embarked on her interior design journey in 2013 after spending two decades in the high-end fashion industry. Her time at a renowned interior design firm in Dubai provided her with invaluable experience, allowing her to master the nuances of the trade.</p>
+                <p class="mobile-about-paragraph" data-translate="aboutParagraph2">Ingrid's extensive background in retail has proven to be a tremendous asset for her clients. This experience has sharpened her impeccable taste in colors and fabrics and honed her ability to source the most exclusive furniture for her agency.</p>
+                <p class="mobile-about-paragraph" data-translate="aboutParagraph3">One of Ingrid's most remarkable qualities is her ability to genuinely listen to her clients, ensuring she delivers the beautiful results they envision. She believes this skill is crucial in building strong client relationships, which lead to inspired, creative design solutions and ultimate client satisfaction.</p>
+                <p class="mobile-about-paragraph" data-translate="aboutParagraph4">Ingrid's work is global, with a diverse portfolio of projects. Her home in Portugal, complete with a breathtaking garden, has been transformed into an exclusive showroom where guests can experience the essence of luxury living.</p>
+                <p class="mobile-about-paragraph" data-translate="aboutParagraph5">Clients are invited to visit the Villa in the Algarve to explore her collections and discuss their projects in this unique and inspiring setting.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- The Service Section -->
+    <div class="mobile-fullscreen-section" id="serviceFullSection">
+        <div class="mobile-section-header">
+            <div class="mobile-section-back">
+                <i class="fas fa-arrow-left"></i>
+            </div>
+            <h2 class="mobile-section-header-title" data-translate="service">The Service</h2>
+            <div style="width: 40px;"></div>
+        </div>
+        <div class="mobile-section-body">
+            <p data-translate="serviceFullDescription">Ingrid Bergman Interiors is a comprehensive residential and commercial furniture agency, offering full-service solutions. We begin by understanding our clients' practical needs and style preferences, ensuring a personalized experience. Our distinctive showroom, located in the heart of the Algarve, serves as an inspirational space where visitors can envision the possibilities of outdoor and indoor living.</p>
+            <h3 class="service-subtitle" data-translate="serviceSubtitle">We can assist you with</h3>
+            <div class="mobile-service-cards">
+                <div class="mobile-service-card">
+                    <h3 data-translate="conceptDesign">Concept & Design</h3>
+                    <p data-translate="conceptDesignDesc">To make a concept and design (with mood & material boards)</p>
+                </div>
+                <div class="mobile-service-card">
+                    <h3 data-translate="spacePlanning">Space Planning</h3>
+                    <p data-translate="spacePlanningDesc">To plan your space (floorplans and 3D renders)</p>
+                </div>
+                <div class="mobile-service-card">
+                    <h3 data-translate="furnitureSourcing">Furniture Sourcing</h3>
+                    <p data-translate="furnitureSourcingDesc">To source furniture</p>
+                </div>
+                <div class="mobile-service-card">
+                    <h3 data-translate="windowTreatment">Window Treatment</h3>
+                    <p data-translate="windowTreatmentDesc">To find the right window treatment</p>
+                </div>
+                <div class="mobile-service-card">
+                    <h3 data-translate="lightingPlanning">Lighting Planning</h3>
+                    <p data-translate="lightingPlanningDesc">To plan your lighting</p>
+                </div>
+                <div class="mobile-service-card">
+                    <h3 data-translate="accessoriesCarpets">Accessories & Carpets</h3>
+                    <p data-translate="accessoriesCarpetsDesc">To source carpets & home accessories</p>
+                </div>
+            </div>
+            
+            <div style="margin-top: 30px;">
+                <h3 data-translate="projectsTitle">Ingrid's Projects</h3>
+                <div style="margin-top: 15px;">
+                    <img src="images/blank.gif" data-src="images/CA project done/IBICali2019-30.jpg" alt="California Family Home Project" style="width: 100%; height: auto; margin-bottom: 15px;">
+                    <h3 data-translate="projectTitle">Transforming a Family Home</h3>
+                    <p data-translate="projectLocation">California, US</p>
+                    <button type="button" class="mobile-explore-btn" id="projectGalleryBtn" style="margin-top: 15px;">
+                        <span data-translate="viewGallery">View Gallery</span>
+                        <i class="fas fa-images" style="margin-left: 10px;"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- The Brands Section -->
+    <div class="mobile-fullscreen-section" id="brandsFullSection">
+        <div class="mobile-section-header">
+            <div class="mobile-section-back">
+                <i class="fas fa-arrow-left"></i>
+            </div>
+            <h2 class="mobile-section-header-title" data-translate="brands">The Brands</h2>
+            <div style="width: 40px;"></div>
+        </div>
+        <div class="mobile-section-body">
+            <p class="brands-subtitle" data-translate="brandsSubtitle">We carry the most exclusive brands for any project for any client for any budget</p>
+            
+            <h3 style="margin-top: 25px;" data-translate="outdoorCollections">Outdoor Collections</h3>
+            <div class="mobile-brand-list">
+                <div class="mobile-brand-item">
+                    <img src="images/blank.gif" data-src="images/Borek picture for website.jpg" alt="Borek" class="mobile-brand-image">
+                    <h3 class="mobile-brand-name">Borek</h3>
+                    <a href="https://www.borek.eu" target="_blank" class="mobile-brand-link" data-translate="visitWebsite">Visit Website</a>
+                </div>
+                <div class="mobile-brand-item">
+                    <img src="images/blank.gif" data-src="images/bryck.jpg" alt="BRYCK" class="mobile-brand-image">
+                    <h3 class="mobile-brand-name">BRYCK</h3>
+                    <a href="https://www.bryck.nl" target="_blank" class="mobile-brand-link" data-translate="visitWebsite">Visit Website</a>
+                </div>
+                <div class="mobile-brand-item">
+                    <img src="images/blank.gif" data-src="images/C&C Milano picture for website.jpg" alt="C&C Milano" class="mobile-brand-image">
+                    <h3 class="mobile-brand-name">C&C Milano</h3>
+                    <a href="https://www.cec-milano.it" target="_blank" class="mobile-brand-link" data-translate="visitWebsite">Visit Website</a>
+                </div>
+                <div class="mobile-brand-item">
+                    <img src="images/blank.gif" data-src="images/cape umbrellas.jpg" alt="Cape Umbrellas" class="mobile-brand-image">
+                    <h3 class="mobile-brand-name">Cape Umbrellas</h3>
+                    <a href="https://www.capeumbrellas.com" target="_blank" class="mobile-brand-link" data-translate="visitWebsite">Visit Website</a>
+                </div>
+            </div>
+            
+            <h3 style="margin-top: 25px;" data-translate="indoorCollections">Indoor Collections</h3>
+            <div class="mobile-brand-list">
+                <div class="mobile-brand-item">
+                    <img src="images/blank.gif" data-src="images/Hamilton Conte for website.jpg" alt="Hamilton Conte" class="mobile-brand-image">
+                    <h3 class="mobile-brand-name">Hamilton Conte</h3>
+                    <a href="https://hamiltonconte.com" target="_blank" class="mobile-brand-link" data-translate="visitWebsite">Visit Website</a>
+                </div>
+                <div class="mobile-brand-item">
+                    <img src="images/blank.gif" data-src="images/kuster.jpg" alt="Eric Kuster" class="mobile-brand-image">
+                    <h3 class="mobile-brand-name">Eric Kuster</h3>
+                    <a href="https://www.erickuster.com" target="_blank" class="mobile-brand-link" data-translate="visitWebsite">Visit Website</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Contact Section -->
+    <div class="mobile-fullscreen-section" id="contactFullSection">
+        <div class="mobile-section-header">
+            <div class="mobile-section-back">
+                <i class="fas fa-arrow-left"></i>
+            </div>
+            <h2 class="mobile-section-header-title" data-translate="contact">Contact Us</h2>
+            <div style="width: 40px;"></div>
+        </div>
+        <div class="mobile-section-body">
+            <p data-translate="contactDescription">Get in touch with our team to discuss how we can transform your space into a stunning, functional design that reflects your unique style and needs.</p>
+            
+            <form id="mobileContactForm" class="mobile-contact-form" action="https://formspree.io/f/mldbgvra" method="POST">
+                <input type="hidden" name="_replyto" value="bergmaninteriors@gmail.com">
+                <div class="mobile-form-group">
+                    <label for="mobileName" data-translate="name">Name</label>
+                    <input type="text" id="mobileName" name="name" required>
+                </div>
+                
+                <div class="mobile-form-group">
+                    <label for="mobileEmail" data-translate="email">Email</label>
+                    <input type="email" id="mobileEmail" name="email" required>
+                </div>
+                
+                <div class="mobile-form-group">
+                    <label for="mobilePhone" data-translate="phone">Phone (optional)</label>
+                    <input type="tel" id="mobilePhone" name="phone">
+                </div>
+                
+                <div class="mobile-form-group">
+                    <label for="mobileMessage" data-translate="message">Message</label>
+                    <textarea id="mobileMessage" name="message" rows="5" required></textarea>
+                </div>
+                
+                <button type="submit" class="mobile-submit-btn" data-translate="sendMessage">Send Message</button>
+            </form>
+            
+            <div class="mobile-contact-info">
+                <div class="mobile-contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h3 data-translate="ourOffice">Our Office</h3>
+                    <p>Ingrid Bergman Interiors<br>Rua Fernão Lopes 279<br>Albufeira, Portugal</p>
+                </div>
+                
+                <div class="mobile-contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <h3 data-translate="emailUs">Email Us</h3>
+                    <p>
+                        <a href="mailto:ingrid@ingridbergmaninteriors.com">ingrid@ingridbergmaninteriors.com</a><br>
+                        <a href="mailto:ingrid@erickuster.com">ingrid@erickuster.com</a>
+                    </p>
+                </div>
+                
+                <div class="mobile-contact-item">
+                    <i class="fas fa-phone-alt"></i>
+                    <h3 data-translate="callUs">Call Us</h3>
+                    <p>
+                        Portugal: <a href="tel:+351963486962">+351 963 486 962</a><br>
+                        Netherlands: <a href="tel:+31640180249">+31 6 401 80 249</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
     <!-- About Section - Fixed Structure -->
     <div class="about-section">
         <div class="about-background" style="background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('images/Ingrid Bergman Portret.jpg') center/cover no-repeat;"></div>
@@ -485,8 +751,8 @@
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="footer">
+    <!-- Footer - Hidden on mobile -->
+    <footer class="footer desktop-only">
         <div class="social-links">
             <a href="https://www.linkedin.com/in/ingridbergman/" class="social-link" target="_blank" aria-label="LinkedIn">
                 <i class="fab fa-linkedin-in"></i>
@@ -547,5 +813,6 @@
     <script src="js/page-transitions.js"></script>
     <script src="js/navigation.js"></script>
     <script src="js/translations.js"></script>
+    <script src="js/responsive.js"></script>
 </body>
 </html>
