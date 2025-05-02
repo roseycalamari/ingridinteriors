@@ -199,7 +199,8 @@ function applyLanguage(lang) {
 document.addEventListener('DOMContentLoaded', () => {
     // Check if there's a language preference stored
     const storedLang = localStorage.getItem('preferredLanguage');
-    const defaultLang = storedLang || 'en';
+    // Only allow 'en' or 'pt' as valid language options
+    const defaultLang = (storedLang === 'en' || storedLang === 'pt') ? storedLang : 'en';
     
     // Apply the language
     applyLanguage(defaultLang);
@@ -209,7 +210,10 @@ document.addEventListener('DOMContentLoaded', () => {
     langButtons.forEach(btn => {
         btn.addEventListener('click', () => {
             const lang = btn.getAttribute('data-lang');
-            applyLanguage(lang);
+            // Only apply if it's one of our supported languages
+            if (lang === 'en' || lang === 'pt') {
+                applyLanguage(lang);
+            }
         });
     });
 }); 
