@@ -825,80 +825,31 @@
     border-color: #f44336;
 }
 
-/* Mobile-specific gallery improvements */
+/* Mobile-specific gallery layout adjustments */
 @media (max-width: 767px) {
-    /* Make gallery modal appear above all content */
-    .gallery-modal {
-        z-index: 9999 !important;
+    /* Gallery layout adjustments */
+    .gallery-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
     }
     
-    /* Make project detail popup appear above all content */
-    .project-detail-popup {
-        z-index: 9999 !important;
-    }
-    
+    /* Project detail popup size adjustment */
     .project-detail-container {
         width: 95%;
         max-width: none;
         max-height: 85vh;
-        padding: 15px;
+        overflow-y: auto;
     }
     
-    /* Improve carousel navigation for touch */
+    /* Adjust carousel navigation for touch */
     .carousel-nav-btn {
         width: 35px;
         height: 35px;
-        opacity: 0.9;
-        background-color: rgba(166, 138, 91, 0.4);
-        backdrop-filter: blur(3px);
-        -webkit-backdrop-filter: blur(3px);
     }
     
-    .carousel-nav-btn:active {
-        transform: scale(0.95);
-        background-color: var(--color-tertiary);
-    }
-    
-    .carousel-indicators {
-        bottom: 15px;
-    }
-    
-    .carousel-indicator {
-        width: 8px;
-        height: 8px;
-        margin: 0 5px;
-    }
-    
-    .carousel-indicator.active {
-        width: 10px;
-        height: 10px;
-    }
-    
-    /* Improve close button visibility */
-    .close-project-detail {
-        top: 15px;
-        right: 15px;
-        width: 35px;
-        height: 35px;
-        background-color: rgba(0, 0, 0, 0.6);
-    }
-    
-    /* Proper gallery title display */
-    .gallery-title {
-        padding: 15px;
-    }
-    
-    .gallery-title h2 {
-        font-size: 20px;
-    }
-    
-    /* Better image display */
-    .carousel-main {
-        max-height: 55vh;
-    }
-    
-    .carousel-main-image {
-        border-radius: 8px;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    /* Ensure gallery elements remain visible on mobile */
+    .gallery-modal,
+    .project-detail-popup {
+        z-index: 9999;
     }
 } 

@@ -971,4 +971,153 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-}); 
+});
+
+// Mobile Homepage Panel Handling
+document.addEventListener('DOMContentLoaded', function() {
+    // Only initialize mobile panels if we're on a mobile device
+    if (window.innerWidth <= 767) {
+        initializeMobilePanels();
+    }
+    
+    // Re-evaluate on resize
+    window.addEventListener('resize', function() {
+        if (window.innerWidth <= 767) {
+            initializeMobilePanels();
+        }
+    });
+});
+
+function initializeMobilePanels() {
+    const panels = document.querySelector('.mobile-panels');
+    const dots = document.querySelectorAll('.panel-dot');
+    const prevBtn = document.querySelector('.panel-prev');
+    const nextBtn = document.querySelector('.panel-next');
+    
+    // Tracking variables
+    let currentPanel = 0;
+    let startX, moveX;
+    let panelWidth = window.innerWidth;
+    
+    // Initialize panel width on load and resize
+    function updatePanelDimensions() {
+        panelWidth = window.innerWidth;
+        goToPanel(currentPanel, false); // Update position without animation
+    }
+    
+    // Handle window resize
+    window.addEventListener('resize', updatePanelDimensions);
+    updatePanelDimensions();
+    
+    // Navigation with dots
+    dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+            goToPanel(index);
+        });
+    });
+    
+    // Navigation with arrows
+    if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+            if (currentPanel > 0) {
+                goToPanel(currentPanel - 1);
+            }
+        });
+    }
+    
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            if (currentPanel < 2) {
+                goToPanel(currentPanel + 1);
+            }
+        });
+    }
+    
+    // Touch event handling
+    panels.addEventListener('touchstart', (e) => {
+        startX = e.touches[0].clientX;
+    });
+    
+    panels.addEventListener('touchmove', (e) => {
+        if (!startX) return;
+        
+        moveX = e.touches[0].clientX;
+        const diff = startX - moveX;
+        
+        // Prevent overscrolling at edges
+        if ((currentPanel === 0 && diff < 0) || (currentPanel === 2 && diff > 0)) {
+            return;
+        }
+        
+        // Move panels with finger but with resistance
+        const translateX = -currentPanel * panelWidth + (diff * -0.5);
+        panels.style.transform = `translateX(${translateX}px)`;
+        panels.style.transition = 'none';
+    });
+    
+    panels.addEventListener('touchend', (e) => {
+        if (!startX || !moveX) return;
+        
+        const diff = startX - moveX;
+        const threshold = panelWidth * 0.2; // 20% of panel width
+        
+        if (Math.abs(diff) > threshold) {
+            // Swipe was significant enough to change panel
+            if (diff > 0 && currentPanel < 2) {
+                // Swipe left
+                goToPanel(currentPanel + 1);
+            } else if (diff < 0 && currentPanel > 0) {
+                // Swipe right
+                goToPanel(currentPanel - 1);
+            } else {
+                // Return to current panel
+                goToPanel(currentPanel);
+            }
+        } else {
+            // Return to current panel
+            goToPanel(currentPanel);
+        }
+        
+        // Reset touch tracking
+        startX = null;
+        moveX = null;
+    });
+    
+    // Go to specific panel with animation
+    function goToPanel(index, animate = true) {
+        if (index < 0 || index > 2) return;
+        
+        currentPanel = index;
+        
+        // Update panel position
+        panels.style.transition = animate ? 'transform 0.3s ease' : 'none';
+        panels.style.transform = `translateX(${-index * panelWidth}px)`;
+        
+        // Update active dot
+        dots.forEach((dot, i) => {
+            dot.classList.toggle('active', i === index);
+        });
+        
+        // Update arrow visibility based on position
+        if (prevBtn) {
+            prevBtn.style.opacity = index === 0 ? '0.5' : '1';
+        }
+        if (nextBtn) {
+            nextBtn.style.opacity = index === 2 ? '0.5' : '1';
+        }
+    }
+    
+    // Handle clicks on panel buttons
+    const panelButtons = document.querySelectorAll('.mobile-panel .expand-btn');
+    panelButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const section = this.getAttribute('data-section');
+            
+            // Trigger the corresponding section on the desktop site
+            const desktopButton = document.querySelector(`.section-content .expand-btn[data-section="${section}"]`);
+            if (desktopButton) {
+                desktopButton.click();
+            }
+        });
+    });
+} 
