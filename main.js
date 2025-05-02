@@ -221,20 +221,37 @@ function initializeCarousel() {
 // Mobile-specific functions
 function initializeMobileNavigation() {
     const menuToggle = document.querySelector('.mobile-menu-toggle');
-    const mobileNav = document.querySelector('.mobile-nav');
+    const mobileMenu = document.querySelector('.mobile-menu');
+    const mobileLogo = document.querySelector('.mobile-logo');
     const closeBtn = document.querySelector('.mobile-close-btn');
     const menuItems = document.querySelectorAll('.mobile-menu-item');
     const sections = document.querySelectorAll('.mobile-section');
     
+    // Add nav hint to the mobile logo
+    const navHint = document.createElement('div');
+    navHint.className = 'nav-hint-mobile';
+    navHint.textContent = 'Click to navigate';
+    document.body.appendChild(navHint);
+    
     // Function to toggle mobile menu
-    function toggleMobileMenu() {
-        mobileNav.classList.toggle('active');
+    function toggleMobileMenu(e) {
+        if (e) e.preventDefault();
+        mobileMenu.classList.toggle('active');
         document.body.classList.toggle('no-scroll');
     }
     
-    // Open menu when clicking menu toggle
-    if (menuToggle) {
-        menuToggle.addEventListener('click', toggleMobileMenu);
+    // Open menu when clicking logo instead of menu toggle
+    if (mobileLogo) {
+        mobileLogo.addEventListener('click', toggleMobileMenu);
+        
+        // Show/hide navigation hint on hover
+        mobileLogo.addEventListener('mouseenter', () => {
+            navHint.style.opacity = '1';
+        });
+        
+        mobileLogo.addEventListener('mouseleave', () => {
+            navHint.style.opacity = '0.8';
+        });
     }
     
     // Close menu when clicking close button
@@ -242,11 +259,16 @@ function initializeMobileNavigation() {
         closeBtn.addEventListener('click', toggleMobileMenu);
     }
     
+    // Hide the mobile menu toggle button since we're using the logo instead
+    if (menuToggle) {
+        menuToggle.style.display = 'none';
+    }
+    
     // Close menu when clicking anywhere in the menu (as a fallback)
-    if (mobileNav) {
-        mobileNav.addEventListener('click', function(e) {
+    if (mobileMenu) {
+        mobileMenu.addEventListener('click', function(e) {
             // Only close if clicking directly on the menu background, not on menu items
-            if (e.target === mobileNav) {
+            if (e.target === mobileMenu) {
                 toggleMobileMenu();
             }
         });
@@ -970,4 +992,312 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+});
+
+// Initialize the gallery functionality
+function initializeGallery() {
+    const galleryBtns = document.querySelectorAll('.gallery-btn, .view-gallery-btn');
+    const projectItems = document.querySelectorAll('.project-item');
+    
+    // Create gallery modal if it doesn't exist
+    if (!document.querySelector('.gallery-modal')) {
+        const galleryModal = document.createElement('div');
+        galleryModal.className = 'gallery-modal';
+        galleryModal.innerHTML = `
+            <div class="gallery-header">
+                <div></div>
+                <h3>Project Gallery</h3>
+                <div class="gallery-close"><i class="fas fa-times"></i></div>
+            </div>
+            <div class="gallery-slider">
+                <div class="gallery-slides"></div>
+                <div class="gallery-controls">
+                    <div class="gallery-prev"><i class="fas fa-chevron-left"></i></div>
+                    <div class="gallery-indicators"></div>
+                    <div class="gallery-next"><i class="fas fa-chevron-right"></i></div>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(galleryModal);
+    }
+    
+    const galleryModal = document.querySelector('.gallery-modal');
+    const gallerySlider = document.querySelector('.gallery-slides');
+    const galleryClose = document.querySelector('.gallery-close');
+    const galleryPrev = document.querySelector('.gallery-prev');
+    const galleryNext = document.querySelector('.gallery-next');
+    const galleryIndicators = document.querySelector('.gallery-indicators');
+    
+    // Sample gallery images (replace with your actual gallery data)
+    const sampleGalleryImages = [
+        'images/projects/luxury-penthouse.jpg',
+        'images/projects/coastal-retreat.jpg',
+        'images/projects/mountain-lodge.jpg',
+        'images/projects/urban-loft.jpg',
+        'images/projects/country-estate.jpg',
+    ];
+    
+    let currentSlide = 0;
+    let galleryImages = sampleGalleryImages;
+    
+    // Function to open gallery
+    function openGallery(images = sampleGalleryImages) {
+        galleryImages = images;
+        currentSlide = 0;
+        
+        // Clear existing slides and indicators
+        gallerySlider.innerHTML = '';
+        galleryIndicators.innerHTML = '';
+        
+        // Create slides and indicators
+        galleryImages.forEach((img, index) => {
+            // Create slide
+            const slide = document.createElement('div');
+            slide.className = `gallery-slide ${index === 0 ? 'active' : ''}`;
+            
+            const imgElement = document.createElement('img');
+            imgElement.src = img;
+            imgElement.alt = `Gallery Image ${index + 1}`;
+            
+            slide.appendChild(imgElement);
+            gallerySlider.appendChild(slide);
+            
+            // Create indicator
+            const indicator = document.createElement('div');
+            indicator.className = `gallery-indicator ${index === 0 ? 'active' : ''}`;
+            indicator.addEventListener('click', () => goToSlide(index));
+            galleryIndicators.appendChild(indicator);
+        });
+        
+        // Show modal
+        galleryModal.classList.add('active');
+        document.body.classList.add('no-scroll');
+    }
+    
+    // Function to close gallery
+    function closeGallery() {
+        galleryModal.classList.remove('active');
+        document.body.classList.remove('no-scroll');
+    }
+    
+    // Function to navigate to specific slide
+    function goToSlide(index) {
+        if (index < 0) index = galleryImages.length - 1;
+        if (index >= galleryImages.length) index = 0;
+        
+        const slides = gallerySlider.querySelectorAll('.gallery-slide');
+        const indicators = galleryIndicators.querySelectorAll('.gallery-indicator');
+        
+        // Update slides
+        slides.forEach(slide => slide.classList.remove('active'));
+        slides[index].classList.add('active');
+        
+        // Update indicators
+        indicators.forEach(indicator => indicator.classList.remove('active'));
+        indicators[index].classList.add('active');
+        
+        currentSlide = index;
+    }
+    
+    // Event listeners
+    galleryClose.addEventListener('click', closeGallery);
+    galleryPrev.addEventListener('click', () => goToSlide(currentSlide - 1));
+    galleryNext.addEventListener('click', () => goToSlide(currentSlide + 1));
+    
+    // Add keyboard navigation
+    document.addEventListener('keydown', (e) => {
+        if (!galleryModal.classList.contains('active')) return;
+        
+        if (e.key === 'ArrowLeft') goToSlide(currentSlide - 1);
+        if (e.key === 'ArrowRight') goToSlide(currentSlide + 1);
+        if (e.key === 'Escape') closeGallery();
+    });
+    
+    // Add swipe support for mobile
+    let touchStartX = 0;
+    let touchEndX = 0;
+    
+    gallerySlider.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+    });
+    
+    gallerySlider.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+    });
+    
+    function handleSwipe() {
+        const swipeThreshold = 50;
+        if (touchEndX < touchStartX - swipeThreshold) {
+            // Swipe left
+            goToSlide(currentSlide + 1);
+        } else if (touchEndX > touchStartX + swipeThreshold) {
+            // Swipe right
+            goToSlide(currentSlide - 1);
+        }
+    }
+    
+    // Attach click handlers to gallery buttons
+    galleryBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            openGallery();
+        });
+    });
+    
+    // Handle project gallery opens
+    projectItems.forEach(item => {
+        const galleryBtn = item.querySelector('.gallery-btn, .view-gallery-btn');
+        if (galleryBtn) {
+            galleryBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                openGallery();
+            });
+        }
+    });
+}
+
+// Improved mobile pagination with smoother transitions
+function initializeMobilePagination() {
+    const sections = document.querySelectorAll('.mobile-section');
+    const paginationDots = document.querySelectorAll('.mobile-pagination-dot');
+    let currentSection = 0;
+    let isSwiping = false;
+    let touchStartY = 0;
+    let touchEndY = 0;
+    
+    // Initialize sections positioning
+    updateSections();
+    
+    // Function to update sections positioning
+    function updateSections() {
+        sections.forEach((section, index) => {
+            const offset = (index - currentSection) * 100;
+            section.style.transform = `translateY(${offset}%)`;
+            section.style.zIndex = sections.length - Math.abs(index - currentSection);
+        });
+        
+        // Update pagination dots
+        paginationDots.forEach((dot, index) => {
+            dot.classList.toggle('active', index === currentSection);
+        });
+    }
+    
+    // Function to navigate to a specific section
+    function goToSection(index) {
+        if (index < 0 || index >= sections.length || index === currentSection) return;
+        
+        // Add transition temporarily
+        sections.forEach(section => {
+            section.style.transition = 'transform 0.5s cubic-bezier(0.65, 0, 0.35, 1)';
+        });
+        
+        currentSection = index;
+        updateSections();
+        
+        // Remove transition after animation completes
+        setTimeout(() => {
+            sections.forEach(section => {
+                section.style.transition = '';
+            });
+        }, 500);
+    }
+    
+    // Add click handlers to pagination dots
+    paginationDots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+            goToSection(index);
+        });
+    });
+    
+    // Add touch swipe support
+    const mobileSections = document.querySelector('.mobile-sections');
+    if (mobileSections) {
+        mobileSections.addEventListener('touchstart', (e) => {
+            touchStartY = e.changedTouches[0].screenY;
+            isSwiping = true;
+        });
+        
+        mobileSections.addEventListener('touchmove', (e) => {
+            if (!isSwiping) return;
+            
+            touchEndY = e.changedTouches[0].screenY;
+            const deltaY = touchStartY - touchEndY;
+            const swipePercent = deltaY / window.innerHeight;
+            
+            // Apply live transform during swipe
+            sections.forEach((section, index) => {
+                const offset = ((index - currentSection) * 100) - (swipePercent * 100);
+                section.style.transform = `translateY(${offset}%)`;
+            });
+        });
+        
+        mobileSections.addEventListener('touchend', (e) => {
+            if (!isSwiping) return;
+            
+            touchEndY = e.changedTouches[0].screenY;
+            const deltaY = touchStartY - touchEndY;
+            const swipeThreshold = 50;
+            
+            if (Math.abs(deltaY) > swipeThreshold) {
+                if (deltaY > 0 && currentSection < sections.length - 1) {
+                    // Swipe up, go to next section
+                    goToSection(currentSection + 1);
+                } else if (deltaY < 0 && currentSection > 0) {
+                    // Swipe down, go to previous section
+                    goToSection(currentSection - 1);
+                } else {
+                    // Reset positions if at the end or beginning
+                    updateSections();
+                }
+            } else {
+                // Reset positions if swipe was not significant
+                updateSections();
+            }
+            
+            isSwiping = false;
+        });
+    }
+    
+    // Add keyboard navigation support
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowDown' || e.key === 'PageDown') {
+            goToSection(currentSection + 1);
+        } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+            goToSection(currentSection - 1);
+        }
+    });
+    
+    // Add wheel/scroll support with debounce
+    let wheelTimeout;
+    let isScrolling = false;
+    
+    document.addEventListener('wheel', (e) => {
+        if (isScrolling) return;
+        
+        clearTimeout(wheelTimeout);
+        
+        if (e.deltaY > 0 && currentSection < sections.length - 1) {
+            // Scroll down, go to next section
+            isScrolling = true;
+            goToSection(currentSection + 1);
+        } else if (e.deltaY < 0 && currentSection > 0) {
+            // Scroll up, go to previous section
+            isScrolling = true;
+            goToSection(currentSection - 1);
+        }
+        
+        wheelTimeout = setTimeout(() => {
+            isScrolling = false;
+        }, 800); // Debounce scrolling
+    });
+}
+
+// Initialize all required functionality when DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+    initializeMobileNavigation();
+    initializeGallery();
+    initializeMobilePagination();
+    // Any other initializations...
 }); 
