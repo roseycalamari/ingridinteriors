@@ -5388,3 +5388,82 @@ body.section-active .header .logo-container {
 .arrow-icon {
     font-size: 1.5rem;
 }
+
+@media (max-width: 767px) {
+    /* Mobile pagination styles */
+    .mobile-pagination {
+        background-color: rgba(0, 0, 0, 0.2);
+        padding: 5px;
+        border-radius: 15px;
+    }
+}
+
+/* REMOVE all mobile homepage styles below this line */
+
+/* Ensure desktop content is always displayed, even on mobile */
+@media (max-width: 767px) {
+    .main-content {
+        display: block !important;
+    }
+    
+    /* Remove any hiding of desktop content */
+    body:not(.loaded) .main-content,
+    body.loaded .main-content {
+        display: block !important;
+    }
+    
+    /* Hide any mobile-specific elements */
+    .mobile-homepage,
+    .panel-instructions,
+    .panel-nav,
+    .panel-arrows,
+    .panel-dot,
+    .mobile-panels,
+    .mobile-panel {
+        display: none !important;
+    }
+}
+
+@media (max-width: 767px) {
+    /* Basic responsive adjustments for desktop version on mobile */
+    .main-content {
+        display: block !important;
+        width: 100%;
+        overflow-x: hidden;
+    }
+    
+    .section {
+        width: 100%;
+        min-height: 100vh;
+        flex-direction: column;
+    }
+    
+    .section-left, 
+    .section-right {
+        width: 100%;
+        min-height: 50vh;
+    }
+    
+    .section-content {
+        padding: 2rem;
+        width: 90%;
+        margin: 0 auto;
+    }
+    
+    /* Adjust portrait area for mobile */
+    .portrait-container {
+        width: 90%;
+        margin: 0 auto;
+    }
+    
+    /* Hide any mobile-specific elements */
+    .mobile-homepage,
+    .panel-instructions,
+    .panel-nav,
+    .panel-arrows,
+    .panel-dot,
+    .mobile-panels,
+    .mobile-panel {
+        display: none !important;
+    }
+}
