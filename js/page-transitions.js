@@ -11,6 +11,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // All links that should trigger page transitions
     const pageTransitionLinks = document.querySelectorAll('[data-page-transition]');
     
+    // Check if we're on a touch device for different transition timing
+    const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+    
+    // Check if user prefers reduced motion
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    
     // Cache current page for intelligent transitions
     const currentPage = {
         path: window.location.pathname,
@@ -44,22 +50,34 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Optimized transition values
         let transitionType = 'slide';
-        let transitionDuration = 600;
-        let transitionEasing = 'cubic-bezier(0.4, 0, 0.2, 1)';
+        let transitionDuration = 600; // Reduced from 900ms
+        let transitionEasing = 'cubic-bezier(0.4, 0, 0.2, 1)'; // More responsive easing
         
         // Adjust transition type based on navigation pattern
         if (isHomepageReturn) {
             transitionType = 'fade';
-            transitionDuration = 500;
+            transitionDuration = 500; // Reduced from 700ms
         } else if (isBackNavigation) {
             transitionType = 'slideBack';
-            transitionDuration = 550;
+            transitionDuration = 550; // Reduced from 850ms
         } else if (currentPage.type === 'home' && targetType !== 'home') {
             transitionType = 'zoomOut';
-            transitionDuration = 650;
+            transitionDuration = 650; // Reduced from 950ms
         } else if (currentPage.type !== 'home' && targetType !== 'home') {
             transitionType = 'crossfade';
-            transitionDuration = 500;
+            transitionDuration = 500; // Reduced from 800ms
+        }
+        
+        // Further reduce durations for touch devices
+        if (isTouchDevice) {
+            transitionDuration = Math.floor(transitionDuration * 0.7); // More aggressive reduction
+        }
+        
+        // Respect reduced motion preferences
+        if (prefersReducedMotion) {
+            transitionType = 'fade';
+            transitionDuration = 300; // Reduced from 400ms
+            transitionEasing = 'ease';
         }
         
         return {
@@ -210,32 +228,6 @@ document.addEventListener('DOMContentLoaded', () => {
                             transitionOverlay.classList.remove('zoom-transition');
                             transitionOverlay.classList.remove('crossfade-transition');
                             document.body.classList.remove('page-transition-active', 'page-transition-complete');
-                            
-                            // Reinitialize navigation elements after transition
-                            if (isHomepageReturn) {
-                                // Reinitialize logo and navigation elements
-                                const logoTrigger = document.querySelector('.logo-container');
-                                const navHint = document.querySelector('.nav-hint');
-                                const contactBtn = document.querySelector('.contact-btn');
-                                
-                                if (logoTrigger) {
-                                    logoTrigger.style.display = 'block';
-                                    logoTrigger.style.opacity = '1';
-                                }
-                                if (navHint) {
-                                    navHint.style.display = 'block';
-                                    navHint.style.opacity = '1';
-                                }
-                                if (contactBtn) {
-                                    contactBtn.style.display = 'block';
-                                    contactBtn.style.opacity = '1';
-                                }
-                                
-                                // Reinitialize navigation system
-                                if (typeof window.navigationSystem !== 'undefined') {
-                                    window.navigationSystem.initNavigation();
-                                }
-                            }
                         }, 700);
                     }, 100);
                 } else if (lastTransition === 'zoomOut') {
@@ -400,6 +392,8 @@ document.addEventListener('DOMContentLoaded', () => {
      * Optimize transitions for mobile devices
      */
     const optimizeMobileTransitions = () => {
+        if (!isTouchDevice) return;
+        
         // Add active state for touch interactions
         pageTransitionLinks.forEach(link => {
             link.addEventListener('touchstart', () => {
@@ -600,7 +594,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         // Add touch handling
-        if (videoWrapper) {
+        if (isTouchDevice && videoWrapper) {
             videoWrapper.addEventListener('touchstart', () => {
                 if (videoWrapper.classList.contains('video-playing')) {
                     videoWrapper.classList.add('controls-visible');
@@ -611,6 +605,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     }, 3000);
                 }
             }, { passive: true });
+        }
+        
+        // Preload video for smoother playback
+        if (!prefersReducedMotion && !isTouchDevice && video) {
+            video.preload = 'auto';
         }
     };
     
@@ -623,6 +622,8 @@ document.addEventListener('DOMContentLoaded', () => {
         handleBrowserNavigation();
         setupPersonLink();
         enhanceReturnButtons();
+        optimizeMobileTransitions();
+        handleOrientationChanges();
         optimizeBrandImages();
         initializeVideoPlayer();
         
@@ -634,212 +635,4 @@ document.addEventListener('DOMContentLoaded', () => {
     init();
 });
 
-// Project Gallery Functionality
-document.addEventListener('DOMContentLoaded', () => {
-    const galleryPopup = document.querySelector('.gallery-popup');
-    const closeGalleryBtn = document.querySelector('.close-gallery');
-    const galleryMainImage = document.querySelector('.gallery-main-image');
-    const galleryThumbnailsContainers = document.querySelectorAll('.gallery-thumbnails-container');
-    const projectThumbnails = document.querySelectorAll('.project-thumbnail');
-    const prevBtn = document.querySelector('.gallery-prev-btn');
-    const nextBtn = document.querySelector('.gallery-next-btn');
-    
-    // Check if gallery elements exist
-    if (!galleryPopup || !projectThumbnails.length) {
-        console.log('Gallery elements not found in DOM');
-        return;
-    }
-    
-    console.log('Gallery initialized with', projectThumbnails.length, 'project thumbnails');
-    
-    let currentProject = '';
-    let currentImageIndex = 0;
-    let thumbnails = [];
-    
-    // Open gallery when clicking on project thumbnail
-    projectThumbnails.forEach(thumbnail => {
-        thumbnail.addEventListener('click', () => {
-            console.log('Thumbnail clicked, project:', thumbnail.getAttribute('data-project'));
-            const project = thumbnail.getAttribute('data-project');
-            openGallery(project);
-        });
-    });
-    
-    // Close gallery
-    if (closeGalleryBtn) {
-        closeGalleryBtn.addEventListener('click', closeGallery);
-    }
-    
-    // Close gallery with escape key
-    document.addEventListener('keydown', e => {
-        if (e.key === 'Escape' && galleryPopup.classList.contains('active')) {
-            closeGallery();
-        }
-    });
-    
-    // Navigation with arrow keys
-    document.addEventListener('keydown', e => {
-        if (!galleryPopup.classList.contains('active')) return;
-        
-        if (e.key === 'ArrowLeft') {
-            navigateGallery(-1);
-        } else if (e.key === 'ArrowRight') {
-            navigateGallery(1);
-        }
-    });
-    
-    // Navigation with buttons
-    if (prevBtn) prevBtn.addEventListener('click', () => navigateGallery(-1));
-    if (nextBtn) nextBtn.addEventListener('click', () => navigateGallery(1));
-    
-    function openGallery(project) {
-        currentProject = project;
-        console.log('Opening gallery for project:', project);
-        
-        // Show correct thumbnails container
-        galleryThumbnailsContainers.forEach(container => {
-            if (container.getAttribute('data-project') === project) {
-                container.classList.add('active');
-                
-                // Get thumbnails for this project
-                thumbnails = container.querySelectorAll('.gallery-thumbnail');
-                console.log('Found', thumbnails.length, 'thumbnails for project');
-                
-                // Set first image as active
-                setActiveImage(0);
-            } else {
-                container.classList.remove('active');
-            }
-        });
-        
-        // Display popup
-        galleryPopup.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
-    
-    function closeGallery() {
-        galleryPopup.classList.remove('active');
-        document.body.style.overflow = '';
-        
-        setTimeout(() => {
-            galleryThumbnailsContainers.forEach(container => {
-                container.classList.remove('active');
-            });
-        }, 500);
-    }
-    
-    function setActiveImage(index) {
-        if (!thumbnails.length) return;
-        
-        if (index < 0) index = thumbnails.length - 1;
-        if (index >= thumbnails.length) index = 0;
-        
-        currentImageIndex = index;
-        
-        // Update main image
-        const src = thumbnails[index].querySelector('img').getAttribute('src');
-        galleryMainImage.setAttribute('src', src);
-        
-        // Update active thumbnail
-        thumbnails.forEach((thumb, i) => {
-            if (i === index) {
-                thumb.classList.add('active');
-            } else {
-                thumb.classList.remove('active');
-            }
-        });
-    }
-    
-    function navigateGallery(direction) {
-        setActiveImage(currentImageIndex + direction);
-    }
-    
-    // Add click event to thumbnails
-    galleryThumbnailsContainers.forEach(container => {
-        const thumbs = container.querySelectorAll('.gallery-thumbnail');
-        
-        thumbs.forEach((thumb, index) => {
-            thumb.addEventListener('click', () => {
-                setActiveImage(index);
-            });
-        });
-    });
-});
-
-// Project Carousel Functionality
-function openProjectCarousel(projectId) {
-    const modal = document.getElementById('projectCarouselModal');
-    if (modal) {
-        modal.classList.add('active');
-        document.body.classList.add('no-scroll');
-        
-        // Here you would load the appropriate images based on projectId
-        console.log('Opening carousel for project:', projectId);
-        
-        // This will be populated with actual images later
-    }
-}
-
-// Close carousel when clicking the close button
-document.addEventListener('DOMContentLoaded', function() {
-    const closeCarouselBtn = document.querySelector('.close-carousel');
-    if (closeCarouselBtn) {
-        closeCarouselBtn.addEventListener('click', function() {
-            const modal = document.getElementById('projectCarouselModal');
-            if (modal) {
-                modal.classList.remove('active');
-                document.body.classList.remove('no-scroll');
-            }
-        });
-    }
-    
-    // Close carousel when clicking outside the content
-    const carouselModal = document.getElementById('projectCarouselModal');
-    if (carouselModal) {
-        carouselModal.addEventListener('click', function(e) {
-            if (e.target === carouselModal) {
-                carouselModal.classList.remove('active');
-                document.body.classList.remove('no-scroll');
-            }
-        });
-    }
-    
-    // Close carousel with Escape key
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') {
-            const modal = document.getElementById('projectCarouselModal');
-            if (modal && modal.classList.contains('active')) {
-                modal.classList.remove('active');
-                document.body.classList.remove('no-scroll');
-            }
-        }
-    });
-});
-
-// Handle Read More functionality for project descriptions
-document.addEventListener('DOMContentLoaded', function() {
-    const readMoreButtons = document.querySelectorAll('.read-more-btn');
-    
-    readMoreButtons.forEach(button => {
-        const description = button.previousElementSibling;
-        
-        // Check if the text is overflowing and needs a Read More button
-        if (description && description.scrollHeight > description.clientHeight) {
-            button.style.display = 'inline-block';
-        } else {
-            button.style.display = 'none';
-        }
-        
-        button.addEventListener('click', function(e) {
-            e.stopPropagation(); // Prevent triggering the carousel
-            
-            if (description.classList.contains('expanded')) {
-                description.classList.remove('expanded');
-                button.textContent = 'Read More';
-            } else {
-                description.classList.add('expanded');
-                button.textContent = 'Read Less';
-            }
-        });
-    });
-});
+// REMOVING DUPLICATE GALLERY CODE - This is now handled by projects.js

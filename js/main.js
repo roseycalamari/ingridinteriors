@@ -4,6 +4,18 @@
  * Uses advanced animation techniques and performance optimizations
  */
 
+// Add debugging function at the top of the file
+function debugLog(message, data) {
+    const DEBUG = true; // Set to false to disable logs in production
+    if (DEBUG) {
+        if (data) {
+            console.log(`[GALLERY DEBUG] ${message}`, data);
+        } else {
+            console.log(`[GALLERY DEBUG] ${message}`);
+        }
+    }
+}
+
 // Gallery images data
 const galleryImages = [
     "images/CA project done/IBICali2019-1 - Copy - Copy.jpg",
@@ -38,186 +50,7 @@ const galleryImages = [
 let currentSlide = 0;
 let slideInterval;
 
-// Initialize gallery
-function initGallery() {
-    const galleryBtn = document.getElementById('galleryBtn');
-    const galleryPreview = document.getElementById('galleryPreview');
-    const galleryModal = document.getElementById('galleryModal');
-    const gallerySlider = document.getElementById('gallerySlider');
-    const closeBtn = document.getElementById('closeGalleryBtn');
-    const prevBtn = document.getElementById('prevBtn');
-    const nextBtn = document.getElementById('nextBtn');
-    const indicators = document.getElementById('galleryIndicators');
-    
-    if (!galleryModal || !gallerySlider) {
-        console.error('Gallery elements not found');
-        return;
-    }
-
-    let currentSlide = 0;
-    let isTransitioning = false;
-    const transitionDuration = 500; // Match this with CSS transition duration
-
-    // Create slides
-    galleryImages.forEach((image, index) => {
-        // Create slide
-        const slide = document.createElement('div');
-        slide.className = 'gallery-slide';
-        
-        // Create image
-        const img = document.createElement('img');
-        img.src = image;
-        img.alt = 'California Family Home Project';
-        img.loading = 'lazy';
-        
-        slide.appendChild(img);
-        gallerySlider.appendChild(slide);
-        
-        // Create indicator
-        const indicator = document.createElement('button');
-        indicator.className = 'gallery-indicator';
-        indicator.addEventListener('click', () => {
-            if (!isTransitioning) {
-                goToSlide(index);
-            }
-        });
-        indicators.appendChild(indicator);
-    });
-
-    // Initialize first slide
-    updateSlide();
-
-    // Open gallery
-    const openGallery = () => {
-        document.body.style.overflow = 'hidden';
-        galleryModal.classList.add('active');
-        updateSlide();
-    };
-
-    galleryBtn.addEventListener('click', openGallery);
-    galleryPreview.addEventListener('click', openGallery);
-
-    // Close gallery
-    function closeGallery() {
-        document.body.style.overflow = '';
-        galleryModal.classList.remove('active');
-    }
-
-    closeBtn.addEventListener('click', closeGallery);
-    galleryModal.addEventListener('click', (e) => {
-        if (e.target === galleryModal) {
-            closeGallery();
-        }
-    });
-
-    // Navigation with infinite loop
-    function goToSlide(index) {
-        if (isTransitioning) return;
-        isTransitioning = true;
-        
-        const slides = gallerySlider.querySelectorAll('.gallery-slide');
-        const indicators = document.querySelectorAll('.gallery-indicator');
-        
-        // Remove active class from current slide and indicator
-        slides[currentSlide].classList.remove('active');
-        indicators[currentSlide].classList.remove('active');
-        
-        // Handle infinite loop
-        if (index < 0) {
-            index = slides.length - 1;
-        } else if (index >= slides.length) {
-            index = 0;
-        }
-        
-        currentSlide = index;
-        
-        // Add active class to new slide and indicator
-        slides[currentSlide].classList.add('active');
-        indicators[currentSlide].classList.add('active');
-        
-        setTimeout(() => {
-            isTransitioning = false;
-        }, transitionDuration);
-    }
-
-    function updateSlide() {
-        const slides = gallerySlider.querySelectorAll('.gallery-slide');
-        const indicators = document.querySelectorAll('.gallery-indicator');
-        
-        slides.forEach((slide, index) => {
-            slide.classList.toggle('active', index === currentSlide);
-        });
-        
-        indicators.forEach((indicator, index) => {
-            indicator.classList.toggle('active', index === currentSlide);
-        });
-    }
-
-    // Navigation buttons - with infinite loop
-    prevBtn.addEventListener('click', () => {
-        if (!isTransitioning) {
-            goToSlide(currentSlide - 1);
-        }
-    });
-
-    nextBtn.addEventListener('click', () => {
-        if (!isTransitioning) {
-            goToSlide(currentSlide + 1);
-        }
-    });
-
-    // Keyboard navigation - with infinite loop
-    document.addEventListener('keydown', (e) => {
-        if (!galleryModal.classList.contains('active')) return;
-        
-        switch (e.key) {
-            case 'ArrowLeft':
-                if (!isTransitioning) {
-                    goToSlide(currentSlide - 1);
-                }
-                break;
-            case 'ArrowRight':
-                if (!isTransitioning) {
-                    goToSlide(currentSlide + 1);
-                }
-                break;
-            case 'Escape':
-                closeGallery();
-                break;
-        }
-    });
-
-    // Touch swipe support - with infinite loop
-    let touchStartX = 0;
-    let touchEndX = 0;
-
-    gallerySlider.addEventListener('touchstart', (e) => {
-        touchStartX = e.changedTouches[0].screenX;
-    }, false);
-
-    gallerySlider.addEventListener('touchend', (e) => {
-        touchEndX = e.changedTouches[0].screenX;
-        handleSwipe();
-    }, false);
-
-    function handleSwipe() {
-        const swipeThreshold = 50;
-        const swipeDistance = touchEndX - touchStartX;
-        
-        if (Math.abs(swipeDistance) < swipeThreshold) return;
-        
-        if (swipeDistance > 0) {
-            // Swipe right - go to previous
-            goToSlide(currentSlide - 1);
-        } else {
-            // Swipe left - go to next
-            goToSlide(currentSlide + 1);
-        }
-    }
-}
-
-// Initialize gallery when DOM is loaded
-document.addEventListener('DOMContentLoaded', initGallery);
+// REMOVING UNUSED GALLERY INIT - This is now handled by projects.js
 
 document.addEventListener('DOMContentLoaded', () => {
     // ===== ELEMENTS =====
@@ -356,47 +189,47 @@ document.addEventListener('DOMContentLoaded', () => {
     const updateResponsiveLayout = () => {
         // Mobile layout (portrait orientation)
         if (viewportWidth < 768) {
-            // Simplified mobile layout
-            if (portraitContainer) {
-                portraitContainer.style.position = 'relative';
-                portraitContainer.style.transform = 'none';
-                portraitContainer.style.top = 'auto';
-                portraitContainer.style.left = 'auto';
-                portraitContainer.style.width = '100%';
-                portraitContainer.style.maxWidth = '100%';
-                portraitContainer.style.height = 'auto';
-            }
-
-            // Optimize touch interactions
-            document.body.style.touchAction = 'manipulation';
-            
-            // Remove unnecessary animations
-            document.body.classList.add('mobile-view');
-            
-            // Optimize scroll performance
-            document.documentElement.style.scrollBehavior = 'auto';
-            
-            // Handle orientation changes
-            if (window.orientation !== undefined) {
-                if (Math.abs(window.orientation) === 90) {
-                    document.body.classList.add('landscape-mode');
-                } else {
-                    document.body.classList.remove('landscape-mode');
+            // For very small screens in portrait mode
+            if (viewportHeight > viewportWidth) {
+                // If portrait container exists, move it to fit better in mobile layout
+                if (portraitContainer) {
+                    portraitContainer.style.position = 'relative';
+                    portraitContainer.style.transform = 'none';
+                    portraitContainer.style.top = 'auto';
+                    portraitContainer.style.left = 'auto';
+                }
+            } else {
+                // Landscape mobile - revert to default positioning
+                if (portraitContainer) {
+                    portraitContainer.style.position = 'absolute';
+                    portraitContainer.style.transform = 'translate(-50%, -50%)';
+                    portraitContainer.style.top = '50%';
+                    portraitContainer.style.left = '50%';
                 }
             }
         } 
         // Tablet landscape and desktop layout
         else {
-            // Restore desktop layout
-            document.body.classList.remove('mobile-view');
-            document.body.classList.remove('landscape-mode');
-            
             if (portraitContainer) {
                 portraitContainer.style.position = 'absolute';
                 portraitContainer.style.transform = 'translate(-50%, -50%)';
                 portraitContainer.style.top = '50%';
                 portraitContainer.style.left = '50%';
             }
+            
+            // Special case for 13-14" laptops (1200px - 1440px)
+            if (viewportWidth >= 1200 && viewportWidth <= 1440) {
+                document.body.classList.add('laptop-14-inch');
+            } else {
+                document.body.classList.remove('laptop-14-inch');
+            }
+        }
+        
+        // Adjust for devices with notches or UI elements that intrude
+        const hasDynamicViewport = CSS.supports('padding-top: env(safe-area-inset-top)');
+        if (hasDynamicViewport && isTouchDevice) {
+            document.documentElement.style.setProperty('--safe-area-top', 'env(safe-area-inset-top)');
+            document.documentElement.style.setProperty('--safe-area-bottom', 'env(safe-area-inset-bottom)');
         }
     };
     
@@ -491,11 +324,22 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log("Portrait initialized with image:", imageSrc);
         }
         
-        // Add click handler
+        // Add click handler for desktop portrait
         if (portrait && aboutBtn) {
             portrait.addEventListener('click', () => {
                 console.log("Portrait clicked");
                 openAboutSection();
+            });
+        }
+        
+        // Add click handler for mobile portrait container (when viewed as a panel)
+        if (portraitContainer) {
+            portraitContainer.addEventListener('click', () => {
+                console.log("Portrait container clicked");
+                // Only trigger on mobile view
+                if (window.innerWidth < 768) {
+                    openAboutSection();
+                }
             });
         }
     };
@@ -836,6 +680,24 @@ document.addEventListener('DOMContentLoaded', () => {
             activeSections.forEach(section => {
                 const content = section.querySelector('.about-content, .service-content, .brands-content, .contact-content');
                 
+                // Stop videos in brands section when closing
+                if (section.classList.contains('brands-section')) {
+                    // Find and stop all videos in the brands section
+                    const videos = section.querySelectorAll('video, iframe');
+                    videos.forEach(video => {
+                        if (video.tagName === 'VIDEO') {
+                            // HTML5 video element
+                            video.pause();
+                            video.currentTime = 0;
+                        } else if (video.tagName === 'IFRAME') {
+                            // iframe videos (YouTube, Vimeo, etc.)
+                            // We need to reload the iframe to stop the video
+                            const videoSrc = video.src;
+                            video.src = videoSrc;
+                        }
+                    });
+                }
+                
                 // First fade out the content with nice easing
                 if (content) {
                     content.style.opacity = '0';
@@ -887,10 +749,13 @@ document.addEventListener('DOMContentLoaded', () => {
      * @param {Event} e - The click event
      */
     const switchLanguage = (event) => {
+        // Get the clicked button
         const button = event.currentTarget;
+        
+        // Skip if already active
         if (button.classList.contains('active')) return;
-
-        // Update active state
+        
+        // Update active state of language buttons
         document.querySelectorAll('.lang-btn').forEach(btn => {
             btn.classList.remove('active');
         });
@@ -899,48 +764,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // Get the new language
         const newLang = button.dataset.lang;
 
-        // Create and show the transition overlay
-        const overlay = document.createElement('div');
-        overlay.className = 'language-transition-overlay';
-        document.body.appendChild(overlay);
-
-        // Create ripple effect
-        const ripple = document.createElement('div');
-        ripple.className = 'lang-ripple';
-        overlay.appendChild(ripple);
-
-        // Get button position for ripple origin
-        const buttonRect = button.getBoundingClientRect();
-        const centerX = buttonRect.left + buttonRect.width / 2;
-        const centerY = buttonRect.top + buttonRect.height / 2;
-        ripple.style.left = `${centerX}px`;
-        ripple.style.top = `${centerY}px`;
-
-        // Add transition class to body
-        document.body.classList.add('language-transitioning');
-
-        // Show overlay with fade
-        requestAnimationFrame(() => {
-            overlay.style.visibility = 'visible';
-            overlay.style.opacity = '1';
-        });
-
-        // Wait for ripple animation to complete
-        setTimeout(() => {
-            // Apply new language
-            applyLanguage(newLang);
-
-            // Remove transition class and add complete class
-            document.body.classList.remove('language-transitioning');
-            document.body.classList.add('language-transition-complete');
-
-            // Hide overlay
-            overlay.style.opacity = '0';
-            setTimeout(() => {
-                overlay.remove();
-                document.body.classList.remove('language-transition-complete');
-            }, 600);
-        }, 1000);
+        // Apply translations with transition animation
+        applyLanguage(newLang, true);
     };
     
     /**
@@ -1196,6 +1021,35 @@ document.addEventListener('DOMContentLoaded', () => {
         brandsExpandBtn.addEventListener('click', openBrandsSection);
     }
     
+    // Make section panels clickable on mobile
+    if (leftSection) {
+        leftSection.addEventListener('click', (e) => {
+            // Only trigger full panel click on mobile view
+            if (window.innerWidth < 768 && !e.target.classList.contains('expand-btn')) {
+                openServiceSection();
+            }
+        });
+    }
+    
+    if (rightSection) {
+        rightSection.addEventListener('click', (e) => {
+            // Only trigger full panel click on mobile view
+            if (window.innerWidth < 768 && !e.target.classList.contains('expand-btn')) {
+                openBrandsSection();
+            }
+        });
+    }
+    
+    // Make portrait container clickable on mobile
+    if (portraitContainer) {
+        portraitContainer.addEventListener('click', (e) => {
+            // Only trigger full panel click on mobile view
+            if (window.innerWidth < 768 && !e.target.classList.contains('about-btn')) {
+                openAboutSection();
+            }
+        });
+    }
+    
     // Set up event listeners for closing content sections
     if (closeAboutBtn) {
         closeAboutBtn.addEventListener('click', closeExpandedContent);
@@ -1206,7 +1060,27 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     if (closeBrandsBtn) {
-        closeBrandsBtn.addEventListener('click', closeExpandedContent);
+        closeBrandsBtn.addEventListener('click', () => {
+            // Stop all videos in brands section before closing
+            const brandsSection = document.querySelector('.brands-section');
+            if (brandsSection) {
+                const videos = brandsSection.querySelectorAll('video, iframe');
+                videos.forEach(video => {
+                    if (video.tagName === 'VIDEO') {
+                        // HTML5 video element
+                        video.pause();
+                        video.currentTime = 0;
+                    } else if (video.tagName === 'IFRAME') {
+                        // iframe videos (YouTube, Vimeo, etc.)
+                        // We need to reload the iframe to stop the video
+                        const videoSrc = video.src;
+                        video.src = videoSrc;
+                    }
+                });
+            }
+            
+            closeExpandedContent();
+        });
     }
     
     if (closeContactBtn) {
@@ -1223,7 +1097,27 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     if (brandsBackHomeBtn) {
-        brandsBackHomeBtn.addEventListener('click', closeExpandedContent);
+        brandsBackHomeBtn.addEventListener('click', () => {
+            // Stop all videos in brands section before closing
+            const brandsSection = document.querySelector('.brands-section');
+            if (brandsSection) {
+                const videos = brandsSection.querySelectorAll('video, iframe');
+                videos.forEach(video => {
+                    if (video.tagName === 'VIDEO') {
+                        // HTML5 video element
+                        video.pause();
+                        video.currentTime = 0;
+                    } else if (video.tagName === 'IFRAME') {
+                        // iframe videos (YouTube, Vimeo, etc.)
+                        // We need to reload the iframe to stop the video
+                        const videoSrc = video.src;
+                        video.src = videoSrc;
+                    }
+                });
+            }
+            
+            closeExpandedContent();
+        });
     }
     
     if (contactBackHomeBtn) {
@@ -1416,115 +1310,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-});
-
-// Gallery Popup Functionality
-document.addEventListener('DOMContentLoaded', () => {
-    const galleryPopup = document.querySelector('.gallery-popup');
-    const closeGallery = document.querySelector('.close-gallery');
-    const galleryMainImage = document.querySelector('.gallery-main-image');
-    const galleryThumbnails = document.querySelectorAll('.gallery-thumbnail');
-    const prevBtn = document.querySelector('.gallery-prev-btn');
-    const nextBtn = document.querySelector('.gallery-next-btn');
-    const projectThumbnails = document.querySelectorAll('.project-thumbnail');
-    
-    let currentImageIndex = 0;
-    let currentProjectImages = [];
-
-    // Open gallery popup
-    projectThumbnails.forEach(thumb => {
-        thumb.addEventListener('click', () => {
-            const project = thumb.getAttribute('data-project');
-            const thumbnailsContainer = document.querySelector(`.gallery-thumbnails-container[data-project="${project}"]`);
-            currentProjectImages = Array.from(thumbnailsContainer.querySelectorAll('.gallery-thumbnail img')).map(img => img.src);
-            
-            // Set initial image
-            currentImageIndex = 0;
-            updateGalleryImage();
-            
-            // Show popup
-            galleryPopup.classList.add('active');
-            document.body.classList.add('no-scroll');
-        });
-    });
-
-    // Close gallery popup
-    closeGallery.addEventListener('click', () => {
-        galleryPopup.classList.remove('active');
-        document.body.classList.remove('no-scroll');
-    });
-
-    // Close when clicking outside
-    galleryPopup.addEventListener('click', (e) => {
-        if (e.target === galleryPopup) {
-            galleryPopup.classList.remove('active');
-            document.body.classList.remove('no-scroll');
-        }
-    });
-
-    // Update gallery image
-    function updateGalleryImage() {
-        if (currentProjectImages.length > 0) {
-            galleryMainImage.src = currentProjectImages[currentImageIndex];
-            
-            // Update thumbnail states
-            galleryThumbnails.forEach((thumb, index) => {
-                thumb.classList.toggle('active', index === currentImageIndex);
-            });
-            
-            // Update button states
-            prevBtn.disabled = currentImageIndex === 0;
-            nextBtn.disabled = currentImageIndex === currentProjectImages.length - 1;
-        }
-    }
-
-    // Previous image
-    prevBtn.addEventListener('click', () => {
-        if (currentImageIndex > 0) {
-            currentImageIndex--;
-            updateGalleryImage();
-        }
-    });
-
-    // Next image
-    nextBtn.addEventListener('click', () => {
-        if (currentImageIndex < currentProjectImages.length - 1) {
-            currentImageIndex++;
-            updateGalleryImage();
-        }
-    });
-
-    // Thumbnail click
-    galleryThumbnails.forEach((thumb, index) => {
-        thumb.addEventListener('click', () => {
-            currentImageIndex = index;
-            updateGalleryImage();
-        });
-    });
-
-    // Keyboard navigation
-    document.addEventListener('keydown', (e) => {
-        if (!galleryPopup.classList.contains('active')) return;
-        
-        switch(e.key) {
-            case 'ArrowLeft':
-                if (currentImageIndex > 0) {
-                    currentImageIndex--;
-                    updateGalleryImage();
-                }
-                break;
-            case 'ArrowRight':
-                if (currentImageIndex < currentProjectImages.length - 1) {
-                    currentImageIndex++;
-                    updateGalleryImage();
-                }
-                break;
-            case 'Escape':
-                galleryPopup.classList.remove('active');
-                document.body.classList.remove('no-scroll');
-                break;
-        }
-    });
 });
 
 // Adaptive Carousel for Project Detail Popup
@@ -2177,56 +1962,470 @@ if (projectInfoBtn && projectDescriptionModal && closeProjectDescriptionBtn) {
     });
 }
 
-// Add touch event optimizations
-document.addEventListener('touchstart', (e) => {
-    // Prevent double-tap zoom
-    if (e.touches.length > 1) {
-        e.preventDefault();
+// Project Gallery functionality
+document.addEventListener('DOMContentLoaded', function() {
+    // Gallery Elements
+    const projectGalleryPopup = document.querySelector('.project-gallery-popup');
+    const gallerySlides = document.querySelectorAll('.gallery-slide');
+    const galleryBackground = document.querySelector('.gallery-background');
+    const prevSlideBtn = document.querySelector('.gallery-nav.prev-slide');
+    const nextSlideBtn = document.querySelector('.gallery-nav.next-slide');
+    const closeGalleryBtn = document.querySelector('.close-gallery');
+    const currentSlideElement = document.querySelector('.current-slide');
+    const totalSlidesElement = document.querySelector('.total-slides');
+    const galleryIndicatorsContainer = document.querySelector('.gallery-indicators');
+    
+    debugLog('Gallery initialized');
+    debugLog('Gallery popup found', !!projectGalleryPopup);
+    debugLog('Gallery slides found', gallerySlides.length);
+    debugLog('Gallery background found', !!galleryBackground);
+    debugLog('Prev button found', !!prevSlideBtn);
+    debugLog('Next button found', !!nextSlideBtn);
+    
+    // Get gallery buttons with multiple approaches to ensure we catch it
+    const galleryButtons = document.querySelectorAll('.project-btn.view-gallery-btn, .project-btn[data-translate="viewGallery"], .project-btn i.fas.fa-images');
+    
+    // Direct approach to find all project buttons with Gallery text
+    document.querySelectorAll('.project-buttons .project-btn').forEach(btn => {
+        if (btn.textContent.trim().includes('Gallery')) {
+            debugLog('Found Gallery button by text content', btn.textContent);
+            // Add event listener directly
+            btn.addEventListener('click', function(e) {
+                debugLog('Gallery button clicked via text content match');
+                e.preventDefault();
+                e.stopPropagation();
+                projectGalleryPopup.classList.add('active');
+                document.body.classList.add('no-scroll');
+                showSlide(0);
+            });
+        }
+    });
+    
+    debugLog('Gallery buttons found by selector', galleryButtons.length);
+    
+    // Create gallery indicators
+    function createGalleryIndicators() {
+        if (!galleryIndicatorsContainer) return;
+        
+        // Clear existing indicators
+        galleryIndicatorsContainer.innerHTML = '';
+        
+        // Create an indicator for each slide
+        gallerySlides.forEach((_, index) => {
+            const indicator = document.createElement('div');
+            indicator.classList.add('gallery-indicator');
+            if (index === 0) indicator.classList.add('active');
+            
+            indicator.addEventListener('click', () => {
+                showSlide(index);
+            });
+            
+            galleryIndicatorsContainer.appendChild(indicator);
+        });
     }
-}, { passive: false });
-
-// Simplified scroll handling
-let scrollTimeout;
-window.addEventListener('scroll', () => {
-    if (viewportWidth < 768) {
-        clearTimeout(scrollTimeout);
-        scrollTimeout = setTimeout(() => {
-            // No scroll animations needed
-        }, 100);
+    
+    // Create indicators when DOM is loaded
+    createGalleryIndicators();
+    
+    // Set total slides
+    if (totalSlidesElement && gallerySlides.length > 0) {
+        totalSlidesElement.textContent = gallerySlides.length;
+        debugLog('Set total slides to', gallerySlides.length);
     }
-}, { passive: true });
-
-// Simplified orientation handling
-window.addEventListener('orientationchange', () => {
-    setTimeout(updateResponsiveLayout, 100);
+    
+    // Current slide index
+    let currentSlideIndex = 0;
+    
+    // Open Gallery - add event listeners to all buttons
+    galleryButtons.forEach(button => {
+        debugLog('Adding event listener to gallery button element');
+        button.addEventListener('click', function(e) {
+            debugLog('Gallery button clicked via selector');
+            e.preventDefault();
+            e.stopPropagation(); // Stop any parent handlers
+            projectGalleryPopup.classList.add('active');
+            document.body.classList.add('no-scroll');
+            showSlide(0);
+        });
+    });
+    
+    // Add global click handler for any gallery buttons (delegation approach)
+    document.addEventListener('click', function(e) {
+        const clickedBtn = e.target.closest('.project-btn');
+        if (clickedBtn && (
+            clickedBtn.getAttribute('data-translate') === 'viewGallery' || 
+            clickedBtn.textContent.includes('Gallery') ||
+            clickedBtn.querySelector('i.fas.fa-images')
+        )) {
+            debugLog('Gallery button clicked via delegation');
+            e.preventDefault();
+            e.stopPropagation();
+            projectGalleryPopup.classList.add('active');
+            document.body.classList.add('no-scroll');
+            showSlide(0);
+        }
+    });
+    
+    // Close Gallery
+    if (closeGalleryBtn) {
+        closeGalleryBtn.addEventListener('click', function() {
+            debugLog('Close gallery button clicked');
+            projectGalleryPopup.classList.remove('active');
+            document.body.classList.remove('no-scroll');
+        });
+    }
+    
+    // Click outside to close
+    if (projectGalleryPopup) {
+        projectGalleryPopup.addEventListener('click', function(e) {
+            if (e.target === projectGalleryPopup) {
+                debugLog('Clicked outside gallery to close');
+                projectGalleryPopup.classList.remove('active');
+                document.body.classList.remove('no-scroll');
+            }
+        });
+    }
+    
+    // Show Slide with enhanced animation
+    function showSlide(index) {
+        if (!gallerySlides || gallerySlides.length === 0) {
+            debugLog('No gallery slides found');
+            return;
+        }
+        
+        debugLog('Showing slide', index);
+        
+        // Handle index bounds
+        if (index < 0) {
+            index = gallerySlides.length - 1;
+        } else if (index >= gallerySlides.length) {
+            index = 0;
+        }
+        
+        // Update current index
+        currentSlideIndex = index;
+        
+        // Update slides with a subtle animation
+        gallerySlides.forEach((slide, i) => {
+            if (i === index) {
+                // First remove active class from all slides
+                slide.classList.remove('active');
+                
+                // Force a reflow to ensure animation works
+                void slide.offsetWidth;
+                
+                // Add active class back to the current slide
+                slide.classList.add('active');
+                
+                // Add a subtle scale animation to the image container
+                const imageContainer = slide.querySelector('.gallery-image-container');
+                if (imageContainer) {
+                    imageContainer.style.transform = 'translateY(10px) scale(0.98)';
+                    setTimeout(() => {
+                        imageContainer.style.transform = 'translateY(0) scale(1)';
+                    }, 50);
+                }
+            } else {
+                slide.classList.remove('active');
+            }
+        });
+        
+        // Update the background image
+        if (galleryBackground) {
+            const currentImage = gallerySlides[index].querySelector('.gallery-image');
+            if (currentImage) {
+                // Preload the image to ensure smooth background transition
+                const imageUrl = currentImage.src;
+                const preloadImg = new Image();
+                preloadImg.onload = function() {
+                    galleryBackground.style.backgroundImage = `url('${imageUrl}')`;
+                    debugLog('Updated background to', imageUrl);
+                };
+                preloadImg.src = imageUrl;
+                
+                // If image is already cached, set background immediately
+                if (preloadImg.complete) {
+                    galleryBackground.style.backgroundImage = `url('${imageUrl}')`;
+                }
+            }
+        }
+        
+        // Update indicators with animation
+        const indicators = document.querySelectorAll('.gallery-indicator');
+        indicators.forEach((indicator, i) => {
+            indicator.classList.toggle('active', i === index);
+            
+            // Add subtle animation to the active indicator
+            if (i === index) {
+                indicator.style.transform = 'scale(1.2)';
+                setTimeout(() => {
+                    indicator.style.transform = '';
+                }, 300);
+            }
+        });
+        
+        // Update pagination
+        if (currentSlideElement) {
+            currentSlideElement.textContent = index + 1;
+        }
+        
+        // Preload next and previous images for smoother navigation
+        preloadAdjacentImages(index);
+    }
+    
+    // Preload adjacent images for smoother navigation
+    function preloadAdjacentImages(currentIndex) {
+        // Preload next image
+        if (currentIndex < gallerySlides.length - 1) {
+            const nextImage = gallerySlides[currentIndex + 1].querySelector('.gallery-image');
+            if (nextImage) {
+                const preloadNext = new Image();
+                preloadNext.src = nextImage.src;
+            }
+        }
+        
+        // Preload previous image
+        if (currentIndex > 0) {
+            const prevImage = gallerySlides[currentIndex - 1].querySelector('.gallery-image');
+            if (prevImage) {
+                const preloadPrev = new Image();
+                preloadPrev.src = prevImage.src;
+            }
+        }
+    }
+    
+    // Initialize gallery with first slide as background
+    if (galleryBackground && gallerySlides.length > 0) {
+        const firstImage = gallerySlides[0].querySelector('.gallery-image');
+        if (firstImage) {
+            galleryBackground.style.backgroundImage = `url('${firstImage.src}')`;
+            debugLog('Set initial background to', firstImage.src);
+        }
+    }
+    
+    // Next Slide
+    if (nextSlideBtn) {
+        nextSlideBtn.addEventListener('click', function(e) {
+            debugLog('Next slide button clicked');
+            e.stopPropagation();
+            showSlide(currentSlideIndex + 1);
+        });
+    }
+    
+    // Previous Slide
+    if (prevSlideBtn) {
+        prevSlideBtn.addEventListener('click', function(e) {
+            debugLog('Previous slide button clicked');
+            e.stopPropagation();
+            showSlide(currentSlideIndex - 1);
+        });
+    }
+    
+    // Keyboard navigation
+    document.addEventListener('keydown', function(e) {
+        if (!projectGalleryPopup || !projectGalleryPopup.classList.contains('active')) return;
+        
+        if (e.key === 'ArrowLeft') {
+            debugLog('Left arrow key pressed');
+            showSlide(currentSlideIndex - 1);
+        } else if (e.key === 'ArrowRight') {
+            debugLog('Right arrow key pressed');
+            showSlide(currentSlideIndex + 1);
+        } else if (e.key === 'Escape') {
+            debugLog('Escape key pressed');
+            projectGalleryPopup.classList.remove('active');
+            document.body.classList.remove('no-scroll');
+        }
+    });
+    
+    // Swipe functionality for touch devices
+    let touchStartX = 0;
+    let touchEndX = 0;
+    
+    if (projectGalleryPopup) {
+        projectGalleryPopup.addEventListener('touchstart', function(e) {
+            touchStartX = e.changedTouches[0].screenX;
+            debugLog('Touch start', touchStartX);
+        }, { passive: true });
+        
+        projectGalleryPopup.addEventListener('touchend', function(e) {
+            touchEndX = e.changedTouches[0].screenX;
+            debugLog('Touch end', touchEndX);
+            handleSwipe();
+        }, { passive: true });
+    }
+    
+    function handleSwipe() {
+        if (touchEndX < touchStartX - 50) {
+            // Swipe left - next slide
+            debugLog('Swipe left detected');
+            showSlide(currentSlideIndex + 1);
+        } else if (touchEndX > touchStartX + 50) {
+            // Swipe right - previous slide
+            debugLog('Swipe right detected');
+            showSlide(currentSlideIndex - 1);
+        }
+    }
 });
 
-// Simplified navigation
-const setupMobileNavigation = () => {
-    if (viewportWidth < 768) {
-        const menuItems = document.querySelectorAll('.off-canvas-menu-item');
-        menuItems.forEach(item => {
-            item.addEventListener('click', (e) => {
-                e.preventDefault();
-                const target = e.currentTarget.getAttribute('data-target');
-                if (target) {
-                    document.querySelector(target).scrollIntoView({
-                        behavior: 'auto',
-                        block: 'start'
-                    });
-                }
+// Gallery Functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const galleryModal = document.querySelector('.gallery-modal');
+    const galleryContainer = document.querySelector('.gallery-container');
+    const gallerySlides = document.querySelectorAll('.gallery-slide');
+    const prevBtn = document.querySelector('.gallery-prev-btn');
+    const nextBtn = document.querySelector('.gallery-next-btn');
+    const closeBtn = document.querySelector('.close-gallery');
+    const galleryCounter = document.querySelector('.gallery-counter');
+    const galleryBtn = document.querySelector('.gallery-btn');
+    
+    let currentSlide = 0;
+    
+    // Open gallery
+    if (galleryBtn) {
+        galleryBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            // First show the modal
+            galleryModal.style.display = 'flex';
+            
+            // Trigger reflow
+            galleryModal.offsetHeight;
+            
+            // Add active class for animation
+            galleryModal.classList.add('active');
+            galleryModal.classList.remove('closing');
+            document.body.style.overflow = 'hidden';
+            updateGalleryCounter();
+        });
+    }
+    
+    // Close gallery
+    if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+            // Add closing class for animation
+            galleryModal.classList.add('closing');
+            galleryModal.classList.remove('active');
+            
+            // Wait for animation to complete before hiding
+            setTimeout(() => {
+                galleryModal.style.display = 'none';
+                document.body.style.overflow = '';
+            }, 500); // Match the transition duration
+        });
+    }
+    
+    // Close gallery when clicking outside
+    if (galleryModal) {
+        galleryModal.addEventListener('click', (e) => {
+            if (e.target === galleryModal) {
+                // Add closing class for animation
+                galleryModal.classList.add('closing');
+                galleryModal.classList.remove('active');
+                
+                // Wait for animation to complete before hiding
+                setTimeout(() => {
+                    galleryModal.style.display = 'none';
+                    document.body.style.overflow = '';
+                }, 500); // Match the transition duration
+            }
+        });
+    }
+    
+    // Previous slide
+    if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+            gallerySlides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide - 1 + gallerySlides.length) % gallerySlides.length;
+            gallerySlides[currentSlide].classList.add('active');
+            updateGalleryCounter();
+        });
+    }
+    
+    // Next slide
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            gallerySlides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % gallerySlides.length;
+            gallerySlides[currentSlide].classList.add('active');
+            updateGalleryCounter();
+        });
+    }
+    
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+        if (galleryModal && galleryModal.classList.contains('active')) {
+            if (e.key === 'ArrowLeft') {
+                prevBtn.click();
+            } else if (e.key === 'ArrowRight') {
+                nextBtn.click();
+            } else if (e.key === 'Escape') {
+                closeBtn.click();
+            }
+        }
+    });
+    
+    // Update gallery counter
+    function updateGalleryCounter() {
+        if (galleryCounter) {
+            galleryCounter.textContent = `${currentSlide + 1} / ${gallerySlides.length}`;
+        }
+    }
+});
+
+// Project Description Popup Functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const projectDescriptionPopup = document.querySelector('.project-description-popup');
+    const closeProjectDescriptionBtn = document.querySelector('.close-project-description');
+    const readAboutProjectBtn = document.querySelector('.project-btn[data-translate="readAboutProject"]');
+    const serviceSection = document.querySelector('.service-section');
+    
+    // Open project description popup
+    if (readAboutProjectBtn) {
+        readAboutProjectBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            // Ensure the popup appears immediately
+            projectDescriptionPopup.style.display = 'flex';
+            requestAnimationFrame(() => {
+                projectDescriptionPopup.classList.add('active');
+                document.body.classList.add('no-scroll');
             });
         });
     }
-};
-
-// Initialize mobile-specific features
-const initializeMobileFeatures = () => {
-    if (viewportWidth < 768) {
-        setupMobileNavigation();
-        updateResponsiveLayout();
+    
+    // Close project description popup
+    if (closeProjectDescriptionBtn) {
+        closeProjectDescriptionBtn.addEventListener('click', function() {
+            projectDescriptionPopup.classList.remove('active');
+            setTimeout(() => {
+                projectDescriptionPopup.style.display = 'none';
+                document.body.classList.remove('no-scroll');
+            }, 500); // Match the transition duration
+        });
     }
-};
-
-// Call initialization
-document.addEventListener('DOMContentLoaded', initializeMobileFeatures);
+    
+    // Close popup when clicking outside
+    projectDescriptionPopup.addEventListener('click', function(e) {
+        if (e.target === projectDescriptionPopup) {
+            projectDescriptionPopup.classList.remove('active');
+            setTimeout(() => {
+                projectDescriptionPopup.style.display = 'none';
+                document.body.classList.remove('no-scroll');
+            }, 500); // Match the transition duration
+        }
+    });
+    
+    // Close popup with Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && projectDescriptionPopup.classList.contains('active')) {
+            projectDescriptionPopup.classList.remove('active');
+            setTimeout(() => {
+                projectDescriptionPopup.style.display = 'none';
+                document.body.classList.remove('no-scroll');
+            }, 500); // Match the transition duration
+        }
+    });
+});

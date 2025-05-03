@@ -31,9 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Then remove it from DOM after animation completes
         loader.addEventListener('transitionend', () => {
             document.body.classList.add('loaded');
-            setTimeout(() => {
-                loader.remove();
-            }, 100);
+            loader.remove();
         }, { once: true });
     };
     
@@ -41,9 +39,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (document.readyState === 'complete') {
         showPage();
     } else {
+        // Use requestAnimationFrame for smoother performance
         window.addEventListener('load', () => {
-            // Use a shorter minimum duration for better UX
-            setTimeout(showPage, 1200);
+            // Reduced loader time for better UX
+            requestAnimationFrame(() => {
+                setTimeout(showPage, 800);
+            });
         });
     }
 });

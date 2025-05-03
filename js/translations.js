@@ -12,17 +12,9 @@ const translations = {
         explore: "Explore",
         aboutButton: "The Person",
         viewGallery: "View Gallery",
-        readAboutProject: "Read About This Project",
-        
-        // New mobile specific translations
-        scrollDown: "Scroll Down",
-        projectGallery: "Project Gallery",
-        californiaProject: "California Family Home",
-        galleryDescription: "A transformative project that blends comfort with luxury for a family residence in California.",
-        subject: "Subject",
-        send: "Send Message",
-        followUs: "Follow Us",
-        contactIntro: "We would love to hear from you. Please fill out the form below, and we'll get back to you as soon as possible.",
+        readAboutProject: "Read more",
+        pageTitle: "Luxury Design Portfolio",
+        companyName: "Ingrid Bergman Interiors",
         
         // About Section
         aboutTitle: "The Person",
@@ -57,6 +49,9 @@ const translations = {
         indoorCollections: "Indoor Collections",
         videoCollections: "Video Collections",
         visitWebsite: "Visit Website",
+        brandName: "Brand Name",
+        videoTitle: "EKML Headquarters Amsterdam",
+        address: "Ingrid Bergman Interiors\nRua Fernão Lopes 279\nAlbufeira, Portugal",
         
         // Contact Section
         contactTitle: "Contact Us",
@@ -73,13 +68,14 @@ const translations = {
         
         // Projects Section
         projectsTitle: "Ingrid's Projects",
-        projectTitle: "Transforming a Family Home",
+        projectTitle: "Transforming of a family home",
         projectLocation: "California, US",
         projectDescription1: "We recently had the pleasure of transforming a classic traditional American quinta into a refined, modern sanctuary for a young family with three children. This full-scale renovation was more than just a makeover—it was a complete reinvention of the space to align with contemporary living while preserving a warm, welcoming atmosphere.",
         projectDescription2: "The home was fully gutted to allow for a bold redesign, featuring an open floorplan that brings in natural light and flow. At the heart of the home stands a stunning, high-end Italian kitchen—both sleek and functional—paired with a custom-designed bathroom that exudes luxury and serenity.",
         projectDescription3: "Throughout the house, we laid elegant fishbone oak flooring, adding texture and timeless style. A striking fireplace became a central feature, creating a cozy gathering space for the family. Carefully curated high-end furniture from Eric Kuster, paired with limited edition art and thoughtfully chosen accessories, completed the design with sophistication and personality.",
         projectDescription4: "Every detail was selected to reflect comfort, elegance, and a touch of boldness—and the result? A truly elevated family home, perfectly tailored to the lifestyle and vision of our delighted clients.",
-        signature: "— Ingrid Bergman"
+        signature: "— Ingrid Bergman",
+        projectsComingSoon: "Coming soon - Showcase of Ingrid's latest interior design projects"
     },
     pt: {
         // Navigation
@@ -93,17 +89,9 @@ const translations = {
         explore: "Explorar",
         aboutButton: "A Pessoa",
         viewGallery: "Ver Galeria",
-        readAboutProject: "Ler Sobre Este Projeto",
-        
-        // New mobile specific translations
-        scrollDown: "Deslizar para Baixo",
-        projectGallery: "Galeria de Projetos",
-        californiaProject: "Casa Familiar na Califórnia",
-        galleryDescription: "Um projeto transformador que combina conforto com luxo para uma residência familiar na Califórnia.",
-        subject: "Assunto",
-        send: "Enviar Mensagem",
-        followUs: "Siga-nos",
-        contactIntro: "Gostaríamos muito de receber o seu contacto. Por favor, preencha o formulário abaixo e entraremos em contacto o mais brevemente possível.",
+        readAboutProject: "Ler mais",
+        pageTitle: "Portfólio de Design de Luxo",
+        companyName: "Ingrid Bergman Interiors",
         
         // About Section
         aboutTitle: "A Pessoa",
@@ -138,6 +126,9 @@ const translations = {
         indoorCollections: "Coleções Interiores",
         videoCollections: "Coleções em Vídeo",
         visitWebsite: "Visitar Website",
+        brandName: "Nome da Marca",
+        videoTitle: "Sede EKML Amesterdão",
+        address: "Ingrid Bergman Interiors\nRua Fernão Lopes 279\nAlbufeira, Portugal",
         
         // Contact Section
         contactTitle: "Contacte-nos",
@@ -160,60 +151,67 @@ const translations = {
         projectDescription2: "A casa foi completamente renovada para permitir um design ousado, com um plano aberto que traz luz natural e fluidez. No coração da casa está uma cozinha italiana de luxo—elegante e funcional—combinada com uma casa de banho personalizada que exala luxo e serenidade.",
         projectDescription3: "Por toda a casa, colocámos pavimento em carvalho espinha de peixe, adicionando textura e estilo atemporal. Uma lareira impressionante tornou-se um elemento central, criando um espaço acolhedor para a família. Mobiliário de luxo cuidadosamente selecionado da Eric Kuster, combinado com arte de edição limitada e acessórios escolhidos com cuidado, completou o design com sofisticação e personalidade.",
         projectDescription4: "Cada detalhe foi selecionado para refletir conforto, elegância e um toque de ousadia—e o resultado? Uma casa de família verdadeiramente elevada, perfeitamente adaptada ao estilo de vida e visão dos nossos clientes encantados.",
-        signature: "— Ingrid Bergman"
+        signature: "— Ingrid Bergman",
+        projectsComingSoon: "Brevemente - Mostra dos mais recentes projetos de design de interiores da Ingrid"
     }
 };
 
 // Function to apply translations
-function applyLanguage(lang) {
+function applyLanguage(lang, showTransition = true) {
+    // Only show transition overlay if showTransition is true
+    if (showTransition) {
+        // Show transition overlay
+        const transitionOverlay = document.querySelector('.language-transition-overlay');
+        const transitionContent = document.createElement('div');
+        transitionContent.className = 'language-transition-content';
+        
+        // Add appropriate emoji and text based on language
+        if (lang === 'pt') {
+            transitionContent.innerHTML = `
+                <div class="language-transition-emoji">🇵🇹</div>
+                <div>Mudando para Português...</div>
+            `;
+        } else {
+            transitionContent.innerHTML = `
+                <div class="language-transition-emoji">🇬🇧</div>
+                <div>Switching to English...</div>
+            `;
+        }
+        
+        transitionOverlay.innerHTML = '';
+        transitionOverlay.appendChild(transitionContent);
+        transitionOverlay.classList.add('active');
+        
+        // Apply translations after a short delay
+        setTimeout(() => {
+            // Apply translations
+            applyTranslations(lang);
+            
+            // Hide transition overlay
+            setTimeout(() => {
+                transitionOverlay.classList.remove('active');
+            }, 1000);
+        }, 1000);
+    } else {
+        // Apply translations immediately without transition
+        applyTranslations(lang);
+    }
+}
+
+// Helper function to apply translations to elements
+function applyTranslations(lang) {
     // Get all elements with data-translate attribute
     const elements = document.querySelectorAll('[data-translate]');
     
     elements.forEach(element => {
         const key = element.getAttribute('data-translate');
         if (translations[lang] && translations[lang][key]) {
-            // Check if it's an element with placeholder attributes
-            if (element.hasAttribute('placeholder')) {
-                element.setAttribute('placeholder', translations[lang][key]);
-            } else {
-                element.textContent = translations[lang][key];
-            }
+            element.textContent = translations[lang][key];
         }
     });
-    
-    // Update language buttons active state
-    const langButtons = document.querySelectorAll('.mobile-lang-btn');
-    langButtons.forEach(btn => {
-        if (btn.getAttribute('data-lang') === lang) {
-            btn.classList.add('active');
-        } else {
-            btn.classList.remove('active');
-        }
-    });
-    
-    // Store the preferred language in localStorage
-    localStorage.setItem('preferredLanguage', lang);
 }
 
-// Set default language or use previously selected
+// Set default language to English without showing transition
 document.addEventListener('DOMContentLoaded', () => {
-    // Check if there's a language preference stored
-    const storedLang = localStorage.getItem('preferredLanguage');
-    // Only allow 'en' or 'pt' as valid language options
-    const defaultLang = (storedLang === 'en' || storedLang === 'pt') ? storedLang : 'en';
-    
-    // Apply the language
-    applyLanguage(defaultLang);
-    
-    // Add event listeners to language buttons
-    const langButtons = document.querySelectorAll('.mobile-lang-btn');
-    langButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const lang = btn.getAttribute('data-lang');
-            // Only apply if it's one of our supported languages
-            if (lang === 'en' || lang === 'pt') {
-                applyLanguage(lang);
-            }
-        });
-    });
+    applyLanguage('en', false);
 }); 

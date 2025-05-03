@@ -3,20 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Luxury Design Portfolio</title>
+    <title data-translate="pageTitle">Luxury Design Portfolio</title>
     <meta name="description" content="Premium interior design solutions. Transform your space with bespoke, elegant design.">
+    <meta name="theme-color" content="#a19c90">
     
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="images/logo white i.png">
-    <link rel="apple-touch-icon" href="images/logo white i.png">
+    <!-- Favicon Placeholder -->
+    <link rel="icon" href="assets/images/favicon.png" type="image/png">
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Performance optimizations -->
+    <meta http-equiv="x-dns-prefetch-control" content="on">
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+    <link rel="dns-prefetch" href="https://player.vimeo.com">
     
     <!-- Preload critical assets -->
     <link rel="preload" href="fonts/abadi-extra-light.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="fonts/roboto-light.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="css/styles.css" as="style">
+    <link rel="preload" href="js/loader.js" as="script">
+    <link rel="preload" href="images/logo white i.png" as="image" type="image/png">
+    <link rel="preload" href="images/Ingrid Bergman Portret.jpg" as="image" type="image/jpeg">
     
     <!-- Stylesheets -->
     <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/gallery.css">
     
     <!-- Font imports -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,41 +37,11 @@
     <!-- Icon library -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
-    <!-- Mobile detection -->
-    <script>
-        (function() {
-            // Check for desktop parameter in URL
-            const urlParams = new URLSearchParams(window.location.search);
-            const forceDesktop = urlParams.get('desktop') === '1';
-            
-            // If desktop is forced, store preference and show desktop version
-            if (forceDesktop) {
-                localStorage.setItem('preferDesktop', 'true');
-                return; // Skip mobile detection
-            }
-            
-            // Check if user previously chose desktop version
-            const preferDesktop = localStorage.getItem('preferDesktop') === 'true';
-            if (preferDesktop) {
-                return; // Skip mobile detection
-            }
-            
-            // Check if device is mobile based on user agent or screen size
-            const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-            const isSmallScreen = window.innerWidth < 768;
-            
-            // Redirect to mobile version if either condition is true
-            if (isMobileDevice || isSmallScreen) {
-                // Store the fact that we're redirecting to mobile in sessionStorage
-                sessionStorage.setItem('redirectedToMobile', 'true');
-                window.location.replace('mobile.html');
-            }
-        })();
-    </script>
+    <!-- Preload high-priority images that appear above the fold -->
+    <link rel="preload" href="images/the service (2).jpg" as="image" fetchpriority="high">
+    <link rel="preload" href="images/the brands.jpg" as="image" fetchpriority="high">
 </head>
 <body>
-    <!-- REMOVED: Mobile Homepage - Only shows on mobile -->
-
     <!-- Page Loader -->
     <div class="page-loader">
         <div class="loader-content">
@@ -72,101 +53,8 @@
     <!-- Page transition overlay -->
     <div class="page-transition-overlay"></div>
     
-    <!-- Mobile Header -->
-    <header class="mobile-header">
-        <img src="images/logo white i.png" alt="Logo" class="mobile-logo">
-        <button id="mobileMenuToggle" class="mobile-menu-toggle">
-            <div class="menu-icon">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </button>
-    </header>
-
-    <!-- Mobile Menu -->
-    <div id="mobileMenu" class="mobile-menu">
-        <div class="mobile-menu-header">
-            <h2>Menu</h2>
-        </div>
-        <div class="mobile-menu-items">
-            <a href="#" class="mobile-menu-item" data-section="home" data-translate="home">Home</a>
-            <a href="#" class="mobile-menu-item" data-section="service" data-translate="theService">The Service</a>
-            <a href="#" class="mobile-menu-item" data-section="person" data-translate="thePerson">The Person</a>
-            <a href="#" class="mobile-menu-item" data-section="brands" data-translate="theBrands">The Brands</a>
-            <a href="#" class="mobile-menu-item" data-section="contact" data-translate="contact">Contact</a>
-        </div>
-        <div class="mobile-social-links">
-            <a href="#" class="mobile-social-link"><i class="fab fa-instagram"></i></a>
-            <a href="#" class="mobile-social-link"><i class="fab fa-facebook-f"></i></a>
-            <a href="#" class="mobile-social-link"><i class="fab fa-linkedin-in"></i></a>
-        </div>
-        
-        <!-- Mobile menu background elements -->
-        <div class="menu-background-element menu-bg-1"></div>
-        <div class="menu-background-element menu-bg-2"></div>
-    </div>
-
-    <!-- Mobile Main Content - Only visible on mobile -->
-    <main class="mobile-sections">
-        <!-- Mobile Pagination Dots -->
-        <div class="mobile-pagination">
-            <div class="mobile-pagination-dot active" data-section="0"></div>
-            <div class="mobile-pagination-dot" data-section="1"></div>
-            <div class="mobile-pagination-dot" data-section="2"></div>
-        </div>
-
-        <!-- Section 1: The Service -->
-        <section class="mobile-section" id="serviceSection">
-            <div class="mobile-section-background" style="background: url('images/the service (2).jpg') center/cover no-repeat;"></div>
-            <div class="mobile-section-overlay"></div>
-            <div class="mobile-section-content">
-                <h2 class="mobile-section-title" data-translate="service">The Service</h2>
-                <p class="mobile-section-description" data-translate="serviceDescription">Ingrid Bergman Interiors is a comprehensive residential and commercial furniture agency, offering full-service solutions. We begin by understanding our clients' practical needs and style preferences, ensuring a personalized experience.</p>
-                <button class="mobile-explore-btn" data-section="service" data-translate="explore">Explore</button>
-            </div>
-            <!-- Scroll indicator -->
-            <div class="scroll-indicator">
-                <span class="scroll-indicator-text">Scroll to explore</span>
-                <div class="scroll-indicator-arrow">↓</div>
-            </div>
-        </section>
-
-        <!-- Section 2: The Person -->
-        <section class="mobile-section" id="personSection">
-            <div class="mobile-section-background" style="background: url('images/Ingrid Bergman Portret.jpg') center/cover no-repeat;"></div>
-            <div class="mobile-section-overlay"></div>
-            <div class="mobile-section-content">
-                <h2 class="mobile-section-title" data-translate="person">The Person</h2>
-                <p class="mobile-section-description" data-translate="personDescription">Ingrid Bergman embarked on her interior design journey in 2013 after spending two decades in the high-end fashion industry. Her extensive background in retail has proven to be a tremendous asset for her clients.</p>
-                <button class="mobile-explore-btn" data-section="person" data-translate="explore">Explore</button>
-            </div>
-            <!-- Scroll indicator -->
-            <div class="scroll-indicator">
-                <span class="scroll-indicator-text">Scroll to explore</span>
-                <div class="scroll-indicator-arrow">↓</div>
-            </div>
-        </section>
-
-        <!-- Section 3: The Brands -->
-        <section class="mobile-section" id="brandsSection">
-            <div class="mobile-section-background" style="background: url('images/the brands.jpg') center/cover no-repeat;"></div>
-            <div class="mobile-section-overlay"></div>
-            <div class="mobile-section-content">
-                <h2 class="mobile-section-title" data-translate="brands">The Brands</h2>
-                <p class="mobile-section-description" data-translate="brandsDescription">We carry the most exclusive brands for any project for any client for any budget. Discover our curated collection of luxury furnishings and accessories.</p>
-                <button class="mobile-explore-btn" data-section="brands" data-translate="explore">Explore</button>
-            </div>
-            <!-- Scroll indicator -->
-            <div class="scroll-indicator">
-                <span class="scroll-indicator-text">Scroll to explore</span>
-                <div class="scroll-indicator-arrow">↓</div>
-            </div>
-        </section>
-    </main>
-    
-    <!-- Desktop Header - Only visible on desktop -->
-    <header class="header desktop-only">
+    <!-- Header -->
+    <header class="header">
         <div class="logo-container">
             <img src="images/logo white i.png" alt="Ingrid Bergman Interiors Logo">
             <div class="close-icon"></div>
@@ -174,15 +62,15 @@
         </div>
     </header>
 
-    <!-- Main Content: 3-Panel Layout - Only visible on desktop -->
-    <main class="main-content desktop-only">
+    <!-- Main Content: 3-Panel Layout -->
+    <main class="main-content">
         <!-- Left Panel: The Service -->
         <section class="section section-left">
             <div class="section-background" style="background: url('images/the service (2).jpg') center/cover no-repeat;"></div>
             <div class="hover-overlay"></div>
             <div class="section-content">
-                <h2 class="section-title" data-translate="service">The Service</h2>
-                <button class="expand-btn" id="serviceExpandBtn" data-translate="explore">Explore</button>
+                <h2 class="section-title" data-translate="serviceTitle">The Service</h2>
+                <button class="expand-btn" id="serviceExpandBtn" data-translate="serviceTitle">The Service</button>
             </div>
         </section>
 
@@ -199,8 +87,12 @@
                         <div class="bw-right"></div>
                     </div>
                     
-                    <button class="about-btn" data-translate="aboutButton">The Person</button>
+                    <button class="about-btn" data-translate="person">The Person</button>
                 </div>
+            </div>
+            <!-- Added section content for mobile view -->
+            <div class="section-content">
+                <button class="about-btn" data-translate="person">The Person</button>
             </div>
         </div>
 
@@ -209,210 +101,15 @@
             <div class="section-background" style="background: url('images/the brands.jpg') center/cover no-repeat;"></div>
             <div class="hover-overlay"></div>
             <div class="section-content">
-                <h2 class="section-title" data-translate="brands">The Brands</h2>
-                <button class="expand-btn" id="brandsExpandBtn" data-translate="explore">Explore</button>
+                <h2 class="section-title" data-translate="brandsTitle">The Brands</h2>
+                <button class="expand-btn" id="brandsExpandBtn" data-translate="brandsTitle">The Brands</button>
             </div>
         </section>
     </main>
 
-    <!-- Mobile Fullscreen Sections - For mobile expanded views -->
-    <!-- The Person Section -->
-    <div class="mobile-fullscreen-section" id="personFullSection">
-        <div class="mobile-section-header">
-            <div class="mobile-section-back">
-                <i class="fas fa-arrow-left"></i>
-            </div>
-            <h2 class="mobile-section-header-title" data-translate="person">The Person</h2>
-            <div style="width: 40px;"></div>
-        </div>
-        <div class="mobile-section-body">
-            <img src="images/blank.gif" data-src="images/Ingrid Bergman Portret.jpg" alt="Ingrid Bergman" class="mobile-about-image">
-            <h2 class="mobile-about-title" data-translate="aboutTitle">Ingrid Bergman</h2>
-            <p class="mobile-about-subtitle" data-translate="aboutSubtitle">Founder of Ingrid Bergman Interiors</p>
-            <div class="mobile-about-text">
-                <p class="mobile-about-paragraph" data-translate="aboutParagraph1">Ingrid Bergman embarked on her interior design journey in 2013 after spending two decades in the high-end fashion industry. Her time at a renowned interior design firm in Dubai provided her with invaluable experience, allowing her to master the nuances of the trade.</p>
-                <p class="mobile-about-paragraph" data-translate="aboutParagraph2">Ingrid's extensive background in retail has proven to be a tremendous asset for her clients. This experience has sharpened her impeccable taste in colors and fabrics and honed her ability to source the most exclusive furniture for her agency.</p>
-                <p class="mobile-about-paragraph" data-translate="aboutParagraph3">One of Ingrid's most remarkable qualities is her ability to genuinely listen to her clients, ensuring she delivers the beautiful results they envision. She believes this skill is crucial in building strong client relationships, which lead to inspired, creative design solutions and ultimate client satisfaction.</p>
-                <p class="mobile-about-paragraph" data-translate="aboutParagraph4">Ingrid's work is global, with a diverse portfolio of projects. Her home in Portugal, complete with a breathtaking garden, has been transformed into an exclusive showroom where guests can experience the essence of luxury living.</p>
-                <p class="mobile-about-paragraph" data-translate="aboutParagraph5">Clients are invited to visit the Villa in the Algarve to explore her collections and discuss their projects in this unique and inspiring setting.</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- The Service Section -->
-    <div class="mobile-fullscreen-section" id="serviceFullSection">
-        <div class="mobile-section-header">
-            <div class="mobile-section-back">
-                <i class="fas fa-arrow-left"></i>
-            </div>
-            <h2 class="mobile-section-header-title" data-translate="service">The Service</h2>
-            <div style="width: 40px;"></div>
-        </div>
-        <div class="mobile-section-body">
-            <p data-translate="serviceFullDescription">Ingrid Bergman Interiors is a comprehensive residential and commercial furniture agency, offering full-service solutions. We begin by understanding our clients' practical needs and style preferences, ensuring a personalized experience. Our distinctive showroom, located in the heart of the Algarve, serves as an inspirational space where visitors can envision the possibilities of outdoor and indoor living.</p>
-            <h3 class="service-subtitle" data-translate="serviceSubtitle">We can assist you with</h3>
-            <div class="mobile-service-cards">
-                <div class="mobile-service-card">
-                    <h3 data-translate="conceptDesign">Concept & Design</h3>
-                    <p data-translate="conceptDesignDesc">To make a concept and design (with mood & material boards)</p>
-                </div>
-                <div class="mobile-service-card">
-                    <h3 data-translate="spacePlanning">Space Planning</h3>
-                    <p data-translate="spacePlanningDesc">To plan your space (floorplans and 3D renders)</p>
-                </div>
-                <div class="mobile-service-card">
-                    <h3 data-translate="furnitureSourcing">Furniture Sourcing</h3>
-                    <p data-translate="furnitureSourcingDesc">To source furniture</p>
-                </div>
-                <div class="mobile-service-card">
-                    <h3 data-translate="windowTreatment">Window Treatment</h3>
-                    <p data-translate="windowTreatmentDesc">To find the right window treatment</p>
-                </div>
-                <div class="mobile-service-card">
-                    <h3 data-translate="lightingPlanning">Lighting Planning</h3>
-                    <p data-translate="lightingPlanningDesc">To plan your lighting</p>
-                </div>
-                <div class="mobile-service-card">
-                    <h3 data-translate="accessoriesCarpets">Accessories & Carpets</h3>
-                    <p data-translate="accessoriesCarpetsDesc">To source carpets & home accessories</p>
-                </div>
-            </div>
-            
-            <div style="margin-top: 30px;">
-                <h3 data-translate="projectsTitle">Ingrid's Projects</h3>
-                <div style="margin-top: 15px;">
-                    <img src="images/blank.gif" data-src="images/CA project done/IBICali2019-30.jpg" alt="California Family Home Project" style="width: 100%; height: auto; margin-bottom: 15px;">
-                    <h3 data-translate="projectTitle">Transforming a Family Home</h3>
-                    <p data-translate="projectLocation">California, US</p>
-                    <button type="button" class="mobile-explore-btn" id="projectGalleryBtn" style="margin-top: 15px;">
-                        <span data-translate="viewGallery">View Gallery</span>
-                        <i class="fas fa-images" style="margin-left: 10px;"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- The Brands Section -->
-    <div class="mobile-fullscreen-section" id="brandsFullSection">
-        <div class="mobile-section-header">
-            <div class="mobile-section-back">
-                <i class="fas fa-arrow-left"></i>
-            </div>
-            <h2 class="mobile-section-header-title" data-translate="brands">The Brands</h2>
-            <div style="width: 40px;"></div>
-        </div>
-        <div class="mobile-section-body">
-            <p class="brands-subtitle" data-translate="brandsSubtitle">We carry the most exclusive brands for any project for any client for any budget</p>
-            
-            <h3 style="margin-top: 25px;" data-translate="outdoorCollections">Outdoor Collections</h3>
-            <div class="mobile-brand-list">
-                <div class="mobile-brand-item">
-                    <img src="images/blank.gif" data-src="images/Borek picture for website.jpg" alt="Borek" class="mobile-brand-image">
-                    <h3 class="mobile-brand-name">Borek</h3>
-                    <a href="https://www.borek.eu" target="_blank" class="mobile-brand-link" data-translate="visitWebsite">Visit Website</a>
-                </div>
-                <div class="mobile-brand-item">
-                    <img src="images/blank.gif" data-src="images/bryck.jpg" alt="BRYCK" class="mobile-brand-image">
-                    <h3 class="mobile-brand-name">BRYCK</h3>
-                    <a href="https://www.bryck.nl" target="_blank" class="mobile-brand-link" data-translate="visitWebsite">Visit Website</a>
-                </div>
-                <div class="mobile-brand-item">
-                    <img src="images/blank.gif" data-src="images/C&C Milano picture for website.jpg" alt="C&C Milano" class="mobile-brand-image">
-                    <h3 class="mobile-brand-name">C&C Milano</h3>
-                    <a href="https://www.cec-milano.it" target="_blank" class="mobile-brand-link" data-translate="visitWebsite">Visit Website</a>
-                </div>
-                <div class="mobile-brand-item">
-                    <img src="images/blank.gif" data-src="images/cape umbrellas.jpg" alt="Cape Umbrellas" class="mobile-brand-image">
-                    <h3 class="mobile-brand-name">Cape Umbrellas</h3>
-                    <a href="https://www.capeumbrellas.com" target="_blank" class="mobile-brand-link" data-translate="visitWebsite">Visit Website</a>
-                </div>
-            </div>
-            
-            <h3 style="margin-top: 25px;" data-translate="indoorCollections">Indoor Collections</h3>
-            <div class="mobile-brand-list">
-                <div class="mobile-brand-item">
-                    <img src="images/blank.gif" data-src="images/Hamilton Conte for website.jpg" alt="Hamilton Conte" class="mobile-brand-image">
-                    <h3 class="mobile-brand-name">Hamilton Conte</h3>
-                    <a href="https://hamiltonconte.com" target="_blank" class="mobile-brand-link" data-translate="visitWebsite">Visit Website</a>
-                </div>
-                <div class="mobile-brand-item">
-                    <img src="images/blank.gif" data-src="images/kuster.jpg" alt="Eric Kuster" class="mobile-brand-image">
-                    <h3 class="mobile-brand-name">Eric Kuster</h3>
-                    <a href="https://www.erickuster.com" target="_blank" class="mobile-brand-link" data-translate="visitWebsite">Visit Website</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Mobile Contact Section -->
-    <div class="mobile-fullscreen-section" id="contactFullSection">
-        <div class="mobile-section-header">
-            <div class="mobile-section-back">
-                <i class="fas fa-arrow-left"></i>
-            </div>
-            <h2 class="mobile-section-header-title" data-translate="contact">Contact Us</h2>
-            <div style="width: 40px;"></div>
-        </div>
-        <div class="mobile-section-body">
-            <p data-translate="contactDescription">Get in touch with our team to discuss how we can transform your space into a stunning, functional design that reflects your unique style and needs.</p>
-            
-            <form id="mobileContactForm" class="mobile-contact-form" action="https://formspree.io/f/mldbgvra" method="POST">
-                <input type="hidden" name="_replyto" value="bergmaninteriors@gmail.com">
-                <div class="mobile-form-group">
-                    <label for="mobileName" data-translate="name">Name</label>
-                    <input type="text" id="mobileName" name="name" required>
-                </div>
-                
-                <div class="mobile-form-group">
-                    <label for="mobileEmail" data-translate="email">Email</label>
-                    <input type="email" id="mobileEmail" name="email" required>
-                </div>
-                
-                <div class="mobile-form-group">
-                    <label for="mobilePhone" data-translate="phone">Phone (optional)</label>
-                    <input type="tel" id="mobilePhone" name="phone">
-                </div>
-                
-                <div class="mobile-form-group">
-                    <label for="mobileMessage" data-translate="message">Message</label>
-                    <textarea id="mobileMessage" name="message" rows="5" required></textarea>
-                </div>
-                
-                <button type="submit" class="mobile-submit-btn" data-translate="sendMessage">Send Message</button>
-            </form>
-            
-            <div class="mobile-contact-info">
-                <div class="mobile-contact-item">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <h3 data-translate="ourOffice">Our Office</h3>
-                    <p>Ingrid Bergman Interiors<br>Rua Fernão Lopes 279<br>Albufeira, Portugal</p>
-                </div>
-                
-                <div class="mobile-contact-item">
-                    <i class="fas fa-envelope"></i>
-                    <h3 data-translate="emailUs">Email Us</h3>
-                    <p>
-                        <a href="mailto:ingrid@ingridbergmaninteriors.com">ingrid@ingridbergmaninteriors.com</a><br>
-                        <a href="mailto:ingrid@erickuster.com">ingrid@erickuster.com</a>
-                    </p>
-                </div>
-                
-                <div class="mobile-contact-item">
-                    <i class="fas fa-phone-alt"></i>
-                    <h3 data-translate="callUs">Call Us</h3>
-                    <p>
-                        Portugal: <a href="tel:+351963486962">+351 963 486 962</a><br>
-                        Netherlands: <a href="tel:+31640180249">+31 6 401 80 249</a>
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-    
     <!-- About Section - Fixed Structure -->
     <div class="about-section">
-        <div class="about-background" style="background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('images/Ingrid Bergman Portret.jpg') center/cover no-repeat;"></div>
+        <div class="about-background" style="background: linear-gradient(135deg, rgba(99, 94, 83, 0.98) 0%, rgba(74, 70, 64, 0.99) 100%), url('assets/images/Ingrid Bergman Portret.jpg') center/cover no-repeat;"></div>
         <button class="close-about">
             <div class="close-icon"></div>
         </button>
@@ -484,30 +181,31 @@
                     </div>
                 </div>
             </section>
-
-            <!-- Projects Section Title -->
-            <div class="projects-section-title">
-                <h2 data-translate="projectsTitle">Ingrid's Projects</h2>
-            </div>
-
-            <!-- Service Gallery Card -->
-            <section class="service-gallery-section">
-                <div class="service-gallery-card">
-                    <div class="gallery-header">
-                        <h3 data-translate="projectTitle">Transforming a Family Home</h3>
-                        <p data-translate="projectLocation">California, US</p>
+            
+            <!-- Ingrid's Projects Section -->
+            <section class="ingrid-projects-section">
+                <div class="brands-category">
+                    <h3 data-translate="projectsTitle">Ingrid's Projects</h3>
+                    <div class="projects-list">
+                        <div class="project-card">
+                            <img src="images/CA project done/IBICali2019-30.jpg" alt="California Home Project" class="project-image" loading="lazy">
+                            <div class="project-info">
+                                <h3 class="project-title" data-translate="projectTitle">Transforming of a family home</h3>
+                                <div class="project-location">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span data-translate="projectLocation">California, US</span>
+                                </div>
+                                <div class="project-buttons">
+                                    <button class="project-btn" data-translate="readAboutProject">
+                                        <i class="fas fa-book-open"></i>Read About the Project
+                                    </button>
+                                    <button class="project-btn gallery-btn">
+                                        <i class="fas fa-images"></i>Gallery
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="gallery-preview" id="galleryPreview">
-                        <img src="images/CA project done/IBICali2019-30.jpg" alt="California Family Home Project Preview">
-                    </div>
-                    <button type="button" class="gallery-btn" id="galleryBtn">
-                        <span data-translate="viewGallery">View Gallery</span>
-                        <i class="fas fa-images"></i>
-                    </button>
-                    <button type="button" class="project-info-btn" id="projectInfoBtn">
-                        <span data-translate="readAboutProject">Read About This Project</span>
-                        <i class="fas fa-book-open"></i>
-                    </button>
                 </div>
             </section>
             
@@ -517,55 +215,34 @@
         </div>
     </div>
 
-    <!-- Gallery Modal -->
-    <div class="gallery-modal" id="galleryModal">
-        <div class="gallery-modal-content">
-            <div class="gallery-title">
-                <h2 data-translate="projectTitle">Transforming a Family Home</h2>
-                <p data-translate="projectLocation">California, US</p>
-            </div>
-            <button type="button" class="close-gallery" id="closeGalleryBtn" aria-label="Close gallery">
-                <i class="fas fa-times"></i>
-            </button>
-            <div class="gallery-container">
-                <div class="gallery-slider" id="gallerySlider">
-                    <!-- Slides will be added via JavaScript -->
-                </div>
-                <div class="gallery-controls">
-                    <button type="button" class="gallery-prev" id="prevBtn" aria-label="Previous slide">
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
-                    <button type="button" class="gallery-next" id="nextBtn" aria-label="Next slide">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
-                </div>
-                <div class="gallery-indicators" id="galleryIndicators"></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Project Description Modal -->
-    <div class="project-description-modal" id="projectDescriptionModal">
+    <!-- Project Description Popup -->
+    <div class="project-description-popup">
         <div class="project-description-content">
-            <button type="button" class="close-project-description" id="closeProjectDescriptionBtn" aria-label="Close project description">
+            <button class="close-project-description">
                 <i class="fas fa-times"></i>
             </button>
-            <div class="project-description-body">
-                <div class="project-description-text">
-                    <p><span class="project-title" data-translate="projectTitle">Transforming of a family home</span></p>
-                    
-                    <p data-translate="projectDescription1">"We recently had the pleasure of transforming a classic traditional American quinta into a refined, modern sanctuary for a young family with three children. This full-scale renovation was more than just a makeover—it was a complete reinvention of the space to align with contemporary living while preserving a warm, welcoming atmosphere.</p>
-                    
-                    <p data-translate="projectDescription2">The home was fully gutted to allow for a bold redesign, featuring an open floorplan that brings in natural light and flow. At the heart of the home stands a stunning, high-end Italian kitchen—both sleek and functional—paired with a custom-designed bathroom that exudes luxury and serenity.</p>
-                    
-                    <p data-translate="projectDescription3">Throughout the house, we laid elegant fishbone oak flooring, adding texture and timeless style. A striking fireplace became a central feature, creating a cozy gathering space for the family. Carefully curated high-end furniture from Eric Kuster, paired with limited edition art and thoughtfully chosen accessories, completed the design with sophistication and personality.</p>
-                    
-                    <p data-translate="projectDescription4">Every detail was selected to reflect comfort, elegance, and a touch of boldness—and the result? A truly elevated family home, perfectly tailored to the lifestyle and vision of our delighted clients."</p>
-                    
-                    <p class="signature" data-translate="signature">— Ingrid Bergman</p>
-                </div>
+            <div class="project-description-grid">
                 <div class="project-description-image">
-                    <img src="images/CA project done/IBICali2019-30.jpg" alt="California Family Home Project">
+                    <img src="images/CA project done/IBICali2019-30.jpg" alt="California Home Project" loading="lazy">
+                </div>
+                <div class="project-description-text">
+                    <h3 data-translate="projectTitle">Transforming of a family home</h3>
+                    <p data-translate="projectDescription1">"We recently had the pleasure of transforming a classic traditional American quinta into
+                    a refined, modern sanctuary for a young family with three children. This full-scale
+                    renovation was more than just a makeover—it was a complete reinvention of the space
+                    to align with contemporary living while preserving a warm, welcoming atmosphere.</p>
+                    <p data-translate="projectDescription2">The home was fully gutted to allow for a bold redesign, featuring an open floorplan that
+                    brings in natural light and flow. At the heart of the home stands a stunning, high-end
+                    Italian kitchen—both sleek and functional—paired with a custom-designed bathroom
+                    that exudes luxury and serenity.</p>
+                    <p data-translate="projectDescription3">Throughout the house, we laid elegant fishbone oak flooring, adding texture and
+                    timeless style. A striking fireplace became a central feature, creating a cozy gathering
+                    space for the family. Carefully curated high-end furniture from Eric Kuster, paired with
+                    limited edition art and thoughtfully chosen accessories, completed the design with
+                    sophistication and personality.</p>
+                    <p data-translate="projectDescription4">Every detail was selected to reflect comfort, elegance, and a touch of boldness—and
+                    the result? A truly elevated family home, perfectly tailored to the lifestyle and vision of our delighted clients."</p>
+                    <p class="signature" data-translate="signature">— Ingrid Bergman</p>
                 </div>
             </div>
         </div>
@@ -588,45 +265,45 @@
                     <h3 data-translate="outdoorCollections">Outdoor Collections</h3>
                     <div class="brands-list">
                         <div class="brand-item">
-                            <img src="images/Borek picture for website.jpg" alt="Borek" class="brand-image">
-                            <h3 class="brand-name">Borek</h3>
-                            <a href="https://www.borek.eu" target="_blank" class="brand-link" data-translate="visitWebsite">Visit Website</a>
+                            <img src="images/todo bien.jpg" alt="Todo Bien" class="brand-image" loading="lazy">
+                            <h3 class="brand-name">Todo Bien</h3>
+                            <a href="https://www.todobien.nl" target="_blank" class="brand-link" data-translate="visitWebsite">Visit Website</a>
                         </div>
                         
                         <div class="brand-item">
-                            <img src="images/bryck.jpg" alt="BRYCK" class="brand-image">
-                            <h3 class="brand-name">BRYCK</h3>
-                            <a href="https://www.bryck.nl" target="_blank" class="brand-link" data-translate="visitWebsite">Visit Website</a>
-                        </div>
-                        
-                        <div class="brand-item">
-                            <img src="images/C&C Milano picture for website.jpg" alt="C&C Milano" class="brand-image">
-                            <h3 class="brand-name">C&C Milano</h3>
-                            <a href="https://www.cec-milano.it" target="_blank" class="brand-link" data-translate="visitWebsite">Visit Website</a>
-                        </div>
-                        
-                        <div class="brand-item">
-                            <img src="images/cape umbrellas.jpg" alt="Cape Umbrellas" class="brand-image">
-                            <h3 class="brand-name">Cape Umbrellas</h3>
-                            <a href="https://www.capeumbrellas.com" target="_blank" class="brand-link" data-translate="visitWebsite">Visit Website</a>
-                        </div>
-                        
-                        <div class="brand-item">
-                            <img src="images/coco wolf1.jpg" alt="Coco Wolf" class="brand-image">
-                            <h3 class="brand-name">Coco Wolf</h3>
-                            <a href="https://www.cocowolf.co.uk" target="_blank" class="brand-link" data-translate="visitWebsite">Visit Website</a>
-                        </div>
-                        
-                        <div class="brand-item">
-                            <img src="images/Fjaka website picture.JPG" alt="Fjaka Furniture" class="brand-image">
+                            <img src="images/Fjaka website picture.JPG" alt="Fjaka Furniture" class="brand-image" loading="lazy">
                             <h3 class="brand-name">Fjaka Furniture</h3>
                             <a href="https://fjakafurniture.com" target="_blank" class="brand-link" data-translate="visitWebsite">Visit Website</a>
                         </div>
                         
                         <div class="brand-item">
-                            <img src="images/todo bien.jpg" alt="Todo Bien" class="brand-image">
-                            <h3 class="brand-name">Todo Bien</h3>
-                            <a href="https://www.todobien.nl" target="_blank" class="brand-link" data-translate="visitWebsite">Visit Website</a>
+                            <img src="images/BRYCK.jpg" alt="Bryck" class="brand-image" loading="lazy">
+                            <h3 class="brand-name">Bryck</h3>
+                            <a href="https://www.bryck.nl" target="_blank" class="brand-link" data-translate="visitWebsite">Visit Website</a>
+                        </div>
+                        
+                        <div class="brand-item">
+                            <img src="images/coco wolf1.jpg" alt="Coco Wolf" class="brand-image" loading="lazy">
+                            <h3 class="brand-name">Coco Wolf</h3>
+                            <a href="https://www.cocowolf.co.uk" target="_blank" class="brand-link" data-translate="visitWebsite">Visit Website</a>
+                        </div>
+                        
+                        <div class="brand-item">
+                            <img src="images/Borek picture for website.jpg" alt="Borek" class="brand-image" loading="lazy">
+                            <h3 class="brand-name">Borek</h3>
+                            <a href="https://www.borek.eu" target="_blank" class="brand-link" data-translate="visitWebsite">Visit Website</a>
+                        </div>
+                        
+                        <div class="brand-item">
+                            <img src="images/cape umbrellas.jpg" alt="Cape Umbrellas" class="brand-image" loading="lazy">
+                            <h3 class="brand-name">Cape Umbrellas</h3>
+                            <a href="https://www.capeumbrellas.com" target="_blank" class="brand-link" data-translate="visitWebsite">Visit Website</a>
+                        </div>
+                        
+                        <div class="brand-item">
+                            <img src="images/C&C Milano picture for website.jpg" alt="C&C Milano" class="brand-image" loading="lazy">
+                            <h3 class="brand-name">C&C Milano</h3>
+                            <a href="https://www.cec-milano.it" target="_blank" class="brand-link" data-translate="visitWebsite">Visit Website</a>
                         </div>
                     </div>
                 </div>
@@ -635,27 +312,27 @@
                     <h3 data-translate="indoorCollections">Indoor Collections</h3>
                     <div class="brands-list">
                         <div class="brand-item">
-                            <img src="images/Hamilton Conte for website.jpg" alt="Hamilton Conte" class="brand-image">
-                            <h3 class="brand-name">Hamilton Conte</h3>
-                            <a href="https://hamiltonconte.com" target="_blank" class="brand-link" data-translate="visitWebsite">Visit Website</a>
-                        </div>
-                        
-                        <div class="brand-item">
-                            <img src="images/kuster.jpg" alt="Eric Kuster" class="brand-image">
+                            <img src="images/kuster.jpg" alt="Eric Kuster" class="brand-image" loading="lazy">
                             <h3 class="brand-name">Eric Kuster</h3>
                             <a href="https://www.erickuster.com" target="_blank" class="brand-link" data-translate="visitWebsite">Visit Website</a>
                         </div>
                         
                         <div class="brand-item">
-                            <img src="images/pavoni.jpeg" alt="Pavoni Leathers" class="brand-image">
-                            <h3 class="brand-name">Pavoni Leathers</h3>
-                            <a href="https://www.pavonileathers.com" target="_blank" class="brand-link" data-translate="visitWebsite">Visit Website</a>
+                            <img src="images/shadesbyeric.webp" alt="Shades by Eric Kuster" class="brand-image" loading="lazy">
+                            <h3 class="brand-name">Shades by Eric Kuster</h3>
+                            <a href="https://shadesbyerickuster.com" target="_blank" class="brand-link" data-translate="visitWebsite">Visit Website</a>
                         </div>
                         
                         <div class="brand-item">
-                            <img src="images/shadesbyeric.webp" alt="Shades by Eric Kuster" class="brand-image">
-                            <h3 class="brand-name">Shades by Eric Kuster</h3>
-                            <a href="https://shadesbyerickuster.com" target="_blank" class="brand-link" data-translate="visitWebsite">Visit Website</a>
+                            <img src="images/Hamilton Conte for website.jpg" alt="Hamilton Conte" class="brand-image" loading="lazy">
+                            <h3 class="brand-name">Hamilton Conte</h3>
+                            <a href="https://hamiltonconte.com" target="_blank" class="brand-link" data-translate="visitWebsite">Visit Website</a>
+                        </div>
+                        
+                        <div class="brand-item">
+                            <img src="images/pavoni.jpeg" alt="Pavoni Leathers" class="brand-image" loading="lazy">
+                            <h3 class="brand-name">Pavoni Leathers</h3>
+                            <a href="https://pavoni.com" target="_blank" class="brand-link" data-translate="visitWebsite">Visit Website</a>
                         </div>
                     </div>
                 </div>
@@ -663,35 +340,16 @@
             
             <!-- Video Collections Section -->
             <section class="video-collections-section">
-                <div class="brands-category">
+                <div class="brands-category" style="text-align: center;">
                     <h3 data-translate="videoCollections">Video Collections</h3>
                     <div class="video-content">
                         <div class="video-container">
                             <div class="luxury-video-wrapper">
-                                <div class="video-title-overlay">EKML Headquarters Amsterdam</div>
+                                <div class="video-title-overlay" data-translate="videoTitle">EKML Headquaters Amsterdam</div>
                                 <div style="padding:56.25% 0 0 0;position:relative;">
                                     <iframe src="https://player.vimeo.com/video/1080828130?h=15c700e97c&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="EKML Headquaters Amsterdam"></iframe>
                                 </div>
                                 <script src="https://player.vimeo.com/api/player.js"></script>
-                                <div class="video-controls">
-                                    <button class="video-play-btn">
-                                        <i class="fas fa-play"></i>
-                                    </button>
-                                    <div class="video-progress-bar">
-                                        <div class="video-progress"></div>
-                                        <div class="video-progress-handle"></div>
-                                    </div>
-                                    <div class="video-time">
-                                        <span class="video-current-time">0:00</span>
-                                        <span class="video-duration">0:00</span>
-                                    </div>
-                                    <button class="video-volume-btn">
-                                        <i class="fas fa-volume-up"></i>
-                                    </button>
-                                    <button class="video-fullscreen-btn">
-                                        <i class="fas fa-expand"></i>
-                                    </button>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -706,7 +364,7 @@
 
     <!-- Contact Section - New popup section -->
     <div class="contact-section">
-        <div class="contact-background" style="background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('images/contact-bg.jpg') center/cover no-repeat;"></div>
+        <div class="contact-background" style="background: linear-gradient(135deg, rgba(99, 94, 83, 0.98) 0%, rgba(74, 70, 64, 0.99) 100%), url('images/contact-bg.jpg') center/cover no-repeat;"></div>
         <button class="close-contact">
             <div class="close-icon"></div>
         </button>
@@ -717,54 +375,57 @@
             </header>
             
             <section class="contact-form-container">
-                <form id="contactForm" class="contact-form" action="https://formspree.io/f/mldbgvra" method="POST">
-                    <input type="hidden" name="_replyto" value="bergmaninteriors@gmail.com">
-                    <div class="form-group">
-                        <label for="name" data-translate="name">Name</label>
-                        <input type="text" id="name" name="name" required>
-                    </div>
+                <div class="contact-form">
+                    <h3 data-translate="contactTitle">Contact Us</h3>
+                    <p data-translate="contactDescription">Get in touch with our team to discuss how we can transform your space into a stunning, functional design that reflects your unique style and needs.</p>
+                    <form id="contactForm" class="contact-form" action="https://formspree.io/f/mldbgvra" method="POST">
+                        <div class="form-group">
+                            <label for="name" data-translate="name">Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email" data-translate="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone" data-translate="phone">Phone (optional)</label>
+                            <input type="tel" id="phone" name="phone">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message" data-translate="message">Message</label>
+                            <textarea id="message" name="message" rows="5" required></textarea>
+                        </div>
+                        
+                        <button type="submit" data-translate="sendMessage" class="submit-btn">Send Message</button>
+                    </form>
                     
-                    <div class="form-group">
-                        <label for="email" data-translate="email">Email</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="phone" data-translate="phone">Phone (optional)</label>
-                        <input type="tel" id="phone" name="phone">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="message" data-translate="message">Message</label>
-                        <textarea id="message" name="message" rows="5" required></textarea>
-                    </div>
-                    
-                    <button type="submit" class="submit-btn" data-translate="sendMessage">Send Message</button>
-                </form>
-                
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <h3 data-translate="ourOffice">Our Office</h3>
-                        <p>Ingrid Bergman Interiors<br>Rua Fernão Lopes 279<br>Albufeira, Portugal</p>
-                    </div>
-                    
-                    <div class="contact-item">
-                        <i class="fas fa-envelope"></i>
-                        <h3 data-translate="emailUs">Email Us</h3>
-                        <p>
-                            <a href="mailto:ingrid@ingridbergmaninteriors.com">ingrid@ingridbergmaninteriors.com</a><br>
-                            <a href="mailto:ingrid@erickuster.com">ingrid@erickuster.com</a>
-                        </p>
-                    </div>
-                    
-                    <div class="contact-item">
-                        <i class="fas fa-phone-alt"></i>
-                        <h3 data-translate="callUs">Call Us</h3>
-                        <p>
-                            Portugal: <a href="tel:+351963486962">+351 963 486 962</a><br>
-                            Netherlands: <a href="tel:+31640180249">+31 6 401 80 249</a>
-                        </p>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <h3 data-translate="ourOffice">Our Office</h3>
+                            <p data-translate="address">Ingrid Bergman Interiors<br>Rua Fernão Lopes 279<br>Albufeira, Portugal</p>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <i class="fas fa-envelope"></i>
+                            <h3 data-translate="emailUs">Email Us</h3>
+                            <p>
+                                <a href="mailto:ingrid@ingridbergmaninteriors.com">ingrid@ingridbergmaninteriors.com</a><br>
+                                <a href="mailto:ingrid@erickuster.com">ingrid@erickuster.com</a>
+                            </p>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <i class="fas fa-phone-alt"></i>
+                            <h3 data-translate="callUs">Call Us</h3>
+                            <p>
+                                Portugal: <a href="tel:+351963486962">+351 963 486 962</a><br>
+                                Netherlands: <a href="tel:+31640180249">+31 6 401 80 249</a>
+                            </p>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -775,8 +436,8 @@
         </div>
     </div>
 
-    <!-- Footer - Hidden on mobile -->
-    <footer class="footer desktop-only">
+    <!-- Footer -->
+    <footer class="footer">
         <div class="social-links">
             <a href="https://www.linkedin.com/in/ingridbergman/" class="social-link" target="_blank" aria-label="LinkedIn">
                 <i class="fab fa-linkedin-in"></i>
@@ -788,7 +449,7 @@
                 <i class="far fa-envelope"></i>
             </a>
         </div>
-        <button class="contact-btn" data-section="contact" data-translate="contactButton">CONTACT US</button>
+        <button class="contact-btn" data-section="contact" data-translate="contactButton">Contact Us</button>
         <div class="language-switcher">
             <button class="lang-btn active" data-lang="en">En</button>
             <span class="lang-separator">|</span>
@@ -806,7 +467,7 @@
             <div class="off-canvas-logo">
                 <img src="images/logo white i.png" alt="Logo">
             </div>
-            <div class="off-canvas-title" data-translate="home">Ingrid Bergman Interiors</div>
+            <div class="off-canvas-title" data-translate="companyName">Ingrid Bergman Interiors</div>
             <p data-translate="explore">Explore our world of luxury design</p>
         </div>
         <div class="off-canvas-content">
@@ -832,11 +493,84 @@
     </nav>
 
     <!-- Scripts -->
-    <script src="js/loader.js"></script>
     <script src="js/main.js"></script>
-    <script src="js/page-transitions.js"></script>
+    <script src="js/loader.js"></script>
     <script src="js/navigation.js"></script>
+    <script src="js/page-transitions.js"></script>
+    <script src="js/contact.js"></script>
     <script src="js/translations.js"></script>
-    <script src="js/responsive.js"></script>
+    <script src="js/performance-optimizer.js"></script>
+    
+    <!-- Service Worker Registration -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/service-worker.js')
+            .then(registration => {
+              console.log('ServiceWorker registration successful with scope: ', registration.scope);
+            })
+            .catch(error => {
+              console.log('ServiceWorker registration failed: ', error);
+            });
+        });
+      }
+    </script>
+
+    <!-- Gallery Modal -->
+    <div class="gallery-modal">
+        <div class="gallery-container">
+            <button class="close-gallery">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="gallery-slide active">
+                <img src="images/CA project done/IBICali2019-30.jpg" alt="California Home Project - Main View">
+            </div>
+            <div class="gallery-slide">
+                <img src="images/CA project done/IBICali2019-31.jpg" alt="California Home Project - Living Area">
+            </div>
+            <div class="gallery-slide">
+                <img src="images/CA project done/IBICali2019-33.jpg" alt="California Home Project - Kitchen">
+            </div>
+            <div class="gallery-slide">
+                <img src="images/CA project done/IBICali2019-34.jpg" alt="California Home Project - Dining Area">
+            </div>
+            <div class="gallery-slide">
+                <img src="images/CA project done/IBICali2019-39.jpg" alt="California Home Project - Bedroom">
+            </div>
+            <div class="gallery-slide">
+                <img src="images/CA project done/IBICali2019-40.jpg" alt="California Home Project - Bathroom">
+            </div>
+            <div class="gallery-slide">
+                <img src="images/CA project done/IBICali2019-41.jpg" alt="California Home Project - Outdoor Area">
+            </div>
+            <div class="gallery-slide">
+                <img src="images/CA project done/IBICali2019-42.jpg" alt="California Home Project - Garden View">
+            </div>
+            <div class="gallery-slide">
+                <img src="images/CA project done/IBICali2019-43.jpg" alt="California Home Project - Pool Area">
+            </div>
+            <div class="gallery-slide">
+                <img src="images/CA project done/IBICali2019-71.jpg" alt="California Home Project - Terrace">
+            </div>
+            <div class="gallery-slide">
+                <img src="images/CA project done/IBICali2019-351.jpg" alt="California Home Project - Interior Detail">
+            </div>
+            <div class="gallery-slide">
+                <img src="images/CA project done/IBICali2019-411.jpg" alt="California Home Project - Living Room">
+            </div>
+            <div class="gallery-slide">
+                <img src="images/CA project done/IBICali2019-441.jpg" alt="California Home Project - Final View">
+            </div>
+            <div class="gallery-controls">
+                <button class="gallery-prev-btn">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="gallery-next-btn">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+            <div class="gallery-counter">1 / 13</div>
+        </div>
+    </div>
 </body>
 </html>
