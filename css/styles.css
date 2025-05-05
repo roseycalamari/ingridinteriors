@@ -4624,3 +4624,341 @@ body.section-active .header .logo-container {
         padding: 1rem 1.5rem;
     }
 }
+
+/* --- STRONGER MOBILE STACKING AND PROPORTIONS --- */
+@media (max-width: 768px) {
+  .main-content {
+    flex-direction: column !important;
+    display: flex !important;
+    width: 100vw !important;
+    min-height: 100vh !important;
+    max-width: 100vw !important;
+    overflow-x: hidden !important;
+    padding: 0 !important;
+  }
+  .section,
+  .portrait-container {
+    width: 100vw !important;
+    min-width: 100vw !important;
+    max-width: 100vw !important;
+    height: auto !important;
+    min-height: 33vh !important;
+    max-height: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+    position: relative !important;
+  }
+  .section-content,
+  .portrait-container .section-content {
+    position: static !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+    margin: 0 auto !important;
+    padding: 1.5rem 0.5rem !important;
+    text-align: center !important;
+    z-index: 2;
+  }
+  .portrait-wrapper,
+  .portrait-image {
+    width: 100vw !important;
+    max-width: 100vw !important;
+    height: auto !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto !important;
+    padding: 0 !important;
+  }
+  .portrait-image {
+    object-fit: cover !important;
+    width: 100vw !important;
+    height: auto !important;
+    max-width: 100vw !important;
+    border-radius: 0 !important;
+  }
+  .section-background {
+    width: 100vw !important;
+    min-width: 100vw !important;
+    max-width: 100vw !important;
+    height: 33vh !important;
+    min-height: 33vh !important;
+    max-height: 40vh !important;
+    object-fit: cover !important;
+    left: 0 !important;
+    top: 0 !important;
+    position: absolute !important;
+    z-index: 1;
+  }
+  .hover-overlay {
+    width: 100vw !important;
+    min-width: 100vw !important;
+    max-width: 100vw !important;
+    left: 0 !important;
+    top: 0 !important;
+    position: absolute !important;
+    z-index: 2;
+  }
+  html, body {
+    max-width: 100vw !important;
+    overflow-x: hidden !important;
+  }
+}
+
+@media (max-width: 400px) {
+  .section-content,
+  .portrait-container .section-content {
+    padding: 1rem 0.2rem !important;
+    font-size: 0.95rem !important;
+  }
+}
+
+@media (max-width: 350px) {
+  .section-content,
+  .portrait-container .section-content {
+    padding: 0.5rem 0.1rem !important;
+    font-size: 0.9rem !important;
+  }
+}
+
+/* --- MOBILE HOMEPAGE EXACT MATCH --- */
+@media (max-width: 1023px) {
+  /* Force body and html to be exactly viewport size */
+  html, body {
+    width: 100% !important;
+    height: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow-x: hidden !important;
+    overflow-y: hidden !important;
+    position: fixed !important;
+  }
+  
+  /* Force main content to be exactly viewport size and stack vertically */
+  .main-content {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+  }
+  
+  /* Each section takes exactly 1/3 of viewport height */
+  .section-left, 
+  .portrait-container, 
+  .section-right {
+    width: 100vw !important;
+    height: 33.333vh !important;
+    min-height: 33.333vh !important;
+    max-height: 33.333vh !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    position: relative !important;
+    overflow: hidden !important;
+    flex: none !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+  
+  /* Order the sections correctly */
+  .section-left { order: 1 !important; }
+  .portrait-container { order: 2 !important; }
+  .section-right { order: 3 !important; }
+  
+  /* Section backgrounds */
+  .section-left .section-background,
+  .section-right .section-background {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    transform: none !important;
+    filter: brightness(0.7) !important;
+  }
+  
+  /* Portrait section styling */
+  .portrait-container {
+    background-image: url('../images/Ingrid Bergman Portret.jpg') !important;
+    background-size: cover !important;
+    background-position: center !important;
+  }
+  
+  /* Hide all the portrait components that we don't need */
+  .portrait-wrapper,
+  .portrait-image,
+  .portrait-bw-wrapper,
+  .bw-left,
+  .bw-right,
+  .portrait::after,
+  .portrait::before {
+    display: none !important;
+  }
+  
+  /* Style the section buttons to match image */
+  .section-content {
+    width: 100% !important;
+    height: 100% !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    position: relative !important;
+    z-index: 10 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    transform: none !important;
+  }
+  
+  /* Remove hover animation effects */
+  .section:hover .section-background,
+  .section:hover .hover-overlay,
+  .section:hover::before,
+  .section:hover .section-title::after,
+  .section:hover .expand-btn,
+  .expand-btn:hover::before {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: brightness(0.7) !important;
+    transition: none !important;
+  }
+  
+  /* Style the buttons exactly like in image */
+  .expand-btn, 
+  .about-btn {
+    position: static !important;
+    opacity: 1 !important;
+    transform: none !important;
+    display: block !important;
+    padding: 0.75rem 1.25rem !important;
+    background-color: rgba(255, 255, 255, 0.9) !important;
+    color: #333333 !important;
+    font-size: 0.9rem !important;
+    letter-spacing: 1px !important;
+    text-transform: uppercase !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2) !important;
+  }
+
+  /* Special styling for the middle "THE PERSON" button */
+  .portrait-container .about-btn {
+    position: absolute !important;
+    top: 50% !important;
+    left: 0 !important;
+    transform: translateY(-50%) !important;
+    writing-mode: vertical-rl !important;
+    text-orientation: mixed !important;
+    transform: translateY(-50%) rotate(180deg) !important;
+    padding: 1.5rem 0.5rem !important;
+    height: auto !important;
+    min-height: 160px !important;
+    border-radius: 0 4px 4px 0 !important;
+  }
+  
+  /* Hide section titles */
+  .section-title {
+    display: none !important;
+  }
+  
+  /* Contact button styling */
+  .contact-btn {
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    z-index: 100 !important;
+    background-color: rgba(0,0,0,0.7) !important;
+    color: white !important;
+    width: auto !important;
+    padding: 0.5rem 1.5rem !important;
+    border-radius: 4px 4px 0 0 !important;
+  }
+  
+  /* Footer styling - social links */
+  .footer {
+    position: fixed !important;
+    bottom: 1rem !important;
+    left: 1rem !important;
+    z-index: 100 !important;
+    flex-direction: row !important;
+    gap: 0.75rem !important;
+  }
+  
+  /* Language switcher positioning */
+  .language-switcher {
+    position: fixed !important;
+    bottom: 1rem !important;
+    right: 1rem !important;
+    z-index: 100 !important;
+  }
+  
+  /* Header styling */
+  .header {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+    z-index: 100 !important;
+    padding-top: 1rem !important;
+  }
+  
+  .logo-container {
+    opacity: 1 !important;
+    pointer-events: auto !important;
+  }
+  
+  .nav-hint {
+    opacity: 1 !important;
+    transform: none !important;
+    font-size: 0.7rem !important;
+    margin-top: 0.5rem !important;
+  }
+  
+  /* Force the logo container to be circular */
+  .logo-container img {
+    height: 2rem !important;
+    width: auto !important;
+  }
+}
+
+/* Ensure styles work on small screens too */
+@media (max-width: 360px) {
+  .portrait-container .about-btn {
+    min-height: 120px !important;
+    padding: 1.2rem 0.4rem !important;
+    font-size: 0.8rem !important;
+  }
+  
+  .expand-btn {
+    font-size: 0.8rem !important;
+    padding: 0.6rem 1rem !important;
+  }
+  
+  .footer {
+    bottom: 0.75rem !important;
+    left: 0.75rem !important;
+  }
+  
+  .social-link {
+    width: 1.75rem !important;
+    height: 1.75rem !important;
+  }
+}
+
+/* Ensure styles work on tall/narrow screens too */
+@media (max-height: 600px) and (max-width: 1023px) {
+  .portrait-container .about-btn {
+    min-height: 100px !important;
+  }
+  
+  .header {
+    padding-top: 0.5rem !important;
+  }
+}
