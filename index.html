@@ -42,6 +42,38 @@
     <link rel="preload" href="images/the brands.jpg" as="image" fetchpriority="high">
 </head>
 <body>
+    <!-- Mobile-only UI elements - hidden on desktop -->
+    <div class="mobile-pagination">
+        <div class="pagination-dot active" data-index="0"></div>
+        <div class="pagination-dot" data-index="1"></div>
+        <div class="pagination-dot" data-index="2"></div>
+    </div>
+    
+    <div class="mobile-nav-arrow up"></div>
+    <div class="mobile-nav-arrow down"></div>
+    
+    <div class="mobile-footer">
+        <div class="mobile-social-links">
+            <a href="https://www.instagram.com/ingridbergmantechniques/" class="mobile-social-link" aria-label="Instagram">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://www.facebook.com/ingridbergmantechniques/" class="mobile-social-link" aria-label="Facebook">
+                <i class="fab fa-facebook"></i>
+            </a>
+            <a href="mailto:contact@ingridbergman.com" class="mobile-social-link" aria-label="Email">
+                <i class="fas fa-envelope"></i>
+            </a>
+        </div>
+    </div>
+    
+    <div class="swipe-hint">
+        <div class="swipe-icon">
+            <span class="swipe-arrow"></span>
+        </div>
+        <span class="swipe-text">Scroll to explore</span>
+    </div>
+    <!-- End mobile-only UI elements -->
+
     <!-- Page Loader -->
     <div class="page-loader">
         <div class="loader-content">
@@ -70,6 +102,7 @@
             <div class="hover-overlay"></div>
             <div class="section-content">
                 <h2 class="section-title" data-translate="serviceTitle">The Service</h2>
+                <h2 class="mobile-section-title" style="display:none;">Our Services</h2>
                 <button class="expand-btn" id="serviceExpandBtn" data-translate="serviceTitle">The Service</button>
             </div>
         </section>
@@ -78,6 +111,7 @@
         <div class="portrait-container">
             <div class="portrait-wrapper">
                 <div class="portrait">
+                    <h2 class="mobile-section-title" style="display:none;">Ingrid Bergman Techniques</h2>
                     <!-- Colored image underneath -->
                     <img src="images/Ingrid Bergman Portret.jpg" alt="Portrait" class="portrait-image">
                     
@@ -102,6 +136,7 @@
             <div class="hover-overlay"></div>
             <div class="section-content">
                 <h2 class="section-title" data-translate="brandsTitle">The Brands</h2>
+                <h2 class="mobile-section-title" style="display:none;">Featured Brands</h2>
                 <button class="expand-btn" id="brandsExpandBtn" data-translate="brandsTitle">The Brands</button>
             </div>
         </section>
