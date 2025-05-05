@@ -21,6 +21,7 @@
     position: relative !important;
     margin: 0 !important;
     padding: 0 !important;
+    scroll-behavior: smooth !important;
   }
 
   /* Section base styles */
@@ -40,6 +41,90 @@
     padding: 0 !important;
     margin: 0 !important;
     flex: none !important;
+  }
+
+  /* Section backgrounds */
+  body:not(.section-active):not(.about-section-active):not(.service-section-active):not(.brands-section-active):not(.contact-section-active) .section-background,
+  body:not(.section-active):not(.about-section-active):not(.service-section-active):not(.brands-section-active):not(.contact-section-active) .portrait-container {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    z-index: 1 !important;
+  }
+
+  /* Section content */
+  body:not(.section-active):not(.about-section-active):not(.service-section-active):not(.brands-section-active):not(.contact-section-active) .section-content {
+    position: relative !important;
+    z-index: 2 !important;
+    text-align: center !important;
+    padding: 2rem !important;
+    width: 100% !important;
+    max-width: 90% !important;
+    margin: 0 auto !important;
+  }
+
+  /* Section titles */
+  body:not(.section-active):not(.about-section-active):not(.service-section-active):not(.brands-section-active):not(.contact-section-active) .section-title {
+    font-size: 2rem !important;
+    margin-bottom: 1.5rem !important;
+    color: #fff !important;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3) !important;
+  }
+
+  /* Buttons */
+  body:not(.section-active):not(.about-section-active):not(.service-section-active):not(.brands-section-active):not(.contact-section-active) .expand-btn,
+  body:not(.section-active):not(.about-section-active):not(.service-section-active):not(.brands-section-active):not(.contact-section-active) .about-btn {
+    display: inline-block !important;
+    padding: 1rem 2rem !important;
+    background: rgba(255, 255, 255, 0.9) !important;
+    color: #333 !important;
+    border: none !important;
+    border-radius: 4px !important;
+    font-size: 1.1rem !important;
+    font-weight: 500 !important;
+    cursor: pointer !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+    transition: all 0.3s ease !important;
+    text-decoration: none !important;
+    margin-top: 1rem !important;
+  }
+
+  /* Active section styles */
+  body.section-active .main-content,
+  body.about-section-active .main-content,
+  body.service-section-active .main-content,
+  body.brands-section-active .main-content,
+  body.contact-section-active .main-content {
+    overflow-y: auto !important;
+    height: auto !important;
+    min-height: 100vh !important;
+    scroll-snap-type: none !important;
+  }
+
+  /* Section content when active */
+  body.section-active .section-content,
+  body.about-section-active .section-content,
+  body.service-section-active .section-content,
+  body.brands-section-active .section-content,
+  body.contact-section-active .section-content {
+    padding: 2rem !important;
+    max-width: 100% !important;
+    overflow-y: auto !important;
+  }
+
+  /* Hide original portrait elements */
+  body:not(.section-active):not(.about-section-active):not(.service-section-active):not(.brands-section-active):not(.contact-section-active) .portrait-wrapper,
+  body:not(.section-active):not(.about-section-active):not(.service-section-active):not(.brands-section-active):not(.contact-section-active) .portrait,
+  body:not(.section-active):not(.about-section-active):not(.service-section-active):not(.brands-section-active):not(.contact-section-active) .portrait-image,
+  body:not(.section-active):not(.about-section-active):not(.service-section-active):not(.brands-section-active):not(.contact-section-active) .portrait-bw-wrapper,
+  body:not(.section-active):not(.about-section-active):not(.service-section-active):not(.brands-section-active):not(.contact-section-active) .bw-left,
+  body:not(.section-active):not(.about-section-active):not(.service-section-active):not(.brands-section-active):not(.contact-section-active) .bw-right {
+    display: none !important;
   }
 
   /* Section order */
@@ -78,79 +163,6 @@
     background-size: cover !important;
     background-position: center !important;
     background-repeat: no-repeat !important;
-  }
-
-  /* Hide original portrait elements */
-  body:not(.section-active):not(.about-section-active):not(.service-section-active):not(.brands-section-active):not(.contact-section-active) .portrait-wrapper,
-  body:not(.section-active):not(.about-section-active):not(.service-section-active):not(.brands-section-active):not(.contact-section-active) .portrait,
-  body:not(.section-active):not(.about-section-active):not(.service-section-active):not(.brands-section-active):not(.contact-section-active) .portrait-image,
-  body:not(.section-active):not(.about-section-active):not(.service-section-active):not(.brands-section-active):not(.contact-section-active) .portrait-bw-wrapper,
-  body:not(.section-active):not(.about-section-active):not(.service-section-active):not(.brands-section-active):not(.contact-section-active) .bw-left,
-  body:not(.section-active):not(.about-section-active):not(.service-section-active):not(.brands-section-active):not(.contact-section-active) .bw-right {
-    display: none !important;
-  }
-
-  /* Content styling */
-  body:not(.section-active):not(.about-section-active):not(.service-section-active):not(.brands-section-active):not(.contact-section-active) .section-content {
-    width: 100% !important;
-    height: 100% !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    text-align: center !important;
-    position: relative !important;
-    z-index: 10 !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    transform: none !important;
-  }
-
-  /* Button styling */
-  body:not(.section-active):not(.about-section-active):not(.service-section-active):not(.brands-section-active):not(.contact-section-active) .expand-btn,
-  body:not(.section-active):not(.about-section-active):not(.service-section-active):not(.brands-section-active):not(.contact-section-active) .about-btn {
-    display: block !important;
-    padding: 1rem 2rem !important;
-    background: rgba(255, 255, 255, 0.9) !important;
-    color: #333 !important;
-    border: none !important;
-    border-radius: 4px !important;
-    font-size: 1.1rem !important;
-    font-weight: 500 !important;
-    cursor: pointer !important;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
-    z-index: 2 !important;
-    margin: 0 auto !important;
-    opacity: 1 !important;
-    transform: none !important;
-  }
-
-  /* Middle section button styling */
-  body:not(.section-active):not(.about-section-active):not(.service-section-active):not(.brands-section-active):not(.contact-section-active) .portrait-container .about-btn {
-    padding: 1.5rem 0.7rem !important;
-    font-size: 0.9rem !important;
-    writing-mode: vertical-rl !important;
-    transform: rotate(180deg) !important;
-    height: auto !important;
-    margin-left: 0 !important;
-    min-height: 120px !important;
-    text-align: center !important;
-    letter-spacing: 1px !important;
-    background: rgba(255, 255, 255, 0.85) !important;
-    transition: all 0.3s ease !important;
-    border-radius: 0 4px 4px 0 !important;
-  }
-
-  /* Section title styling */
-  body:not(.section-active):not(.about-section-active):not(.service-section-active):not(.brands-section-active):not(.contact-section-active) .section-title {
-    display: block !important;
-    font-size: 1.8rem !important;
-    font-weight: 300 !important;
-    color: white !important;
-    margin-bottom: 1.5rem !important;
-    text-transform: uppercase !important;
-    letter-spacing: 2px !important;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.3) !important;
-    opacity: 1 !important;
   }
 
   /* Add overlay for better text visibility */
