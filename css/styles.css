@@ -803,26 +803,14 @@ body.loaded .logo-placeholder {
     background-color: rgba(0, 0, 0, 0.2); /* Darker on hover */
 }
 
-/* Section backgrounds */
-.section-left .section-background {
-    background-image: url('../images/the service (2).jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+.section-left {
+    transform-origin: left center;
+    overflow: hidden;
 }
 
-.section-right .section-background {
-    background-image: url('../images/the brands.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-}
-
-.portrait-container {
-    background-image: url('../images/Ingrid Bergman Portret.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+.section-right {
+    transform-origin: right center;
+    overflow: hidden;
 }
 
 /* Original hover overlays behavior */
@@ -964,9 +952,6 @@ body.loaded .logo-placeholder {
     width: auto;
     height: 70vh;
     pointer-events: auto;
-    background-image: url('../images/Ingrid Bergman Portret.jpg');
-    background-size: cover;
-    background-position: center;
 }
 
 .portrait-wrapper {
@@ -4738,18 +4723,17 @@ body.section-active .header .logo-container {
 
 /* --- MOBILE HOMEPAGE EXACT MATCH --- */
 @media (max-width: 1023px) {
-  /* Force body and html to be exactly viewport size */
+  /* Reset body/html for mobile */
   html, body {
     width: 100% !important;
     height: 100% !important;
     margin: 0 !important;
     padding: 0 !important;
     overflow-x: hidden !important;
-    overflow-y: hidden !important;
-    position: fixed !important;
+    position: relative !important;
   }
   
-  /* Force main content to be exactly viewport size and stack vertically */
+  /* Simplified main content for mobile */
   .main-content {
     display: flex !important;
     flex-direction: column !important;
@@ -4758,662 +4742,220 @@ body.section-active .header .logo-container {
     margin: 0 !important;
     padding: 0 !important;
     overflow: hidden !important;
-  }
-  
-  /* Each section takes exactly 1/3 of viewport height */
-  .section-left, 
-  .portrait-container, 
-  .section-right {
-    width: 100vw !important;
-    height: 33.333vh !important;
-    min-height: 33.333vh !important;
-    max-height: 33.333vh !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    position: relative !important;
-    overflow: hidden !important;
-    flex: none !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-  }
-  
-  /* Order the sections correctly */
-  .section-left { order: 1 !important; }
-  .portrait-container { order: 2 !important; }
-  .section-right { order: 3 !important; }
-  
-  /* Section backgrounds */
-  .section-left .section-background,
-  .section-right .section-background {
-    position: absolute !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: cover !important;
-    transform: none !important;
-    filter: brightness(0.7) !important;
-  }
-  
-  /* Portrait section styling */
-  .portrait-container {
-    background-image: url('../images/Ingrid Bergman Portret.jpg') !important;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../images/Ingrid Bergman Portret.jpg') !important;
     background-size: cover !important;
     background-position: center !important;
+    position: relative !important;
+    justify-content: center !important;
+    align-items: center !important;
   }
   
-  /* Hide all the portrait components that we don't need */
-  .portrait-wrapper,
-  .portrait-image,
-  .portrait-bw-wrapper,
-  .bw-left,
-  .bw-right,
-  .portrait::after,
-  .portrait::before {
+  /* Hide all three panels on mobile */
+  .section-left, 
+  .section-right,
+  .portrait-container .portrait-wrapper,
+  .portrait-container .portrait-image,
+  .portrait-container .portrait-bw-wrapper,
+  .portrait-container .bw-left,
+  .portrait-container .bw-right,
+  .portrait-container .portrait::after,
+  .portrait-container .portrait::before,
+  .section-content .section-title,
+  .section-content .expand-btn,
+  .portrait-container .section-content .about-btn {
     display: none !important;
   }
   
-  /* Style the section buttons to match image */
-  .section-content {
-    width: 100% !important;
-    height: 100% !important;
+  /* Set portrait container to full viewport on mobile */
+  .portrait-container {
+    width: 100vw !important;
+    height: 100vh !important;
+    position: relative !important;
+    flex: 1 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    text-align: center !important;
+    background: none !important; /* Clear any background since we set it on main-content */
+  }
+  
+  /* Style centered logo container */
+  .logo-container {
     position: relative !important;
     z-index: 10 !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    transform: none !important;
-  }
-  
-  /* Remove hover animation effects */
-  .section:hover .section-background,
-  .section:hover .hover-overlay,
-  .section:hover::before,
-  .section:hover .section-title::after,
-  .section:hover .expand-btn,
-  .expand-btn:hover::before {
-    opacity: 1 !important;
-    transform: none !important;
-    filter: brightness(0.7) !important;
-    transition: none !important;
-  }
-  
-  /* Style the buttons exactly like in image */
-  .expand-btn, 
-  .about-btn {
-    position: static !important;
-    opacity: 1 !important;
-    transform: none !important;
-    display: block !important;
-    padding: 0.75rem 1.25rem !important;
-    background-color: rgba(255, 255, 255, 0.9) !important;
-    color: #333333 !important;
-    font-size: 0.9rem !important;
-    letter-spacing: 1px !important;
-    text-transform: uppercase !important;
-    border: none !important;
-    border-radius: 0 !important;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.2) !important;
-  }
-
-  /* Special styling for the middle "THE PERSON" button */
-  .portrait-container .about-btn {
-    position: absolute !important;
-    top: 50% !important;
-    left: 0 !important;
-    transform: translateY(-50%) !important;
-    writing-mode: vertical-rl !important;
-    text-orientation: mixed !important;
-    transform: translateY(-50%) rotate(180deg) !important;
-    padding: 1.5rem 0.5rem !important;
-    height: auto !important;
-    min-height: 160px !important;
-    border-radius: 0 4px 4px 0 !important;
-  }
-  
-  /* Hide section titles */
-  .section-title {
-    display: none !important;
-  }
-  
-  /* Contact button styling */
-  .contact-btn {
-    position: fixed !important;
-    bottom: 0 !important;
-    left: 50% !important;
-    transform: translateX(-50%) !important;
-    z-index: 100 !important;
-    background-color: rgba(0,0,0,0.7) !important;
-    color: white !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    transform: translateY(0) !important;
     width: auto !important;
-    padding: 0.5rem 1.5rem !important;
-    border-radius: 4px 4px 0 0 !important;
+    height: auto !important;
+    max-width: 80% !important;
+    padding: 2rem !important;
+    background-color: rgba(0, 0, 0, 0.3) !important;
+    border-radius: 10px !important;
+    animation: pulseLogo 2s infinite alternate ease-in-out !important;
   }
   
-  /* Footer styling - social links */
+  @keyframes pulseLogo {
+    from { transform: scale(1); }
+    to { transform: scale(1.05); }
+  }
+  
+  /* Enhance logo image on mobile */
+  .logo-container img {
+    width: auto !important;
+    height: 5rem !important; /* Larger logo */
+    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.5)) !important;
+    margin-bottom: 1rem !important;
+  }
+  
+  /* Style navigation hint text */
+  .nav-hint {
+    color: white !important;
+    opacity: 1 !important;
+    transform: none !important;
+    font-size: 1rem !important;
+    font-weight: 300 !important;
+    letter-spacing: 1px !important;
+    text-align: center !important;
+    margin-top: 1rem !important;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5) !important;
+  }
+  
+  /* Style the off-canvas navigation menu */
+  .off-canvas-navigation {
+    width: 85% !important; /* Slightly wider for mobile */
+    max-width: 350px !important;
+  }
+  
+  /* Make menu items larger and more touch-friendly */
+  .off-canvas-menu-item {
+    padding: 1rem !important;
+    font-size: 1.2rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+  
+  /* Footer styling for mobile */
   .footer {
     position: fixed !important;
-    bottom: 1rem !important;
-    left: 1rem !important;
-    z-index: 100 !important;
-    flex-direction: row !important;
-    gap: 0.75rem !important;
-  }
-  
-  /* Language switcher positioning */
-  .language-switcher {
-    position: fixed !important;
-    bottom: 1rem !important;
-    right: 1rem !important;
-    z-index: 100 !important;
-  }
-  
-  /* Header styling */
-  .header {
-    position: fixed !important;
-    top: 0 !important;
+    bottom: 1.5rem !important;
     left: 0 !important;
     width: 100% !important;
     display: flex !important;
     justify-content: center !important;
-    z-index: 100 !important;
-    padding-top: 1rem !important;
+    z-index: 5 !important;
   }
   
-  .logo-container {
+  /* Social links wrapper */
+  .social-links {
+    display: flex !important;
+    gap: 1rem !important;
+    justify-content: center !important;
+  }
+  
+  /* Social link icons */
+  .social-link {
+    width: 2.5rem !important;
+    height: 2.5rem !important;
+    font-size: 1.2rem !important;
+    background-color: rgba(0, 0, 0, 0.5) !important;
+    color: white !important;
+    opacity: 0.9 !important;
+  }
+  
+  /* Hide contact button - use menu instead */
+  .contact-btn {
+    display: none !important;
+  }
+  
+  /* Position language switcher for mobile */
+  .language-switcher {
+    position: fixed !important;
+    bottom: 1.5rem !important;
+    right: 1.5rem !important;
+    z-index: 50 !important;
+    background-color: rgba(0, 0, 0, 0.5) !important;
+  }
+  
+  /* Enhance the close icon in the menu */
+  .logo-container.active .close-icon {
     opacity: 1 !important;
-    pointer-events: auto !important;
-  }
-  
-  .nav-hint {
-    opacity: 1 !important;
-    transform: none !important;
-    font-size: 0.7rem !important;
-    margin-top: 0.5rem !important;
-  }
-  
-  /* Force the logo container to be circular */
-  .logo-container img {
+    transform: rotate(0deg) scale(1) !important;
+    width: 2rem !important;
     height: 2rem !important;
-    width: auto !important;
+  }
+  
+  .logo-container.active .close-icon::before,
+  .logo-container.active .close-icon::after {
+    background-color: white !important;
+    height: 3px !important;
+  }
+  
+  /* Hide logo when menu is open */
+  .logo-container.active img {
+    display: none !important;
+  }
+  
+  /* Hide nav hint when menu is open */
+  .logo-container.active .nav-hint {
+    display: none !important;
+  }
+  
+  /* Darken overlay when menu is open */
+  .off-canvas-overlay.active {
+    background-color: rgba(0, 0, 0, 0.7) !important;
   }
 }
 
-/* Ensure styles work on small screens too */
+/* Ensure styles work on extra small screens */
 @media (max-width: 360px) {
-  .portrait-container .about-btn {
-    min-height: 120px !important;
-    padding: 1.2rem 0.4rem !important;
-    font-size: 0.8rem !important;
+  @media (max-width: 1023px) { /* Nested to ensure it's only for mobile */
+    .logo-container img {
+      height: 4rem !important;
+    }
+    
+    .nav-hint {
+      font-size: 0.9rem !important;
+    }
+    
+    .social-link {
+      width: 2rem !important;
+      height: 2rem !important;
+      font-size: 1rem !important;
+    }
+    
+    .footer {
+      bottom: 1rem !important;
+    }
+  }
+}
+
+/* Landscape adjustments */
+@media (max-height: 600px) and (max-width: 1023px) {
+  .logo-container {
+    padding: 1rem !important;
   }
   
-  .expand-btn {
-    font-size: 0.8rem !important;
-    padding: 0.6rem 1rem !important;
+  .logo-container img {
+    height: 3.5rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+  
+  .nav-hint {
+    font-size: 0.9rem !important;
+    margin-top: 0.5rem !important;
   }
   
   .footer {
     bottom: 0.75rem !important;
-    left: 0.75rem !important;
   }
   
   .social-link {
-    width: 1.75rem !important;
-    height: 1.75rem !important;
-  }
-}
-
-/* Ensure styles work on tall/narrow screens too */
-@media (max-height: 600px) and (max-width: 1023px) {
-  .portrait-container .about-btn {
-    min-height: 100px !important;
-  }
-  
-  .header {
-    padding-top: 0.5rem !important;
-  }
-}
-
-/* ===== MOBILE FULL-SCREEN EXPERIENCE - HOMEPAGE ONLY ===== */
-@media (max-width: 767px) {
-  /* Only apply these styles to the homepage */
-  body:not(.section-active):not(.about-section-active):not(.service-section-active):not(.brands-section-active):not(.contact-section-active) {
-    /* Lock body to prevent unwanted scrolling */
-    overflow: hidden !important;
-    touch-action: pan-y !important;
-    height: 100% !important;
-    width: 100% !important;
-    position: fixed !important;
-    margin: 0 !important;
-    padding: 0 !important;
-  }
-  
-  /* Only apply to the homepage main content */
-  body:not(.section-active):not(.about-section-active):not(.service-section-active):not(.brands-section-active):not(.contact-section-active) .main-content {
-    /* Full-screen section setup */
-    height: 100vh !important;
-    width: 100vw !important;
-    overflow: hidden !important;
-    display: flex !important; /* Changed from block to flex for better control */
-    flex-direction: column !important;
-    position: relative !important;
-    scroll-snap-type: y mandatory !important;
-    overflow-y: scroll !important; /* Allow vertical scrolling for snap points */
-    scrollbar-width: none !important; /* Hide scrollbar Firefox */
-    -ms-overflow-style: none !important; /* Hide scrollbar IE/Edge */
-  }
-  
-  /* Hide scrollbar for Chrome, Safari and Opera */
-  body:not(.section-active):not(.about-section-active):not(.service-section-active):not(.brands-section-active):not(.contact-section-active) .main-content::-webkit-scrollbar {
-    display: none !important;
-  }
-  
-  /* Transform sections for full-screen experience */
-  body:not(.section-active):not(.about-section-active):not(.service-section-active):not(.brands-section-active):not(.contact-section-active) .section,
-  body:not(.section-active):not(.about-section-active):not(.service-section-active):not(.brands-section-active):not(.contact-section-active) .portrait-container {
-    height: 100vh !important;
-    min-height: 100vh !important;
-    width: 100vw !important;
-    max-width: 100vw !important;
-    position: relative !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    scroll-snap-align: start !important; /* Snap to this section */
-    scroll-snap-stop: always !important; /* Always stop at this snap point */
-    overflow: hidden !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    flex: none !important; /* Prevent flexbox stretching */
-    z-index: 1 !important;
-    border-radius: 0 !important;
-  }
-  
-  /* Force the sections into the correct order */
-  body:not(.section-active):not(.about-section-active):not(.service-section-active):not(.brands-section-active):not(.contact-section-active) .main-content {
-    display: flex !important;
-    flex-direction: column !important;
-  }
-  
-  body:not(.section-active):not(.about-section-active):not(.service-section-active):not(.brands-section-active):not(.contact-section-active) .main-content > * {
-    order: 10 !important; /* Default high order */
-  }
-  
-  body:not(.section-active):not(.about-section-active):not(.service-section-active):not(.brands-section-active):not(.contact-section-active) .section-left {
-    order: 1 !important; /* Service first */
-  }
-  
-  body:not(.section-active):not(.about-section-active):not(.service-section-active):not(.brands-section-active):not(.contact-section-active) .portrait-container {
-    order: 2 !important; /* Person second */
-  }
-  
-  body:not(.section-active):not(.about-section-active):not(.service-section-active):not(.brands-section-active):not(.contact-section-active) .section-right {
-    order: 3 !important; /* Brands third */
-  }
-  
-  /* Section background styling */
-  body:not(.section-active):not(.about-section-active):not(.service-section-active):not(.brands-section-active):not(.contact-section-active) .section-background {
-    position: absolute !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: cover !important;
-    transform: none !important;
-    transition: transform 0.5s ease-in-out !important; /* Add transition for hover effect */
-    z-index: 0 !important;
-  }
-  
-  /* Portrait section styling */
-  body:not(.section-active):not(.about-section-active):not(.service-section-active):not(.brands-section-active):not(.contact-section-active) .portrait-container {
-    background-image: url('../images/Ingrid Bergman Portret.jpg') !important;
-    background-size: cover !important;
-    background-position: center !important;
-  }
-  
-  /* Hide original portrait elements */
-  body:not(.section-active):not(.about-section-active):not(.service-section-active):not(.brands-section-active):not(.contact-section-active) .portrait-wrapper,
-  body:not(.section-active):not(.about-section-active):not(.service-section-active):not(.brands-section-active):not(.contact-section-active) .portrait,
-  body:not(.section-active):not(.about-section-active):not(.service-section-active):not(.brands-section-active):not(.contact-section-active) .portrait-image,
-  body:not(.section-active):not(.about-section-active):not(.service-section-active):not(.brands-section-active):not(.contact-section-active) .portrait-bw-wrapper,
-  body:not(.section-active):not(.about-section-active):not(.service-section-active):not(.brands-section-active):not(.contact-section-active) .bw-left,
-  body:not(.section-active):not(.about-section-active):not(.service-section-active):not(.brands-section-active):not(.contact-section-active) .bw-right {
-    display: none !important;
-  }
-  
-  /* Content styling */
-  body:not(.section-active):not(.about-section-active):not(.service-section-active):not(.brands-section-active):not(.contact-section-active) .section-content {
-    text-align: center !important;
-    padding: 0 1.5rem !important;
-    z-index: 5 !important;
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    justify-content: center !important;
-    transform: none !important;
-    width: 100% !important;
-    max-width: 90% !important;
-    margin: 0 auto !important;
-    position: relative !important;
-  }
-  
-  /* Section title styling */
-  body:not(.section-active):not(.about-section-active):not(.service-section-active):not(.brands-section-active):not(.contact-section-active) .section-title {
-    display: block !important;
-    font-size: 1.8rem !important;
-    font-weight: 300 !important;
-    color: white !important;
-    margin-bottom: 1.5rem !important;
-    text-transform: uppercase !important;
-    letter-spacing: 2px !important;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.3) !important;
-    opacity: 1 !important;
-  }
-  
-  /* Button styling */
-  body:not(.section-active):not(.about-section-active):not(.service-section-active):not(.brands-section-active):not(.contact-section-active) .expand-btn,
-  body:not(.section-active):not(.about-section-active):not(.service-section-active):not(.brands-section-active):not(.contact-section-active) .about-btn {
-    display: inline-block !important;
-    padding: 0.8rem 2rem !important;
-    background-color: rgba(255,255,255,0.9) !important;
-    color: var(--color-secondary) !important;
-    border: none !important;
-    border-radius: 2px !important;
-    font-size: 0.9rem !important;
-    text-transform: uppercase !important;
-    letter-spacing: 1px !important;
-    opacity: 1 !important;
-    transform: none !important;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2) !important;
-    transition: transform 0.3s ease, background-color 0.3s ease !important;
-    -webkit-tap-highlight-color: transparent !important; /* Remove tap highlight on mobile */
-    touch-action: manipulation !important; /* Improve touch interaction */
-  }
-  
-  body:not(.section-active):not(.about-section-active):not(.service-section-active):not(.brands-section-active):not(.contact-section-active) .expand-btn:active,
-  body:not(.section-active):not(.about-section-active):not(.service-section-active):not(.brands-section-active):not(.contact-section-active) .about-btn:active {
-    transform: scale(0.98) !important;
-    background-color: rgba(255,255,255,1) !important;
-  }
-  
-  /* Add overlay for better text visibility */
-  body:not(.section-active):not(.about-section-active):not(.service-section-active):not(.brands-section-active):not(.contact-section-active) .section::before,
-  body:not(.section-active):not(.about-section-active):not(.service-section-active):not(.brands-section-active):not(.contact-section-active) .portrait-container::before {
-    content: '' !important;
-    position: absolute !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 100% !important;
-    height: 100% !important;
-    background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.5)) !important;
-    z-index: 1 !important;
-  }
-  
-  /* Navigation indicators */
-  body:not(.section-active):not(.about-section-active):not(.service-section-active):not(.brands-section-active):not(.contact-section-active) .nav-dots {
-    position: fixed !important;
-    right: 1rem !important;
-    top: 50% !important;
-    transform: translateY(-50%) !important;
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 1rem !important;
-    z-index: 100 !important;
-  }
-  
-  body:not(.section-active):not(.about-section-active):not(.service-section-active):not(.brands-section-active):not(.contact-section-active) .nav-dot {
-    width: 8px !important;
-    height: 8px !important;
-    border-radius: 50% !important;
-    background-color: rgba(255,255,255,0.5) !important;
-    transition: all 0.3s ease !important;
-  }
-  
-  body:not(.section-active):not(.about-section-active):not(.service-section-active):not(.brands-section-active):not(.contact-section-active) .nav-dot.active {
-    width: 10px !important;
-    height: 10px !important;
-    background-color: white !important;
-  }
-  
-  /* Hide original footer elements on homepage */
-  body:not(.section-active):not(.about-section-active):not(.service-section-active):not(.brands-section-active):not(.contact-section-active) .footer,
-  body:not(.section-active):not(.about-section-active):not(.service-section-active):not(.brands-section-active):not(.contact-section-active) .contact-btn,
-  body:not(.section-active):not(.about-section-active):not(.service-section-active):not(.brands-section-active):not(.contact-section-active) .language-switcher {
-    display: none !important;
-  }
-  
-  /* Scroll hint indicator */
-  body:not(.section-active):not(.about-section-active):not(.service-section-active):not(.brands-section-active):not(.contact-section-active) .scroll-hint {
-    position: fixed !important;
-    bottom: 2rem !important;
-    left: 50% !important;
-    transform: translateX(-50%) !important;
-    color: white !important;
-    font-size: 0.8rem !important;
-    opacity: 0.8 !important;
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    gap: 0.5rem !important;
-    z-index: 100 !important;
-    animation: fadeInOut 2s infinite !important;
-    pointer-events: none !important; /* Prevent it from interfering with scroll */
-  }
-  
-  @keyframes fadeInOut {
-    0%, 100% { opacity: 0.4; }
-    50% { opacity: 0.8; }
-  }
-  
-  /* Arrow indicator for scrolling */
-  body:not(.section-active):not(.about-section-active):not(.service-section-active):not(.brands-section-active):not(.contact-section-active) .scroll-arrow {
-    width: 20px !important;
-    height: 10px !important;
-    border-left: 2px solid white !important;
-    border-bottom: 2px solid white !important;
-    transform: rotate(-45deg) !important;
-    animation: bounce 2s infinite !important;
-  }
-  
-  @keyframes bounce {
-    0%, 20%, 50%, 80%, 100% { transform: translateY(0) rotate(-45deg); }
-    40% { transform: translateY(10px) rotate(-45deg); }
-    60% { transform: translateY(5px) rotate(-45deg); }
-  }
-  
-  /* Simplified header */
-  body:not(.section-active):not(.about-section-active):not(.service-section-active):not(.brands-section-active):not(.contact-section-active) .header {
-    position: fixed !important;
-    top: 1rem !important;
-    left: 0 !important;
-    width: 100% !important;
-    display: flex !important;
-    justify-content: center !important;
-    z-index: 100 !important;
-    pointer-events: auto !important;
-  }
-  
-  /* Logo styling */
-  body:not(.section-active):not(.about-section-active):not(.service-section-active):not(.brands-section-active):not(.contact-section-active) .logo-container {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    pointer-events: auto !important;
-  }
-  
-  body:not(.section-active):not(.about-section-active):not(.service-section-active):not(.brands-section-active):not(.contact-section-active) .logo-container img {
+    width: 2rem !important;
     height: 2rem !important;
-    width: auto !important;
   }
-  
-  /* Navigation hint text */
-  body:not(.section-active):not(.about-section-active):not(.service-section-active):not(.brands-section-active):not(.contact-section-active) .nav-hint {
-    font-size: 0.7rem !important;
-    color: white !important;
-    opacity: 0.8 !important;
-    margin-top: 0.3rem !important;
-    text-transform: uppercase !important;
-    letter-spacing: 1px !important;
-  }
-  
-  /* Simplified mobile menu button */
-  body:not(.section-active):not(.about-section-active):not(.service-section-active):not(.brands-section-active):not(.contact-section-active) .mobile-menu-btn {
-    position: fixed !important;
-    top: 1rem !important;
-    right: 1rem !important;
-    width: 40px !important;
-    height: 40px !important;
-    background-color: rgba(255,255,255,0.2) !important;
-    border-radius: 50% !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    z-index: 101 !important;
-    cursor: pointer !important;
-    -webkit-tap-highlight-color: transparent !important;
-  }
-  
-  /* Menu icon */
-  body:not(.section-active):not(.about-section-active):not(.service-section-active):not(.brands-section-active):not(.contact-section-active) .mobile-menu-icon {
-    width: 20px !important;
-    height: 2px !important;
-    background-color: white !important;
-    position: relative !important;
-  }
-  
-  body:not(.section-active):not(.about-section-active):not(.service-section-active):not(.brands-section-active):not(.contact-section-active) .mobile-menu-icon::before,
-  body:not(.section-active):not(.about-section-active):not(.service-section-active):not(.brands-section-active):not(.contact-section-active) .mobile-menu-icon::after {
-    content: '' !important;
-    position: absolute !important;
-    width: 100% !important;
-    height: 100% !important;
-    background-color: white !important;
-    transition: all 0.3s ease !important;
-  }
-  
-  body:not(.section-active):not(.about-section-active):not(.service-section-active):not(.brands-section-active):not(.contact-section-active) .mobile-menu-icon::before {
-    transform: translateY(-6px) !important;
-  }
-  
-  body:not(.section-active):not(.about-section-active):not(.service-section-active):not(.brands-section-active):not(.contact-section-active) .mobile-menu-icon::after {
-    transform: translateY(6px) !important;
-  }
-  
-  /* Section label indicator */
-  body:not(.section-active):not(.about-section-active):not(.service-section-active):not(.brands-section-active):not(.contact-section-active) .section-indicator {
-    position: fixed !important;
-    bottom: 1rem !important;
-    left: 50% !important;
-    transform: translateX(-50%) !important;
-    color: white !important;
-    font-size: 0.8rem !important;
-    text-transform: uppercase !important;
-    letter-spacing: 1px !important;
-    opacity: 0.8 !important;
-    z-index: 100 !important;
-    background-color: rgba(0,0,0,0.3) !important;
-    padding: 0.3rem 0.8rem !important;
-    border-radius: 20px !important;
-    pointer-events: none !important;
-  }
-}
-
-/* Add JavaScript to initialize and handle the mobile full-screen experience */
-document.addEventListener('DOMContentLoaded', function() {
-  // Only run on mobile devices
-  if (window.innerWidth <= 767) {
-    // Check if we're on the homepage (not in any section)
-    if (!document.body.classList.contains('section-active') && 
-        !document.body.classList.contains('about-section-active') && 
-        !document.body.classList.contains('service-section-active') && 
-        !document.body.classList.contains('brands-section-active') && 
-        !document.body.classList.contains('contact-section-active')) {
-            
-      // Add navigation dots
-      const navDots = document.createElement('div');
-      navDots.className = 'nav-dots';
-      
-      // Create 3 dots (one for each section)
-      for (let i = 0; i < 3; i++) {
-        const dot = document.createElement('div');
-        dot.className = 'nav-dot';
-        if (i === 0) dot.classList.add('active');
-        navDots.appendChild(dot);
-      }
-      
-      document.body.appendChild(navDots);
-      
-      // Add scroll hint
-      const scrollHint = document.createElement('div');
-      scrollHint.className = 'scroll-hint';
-      scrollHint.innerHTML = '<div class="scroll-arrow"></div><span>Scroll</span>';
-      document.body.appendChild(scrollHint);
-      
-      // Add mobile menu button
-      const menuBtn = document.createElement('div');
-      menuBtn.className = 'mobile-menu-btn';
-      menuBtn.innerHTML = '<div class="mobile-menu-icon"></div>';
-      document.body.appendChild(menuBtn);
-      
-      // Update active dot based on scroll position
-      const mainContent = document.querySelector('.main-content');
-      if (mainContent) {
-        mainContent.addEventListener('scroll', function() {
-          const scrollPosition = mainContent.scrollTop;
-          const windowHeight = window.innerHeight;
-          
-          const sectionIndex = Math.round(scrollPosition / windowHeight);
-          
-          // Update active dot
-          const dots = document.querySelectorAll('.nav-dot');
-          dots.forEach((dot, index) => {
-            if (index === sectionIndex) {
-              dot.classList.add('active');
-            } else {
-              dot.classList.remove('active');
-            }
-          });
-          
-          // Hide scroll hint after user has scrolled
-          if (scrollPosition > 10) {
-            scrollHint.style.opacity = '0';
-          }
-        });
-      }
-      
-      // Handle dot click for navigation
-      document.querySelectorAll('.nav-dot').forEach((dot, index) => {
-        dot.addEventListener('click', function() {
-          const mainContent = document.querySelector('.main-content');
-          if (mainContent) {
-            mainContent.scrollTo({
-              top: index * window.innerHeight,
-              behavior: 'smooth'
-            });
-          }
-        });
-      });
-      
-      // Handle menu button click
-      menuBtn.addEventListener('click', function() {
-        const logoContainer = document.querySelector('.logo-container');
-        if (logoContainer) {
-          logoContainer.click(); // Use existing navigation logic
-        }
-      });
-    }
-  }
-});
-
-/* Hide section backgrounds on desktop */
-@media (min-width: 1024px) {
-    .section-left,
-    .section-right,
-    .portrait-container {
-        background-image: none !important;
-    }
 }

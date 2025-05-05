@@ -66,11 +66,11 @@
     <main class="main-content">
         <!-- Left Panel: The Service -->
         <section class="section section-left">
-            <div class="section-background"></div>
+            <div class="section-background" style="background: url('images/the service (2).jpg') center/cover no-repeat;"></div>
             <div class="hover-overlay"></div>
             <div class="section-content">
-                <h2 class="section-title">The Service</h2>
-                <button class="expand-btn">Explore</button>
+                <h2 class="section-title" data-translate="serviceTitle">The Service</h2>
+                <button class="expand-btn" id="serviceExpandBtn" data-translate="serviceTitle">The Service</button>
             </div>
         </section>
 
@@ -92,18 +92,17 @@
             </div>
             <!-- Added section content for mobile view -->
             <div class="section-content">
-                <h2 class="section-title">The Person</h2>
-                <button class="about-btn">About</button>
+                <button class="about-btn" data-translate="person">The Person</button>
             </div>
         </div>
 
         <!-- Right Panel: The Brands -->
         <section class="section section-right">
-            <div class="section-background"></div>
+            <div class="section-background" style="background: url('images/the brands.jpg') center/cover no-repeat;"></div>
             <div class="hover-overlay"></div>
             <div class="section-content">
-                <h2 class="section-title">The Brands</h2>
-                <button class="expand-btn">Explore</button>
+                <h2 class="section-title" data-translate="brandsTitle">The Brands</h2>
+                <button class="expand-btn" id="brandsExpandBtn" data-translate="brandsTitle">The Brands</button>
             </div>
         </section>
     </main>
@@ -457,7 +456,7 @@
             <button class="lang-btn" data-lang="pt">Pt</button>
         </div>
     </footer>
-    
+
     <!-- Language Transition Overlay -->
     <div class="language-transition-overlay"></div>
 
@@ -492,7 +491,7 @@
             </a>
         </div>
     </nav>
-    
+
     <!-- Scripts -->
     <script src="js/main.js"></script>
     <script src="js/loader.js"></script>
@@ -501,7 +500,6 @@
     <script src="js/contact.js"></script>
     <script src="js/translations.js"></script>
     <script src="js/performance-optimizer.js"></script>
-    <script src="js/mobile-homepage.js"></script>
     
     <!-- Service Worker Registration -->
     <script>
