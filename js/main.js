@@ -18,33 +18,26 @@ function debugLog(message, data) {
 
 // Gallery images data
 const galleryImages = [
-    "images/CA project done/IBICali2019-1 - Copy - Copy.jpg",
-    "images/CA project done/IBICali2019-4.jpg",
-    "images/CA project done/IBICali2019-5.jpg",
-    "images/CA project done/IBICali2019-6 1.jpg",
-    "images/CA project done/IBICali2019-8.jpg",
-    "images/CA project done/IBICali2019-9 - Copy.jpg",
-    "images/CA project done/IBICali2019-10 - Copy - Copy.jpg",
-    "images/CA project done/IBICali2019-12.jpg",
-    "images/CA project done/IBICali2019-13.jpg",
-    "images/CA project done/IBICali2019-14.jpg",
-    "images/CA project done/IBICali2019-15.jpg",
-    "images/CA project done/IBICali2019-17.jpg",
-    "images/CA project done/IBICali2019-26.jpg",
-    "images/CA project done/IBICali2019-29.jpg",
-    "images/CA project done/IBICali2019-30.jpg",
-    "images/CA project done/IBICali2019-31.jpg",
-    "images/CA project done/IBICali2019-33.jpg",
-    "images/CA project done/IBICali2019-34.jpg",
-    "images/CA project done/IBICali2019-39.jpg",
-    "images/CA project done/IBICali2019-40.jpg",
-    "images/CA project done/IBICali2019-41.jpg",
-    "images/CA project done/IBICali2019-42.jpg",
-    "images/CA project done/IBICali2019-43.jpg",
-    "images/CA project done/IBICali2019-71.jpg",
-    "images/CA project done/IBICali2019-351.jpg",
-    "images/CA project done/IBICali2019-411.jpg",
-    "images/CA project done/IBICali2019-441.jpg"
+    "images/cali project/IBICali2019-1 - Copy - Copy.jpg",
+    "images/cali project/IBICali2019-4.jpg",
+    "images/cali project/IBICali2019-5.jpg",
+    "images/cali project/IBICali2019-6.jpg",
+    "images/cali project/IBICali2019-9 - Copy.jpg",
+    "images/cali project/IBICali2019-10 - Copy - Copy.jpg",
+    "images/cali project/IBICali2019-12.jpg",
+    "images/cali project/IBICali2019-15.jpg",
+    "images/cali project/IBICali2019-17.jpg",
+    "images/cali project/IBICali2019-26.jpg",
+    "images/cali project/IBICali2019-29.jpg",
+    "images/cali project/IBICali2019-30.jpg",
+    "images/cali project/IBICali2019-33.jpg",
+    "images/cali project/IBICali2019-39.jpg",
+    "images/cali project/IBICali2019-40.jpg",
+    "images/cali project/IBICali2019-42.jpg",
+    "images/cali project/IBICali2019-43.jpg",
+    "images/cali project/IBICali2019-71.jpg",
+    "images/cali project/IBICali2019-351.jpg",
+    "images/cali project/IBICali2019-441.jpg"
 ];
 
 let currentSlide = 0;
@@ -1258,6 +1251,17 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Execute initialization sequence
     initializeWebsite();
+
+    // Mobile logo click handler
+    const mobileLogo = document.querySelector('.mobile-logo');
+    if (mobileLogo) {
+        mobileLogo.addEventListener('click', () => {
+            const logo = document.querySelector('.logo-container');
+            if (logo) {
+                logo.click(); // Trigger the same click event as the desktop logo
+            }
+        });
+    }
 });
 
 /**
@@ -1907,6 +1911,29 @@ function initializePortfolioAndTeam() {
                 'images/CA project done/IBICali2019-8.jpg',
                 'images/CA project done/IBICali2019-9 - Copy.jpg'
             ]
+        },
+        {
+            id: 'restaurant',
+            title: 'A Bold New Restaurant Concept with Heart',
+            location: 'Restaurant Project',
+            description: 'An innovative restaurant design that combines bold aesthetics with warm hospitality. This project demonstrates our expertise in creating memorable dining experiences through thoughtful interior design.',
+            image: 'images/grill/Grill 445-1.jpg',
+            images: [
+                'images/grill/Grill 445-1.jpg',
+                'images/grill/Grill 445-3.jpg',
+                'images/grill/Grill 445-5.jpg',
+                'images/grill/Grill 445-8.jpg',
+                'images/grill/Grill 445-9.jpg',
+                'images/grill/Grill 445-11.jpg',
+                'images/grill/Grill 445-12.jpg',
+                'images/grill/Grill 445-13.jpg',
+                'images/grill/Grill 445-16.jpg',
+                'images/grill/Grill 445-18.jpg',
+                'images/grill/Grill 445-19.jpg',
+                'images/grill/Grill 445-23.jpg',
+                'images/grill/Grill 445-24.jpg',
+                'images/grill/Grill 445-26.jpg'
+            ]
         }
     ];
 
@@ -1964,468 +1991,173 @@ if (projectInfoBtn && projectDescriptionModal && closeProjectDescriptionBtn) {
 
 // Project Gallery functionality
 document.addEventListener('DOMContentLoaded', function() {
-    // Gallery Elements
-    const projectGalleryPopup = document.querySelector('.project-gallery-popup');
-    const gallerySlides = document.querySelectorAll('.gallery-slide');
-    const galleryBackground = document.querySelector('.gallery-background');
-    const prevSlideBtn = document.querySelector('.gallery-nav.prev-slide');
-    const nextSlideBtn = document.querySelector('.gallery-nav.next-slide');
-    const closeGalleryBtn = document.querySelector('.close-gallery');
-    const currentSlideElement = document.querySelector('.current-slide');
-    const totalSlidesElement = document.querySelector('.total-slides');
-    const galleryIndicatorsContainer = document.querySelector('.gallery-indicators');
-    
-    debugLog('Gallery initialized');
-    debugLog('Gallery popup found', !!projectGalleryPopup);
-    debugLog('Gallery slides found', gallerySlides.length);
-    debugLog('Gallery background found', !!galleryBackground);
-    debugLog('Prev button found', !!prevSlideBtn);
-    debugLog('Next button found', !!nextSlideBtn);
-    
-    // Get gallery buttons with multiple approaches to ensure we catch it
-    const galleryButtons = document.querySelectorAll('.project-btn.view-gallery-btn, .project-btn[data-translate="viewGallery"], .project-btn i.fas.fa-images');
-    
-    // Direct approach to find all project buttons with Gallery text
-    document.querySelectorAll('.project-buttons .project-btn').forEach(btn => {
-        if (btn.textContent.trim().includes('Gallery')) {
-            debugLog('Found Gallery button by text content', btn.textContent);
-            // Add event listener directly
-            btn.addEventListener('click', function(e) {
-                debugLog('Gallery button clicked via text content match');
-                e.preventDefault();
-                e.stopPropagation();
-                projectGalleryPopup.classList.add('active');
-                document.body.classList.add('no-scroll');
-                showSlide(0);
-            });
-        }
-    });
-    
-    debugLog('Gallery buttons found by selector', galleryButtons.length);
-    
-    // Create gallery indicators
-    function createGalleryIndicators() {
-        if (!galleryIndicatorsContainer) return;
-        
-        // Clear existing indicators
-        galleryIndicatorsContainer.innerHTML = '';
-        
-        // Create an indicator for each slide
-        gallerySlides.forEach((_, index) => {
-            const indicator = document.createElement('div');
-            indicator.classList.add('gallery-indicator');
-            if (index === 0) indicator.classList.add('active');
-            
-            indicator.addEventListener('click', () => {
-                showSlide(index);
-            });
-            
-            galleryIndicatorsContainer.appendChild(indicator);
-        });
-    }
-    
-    // Create indicators when DOM is loaded
-    createGalleryIndicators();
-    
-    // Set total slides
-    if (totalSlidesElement && gallerySlides.length > 0) {
-        totalSlidesElement.textContent = gallerySlides.length;
-        debugLog('Set total slides to', gallerySlides.length);
-    }
-    
-    // Current slide index
-    let currentSlideIndex = 0;
-    
-    // Open Gallery - add event listeners to all buttons
-    galleryButtons.forEach(button => {
-        debugLog('Adding event listener to gallery button element');
-        button.addEventListener('click', function(e) {
-            debugLog('Gallery button clicked via selector');
-            e.preventDefault();
-            e.stopPropagation(); // Stop any parent handlers
-            projectGalleryPopup.classList.add('active');
-            document.body.classList.add('no-scroll');
-            showSlide(0);
-        });
-    });
-    
-    // Add global click handler for any gallery buttons (delegation approach)
-    document.addEventListener('click', function(e) {
-        const clickedBtn = e.target.closest('.project-btn');
-        if (clickedBtn && (
-            clickedBtn.getAttribute('data-translate') === 'viewGallery' || 
-            clickedBtn.textContent.includes('Gallery') ||
-            clickedBtn.querySelector('i.fas.fa-images')
-        )) {
-            debugLog('Gallery button clicked via delegation');
-            e.preventDefault();
-            e.stopPropagation();
-            projectGalleryPopup.classList.add('active');
-            document.body.classList.add('no-scroll');
-            showSlide(0);
-        }
-    });
-    
-    // Close Gallery
-    if (closeGalleryBtn) {
-        closeGalleryBtn.addEventListener('click', function() {
-            debugLog('Close gallery button clicked');
-            projectGalleryPopup.classList.remove('active');
-            document.body.classList.remove('no-scroll');
-        });
-    }
-    
-    // Click outside to close
-    if (projectGalleryPopup) {
-        projectGalleryPopup.addEventListener('click', function(e) {
-            if (e.target === projectGalleryPopup) {
-                debugLog('Clicked outside gallery to close');
-                projectGalleryPopup.classList.remove('active');
-                document.body.classList.remove('no-scroll');
-            }
-        });
-    }
-    
-    // Show Slide with enhanced animation
-    function showSlide(index) {
-        if (!gallerySlides || gallerySlides.length === 0) {
-            debugLog('No gallery slides found');
-            return;
-        }
-        
-        debugLog('Showing slide', index);
-        
-        // Handle index bounds
-        if (index < 0) {
-            index = gallerySlides.length - 1;
-        } else if (index >= gallerySlides.length) {
-            index = 0;
-        }
-        
-        // Update current index
-        currentSlideIndex = index;
-        
-        // Update slides with a subtle animation
-        gallerySlides.forEach((slide, i) => {
-            if (i === index) {
-                // First remove active class from all slides
-                slide.classList.remove('active');
-                
-                // Force a reflow to ensure animation works
-                void slide.offsetWidth;
-                
-                // Add active class back to the current slide
-                slide.classList.add('active');
-                
-                // Add a subtle scale animation to the image container
-                const imageContainer = slide.querySelector('.gallery-image-container');
-                if (imageContainer) {
-                    imageContainer.style.transform = 'translateY(10px) scale(0.98)';
-                    setTimeout(() => {
-                        imageContainer.style.transform = 'translateY(0) scale(1)';
-                    }, 50);
-                }
-            } else {
-                slide.classList.remove('active');
-            }
-        });
-        
-        // Update the background image
-        if (galleryBackground) {
-            const currentImage = gallerySlides[index].querySelector('.gallery-image');
-            if (currentImage) {
-                // Preload the image to ensure smooth background transition
-                const imageUrl = currentImage.src;
-                const preloadImg = new Image();
-                preloadImg.onload = function() {
-                    galleryBackground.style.backgroundImage = `url('${imageUrl}')`;
-                    debugLog('Updated background to', imageUrl);
-                };
-                preloadImg.src = imageUrl;
-                
-                // If image is already cached, set background immediately
-                if (preloadImg.complete) {
-                    galleryBackground.style.backgroundImage = `url('${imageUrl}')`;
-                }
-            }
-        }
-        
-        // Update indicators with animation
-        const indicators = document.querySelectorAll('.gallery-indicator');
-        indicators.forEach((indicator, i) => {
-            indicator.classList.toggle('active', i === index);
-            
-            // Add subtle animation to the active indicator
-            if (i === index) {
-                indicator.style.transform = 'scale(1.2)';
-                setTimeout(() => {
-                    indicator.style.transform = '';
-                }, 300);
-            }
-        });
-        
-        // Update pagination
-        if (currentSlideElement) {
-            currentSlideElement.textContent = index + 1;
-        }
-        
-        // Preload next and previous images for smoother navigation
-        preloadAdjacentImages(index);
-    }
-    
-    // Preload adjacent images for smoother navigation
-    function preloadAdjacentImages(currentIndex) {
-        // Preload next image
-        if (currentIndex < gallerySlides.length - 1) {
-            const nextImage = gallerySlides[currentIndex + 1].querySelector('.gallery-image');
-            if (nextImage) {
-                const preloadNext = new Image();
-                preloadNext.src = nextImage.src;
-            }
-        }
-        
-        // Preload previous image
-        if (currentIndex > 0) {
-            const prevImage = gallerySlides[currentIndex - 1].querySelector('.gallery-image');
-            if (prevImage) {
-                const preloadPrev = new Image();
-                preloadPrev.src = prevImage.src;
-            }
-        }
-    }
-    
-    // Initialize gallery with first slide as background
-    if (galleryBackground && gallerySlides.length > 0) {
-        const firstImage = gallerySlides[0].querySelector('.gallery-image');
-        if (firstImage) {
-            galleryBackground.style.backgroundImage = `url('${firstImage.src}')`;
-            debugLog('Set initial background to', firstImage.src);
-        }
-    }
-    
-    // Next Slide
-    if (nextSlideBtn) {
-        nextSlideBtn.addEventListener('click', function(e) {
-            debugLog('Next slide button clicked');
-            e.stopPropagation();
-            showSlide(currentSlideIndex + 1);
-        });
-    }
-    
-    // Previous Slide
-    if (prevSlideBtn) {
-        prevSlideBtn.addEventListener('click', function(e) {
-            debugLog('Previous slide button clicked');
-            e.stopPropagation();
-            showSlide(currentSlideIndex - 1);
-        });
-    }
-    
-    // Keyboard navigation
-    document.addEventListener('keydown', function(e) {
-        if (!projectGalleryPopup || !projectGalleryPopup.classList.contains('active')) return;
-        
-        if (e.key === 'ArrowLeft') {
-            debugLog('Left arrow key pressed');
-            showSlide(currentSlideIndex - 1);
-        } else if (e.key === 'ArrowRight') {
-            debugLog('Right arrow key pressed');
-            showSlide(currentSlideIndex + 1);
-        } else if (e.key === 'Escape') {
-            debugLog('Escape key pressed');
-            projectGalleryPopup.classList.remove('active');
-            document.body.classList.remove('no-scroll');
-        }
-    });
-    
-    // Swipe functionality for touch devices
-    let touchStartX = 0;
-    let touchEndX = 0;
-    
-    if (projectGalleryPopup) {
-        projectGalleryPopup.addEventListener('touchstart', function(e) {
-            touchStartX = e.changedTouches[0].screenX;
-            debugLog('Touch start', touchStartX);
-        }, { passive: true });
-        
-        projectGalleryPopup.addEventListener('touchend', function(e) {
-            touchEndX = e.changedTouches[0].screenX;
-            debugLog('Touch end', touchEndX);
-            handleSwipe();
-        }, { passive: true });
-    }
-    
-    function handleSwipe() {
-        if (touchEndX < touchStartX - 50) {
-            // Swipe left - next slide
-            debugLog('Swipe left detected');
-            showSlide(currentSlideIndex + 1);
-        } else if (touchEndX > touchStartX + 50) {
-            // Swipe right - previous slide
-            debugLog('Swipe right detected');
-            showSlide(currentSlideIndex - 1);
-        }
-    }
-});
-
-// Gallery Functionality
-document.addEventListener('DOMContentLoaded', function() {
     const galleryModal = document.querySelector('.gallery-modal');
-    const galleryContainer = document.querySelector('.gallery-container');
     const gallerySlides = document.querySelectorAll('.gallery-slide');
     const prevBtn = document.querySelector('.gallery-prev-btn');
     const nextBtn = document.querySelector('.gallery-next-btn');
     const closeBtn = document.querySelector('.close-gallery');
-    const galleryCounter = document.querySelector('.gallery-counter');
-    const galleryBtn = document.querySelector('.gallery-btn');
-    
+    const counter = document.querySelector('.gallery-counter');
     let currentSlide = 0;
-    
-    // Open gallery
-    if (galleryBtn) {
-        galleryBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
+    let activeProject = 'california'; // Track which project's gallery is active
+
+    // Function to show a specific slide
+    function showSlide(index) {
+        // Hide all slides first
+        gallerySlides.forEach(slide => {
+            slide.classList.remove('active');
+        });
+
+        // Show only slides for the active project
+        const projectSlides = Array.from(gallerySlides).filter(slide => {
+            return activeProject === 'california' ? !slide.classList.contains('restaurant-slide') : slide.classList.contains('restaurant-slide');
+        });
+
+        // Handle index bounds
+        if (index < 0) index = projectSlides.length - 1;
+        if (index >= projectSlides.length) index = 0;
+
+        // Show the current slide
+        projectSlides[index].classList.add('active');
+        currentSlide = index;
+
+        // Update counter
+        counter.textContent = `${index + 1} / ${projectSlides.length}`;
+    }
+
+    // Add click event listeners to gallery buttons
+    document.querySelectorAll('.gallery-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            // Determine which project's gallery to show
+            const projectCard = this.closest('.project-card');
+            activeProject = projectCard.querySelector('img').src.includes('grill') ? 'restaurant' : 'california';
             
-            // First show the modal
-            galleryModal.style.display = 'flex';
-            
-            // Trigger reflow
-            galleryModal.offsetHeight;
-            
-            // Add active class for animation
+            // Show gallery modal
             galleryModal.classList.add('active');
-            galleryModal.classList.remove('closing');
-            document.body.style.overflow = 'hidden';
-            updateGalleryCounter();
-        });
-    }
-    
-    // Close gallery
-    if (closeBtn) {
-        closeBtn.addEventListener('click', () => {
-            // Add closing class for animation
-            galleryModal.classList.add('closing');
-            galleryModal.classList.remove('active');
+            document.body.classList.add('no-scroll');
             
-            // Wait for animation to complete before hiding
-            setTimeout(() => {
-                galleryModal.style.display = 'none';
-                document.body.style.overflow = '';
-            }, 500); // Match the transition duration
+            // Show first slide
+            showSlide(0);
         });
-    }
-    
-    // Close gallery when clicking outside
-    if (galleryModal) {
+    });
+
+    // Previous button click
+    prevBtn.addEventListener('click', () => {
+        showSlide(currentSlide - 1);
+    });
+
+    // Next button click
+    nextBtn.addEventListener('click', () => {
+        showSlide(currentSlide + 1);
+    });
+
+    // Close button click
+        closeBtn.addEventListener('click', () => {
+            galleryModal.classList.remove('active');
+        document.body.classList.remove('no-scroll');
+    });
+
+    // Click outside to close
         galleryModal.addEventListener('click', (e) => {
             if (e.target === galleryModal) {
-                // Add closing class for animation
-                galleryModal.classList.add('closing');
                 galleryModal.classList.remove('active');
-                
-                // Wait for animation to complete before hiding
-                setTimeout(() => {
-                    galleryModal.style.display = 'none';
-                    document.body.style.overflow = '';
-                }, 500); // Match the transition duration
-            }
-        });
-    }
-    
-    // Previous slide
-    if (prevBtn) {
-        prevBtn.addEventListener('click', () => {
-            gallerySlides[currentSlide].classList.remove('active');
-            currentSlide = (currentSlide - 1 + gallerySlides.length) % gallerySlides.length;
-            gallerySlides[currentSlide].classList.add('active');
-            updateGalleryCounter();
-        });
-    }
-    
-    // Next slide
-    if (nextBtn) {
-        nextBtn.addEventListener('click', () => {
-            gallerySlides[currentSlide].classList.remove('active');
-            currentSlide = (currentSlide + 1) % gallerySlides.length;
-            gallerySlides[currentSlide].classList.add('active');
-            updateGalleryCounter();
-        });
-    }
-    
-    // Keyboard navigation
-    document.addEventListener('keydown', (e) => {
-        if (galleryModal && galleryModal.classList.contains('active')) {
-            if (e.key === 'ArrowLeft') {
-                prevBtn.click();
-            } else if (e.key === 'ArrowRight') {
-                nextBtn.click();
-            } else if (e.key === 'Escape') {
-                closeBtn.click();
-            }
+            document.body.classList.remove('no-scroll');
         }
     });
     
-    // Update gallery counter
-    function updateGalleryCounter() {
-        if (galleryCounter) {
-            galleryCounter.textContent = `${currentSlide + 1} / ${gallerySlides.length}`;
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+        if (!galleryModal.classList.contains('active')) return;
+
+            if (e.key === 'ArrowLeft') {
+            showSlide(currentSlide - 1);
+            } else if (e.key === 'ArrowRight') {
+            showSlide(currentSlide + 1);
+            } else if (e.key === 'Escape') {
+            galleryModal.classList.remove('active');
+            document.body.classList.remove('no-scroll');
         }
-    }
+    });
 });
 
 // Project Description Popup Functionality
 document.addEventListener('DOMContentLoaded', function() {
-    const projectDescriptionPopup = document.querySelector('.project-description-popup');
-    const closeProjectDescriptionBtn = document.querySelector('.close-project-description');
-    const readAboutProjectBtn = document.querySelector('.project-btn[data-translate="readAboutProject"]');
-    const serviceSection = document.querySelector('.service-section');
+    const projectDescriptionPopups = document.querySelectorAll('.project-description-popup');
+    const closeProjectDescriptionBtns = document.querySelectorAll('.close-project-description');
+    const readAboutProjectBtns = document.querySelectorAll('.project-btn[data-translate="readAboutProject"]');
     
     // Open project description popup
-    if (readAboutProjectBtn) {
-        readAboutProjectBtn.addEventListener('click', function(e) {
+    readAboutProjectBtns.forEach(btn => {
+        btn.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
             
-            // Ensure the popup appears immediately
-            projectDescriptionPopup.style.display = 'flex';
+            // Determine which project's description to show
+            const projectCard = btn.closest('.project-card');
+            if (projectCard) {
+                const projectTitle = projectCard.querySelector('.project-title').textContent;
+                const isRestaurant = projectTitle.includes('Restaurant');
+                
+                // Hide all popups first
+                projectDescriptionPopups.forEach(popup => {
+                    popup.style.display = 'none';
+                    popup.classList.remove('active');
+                });
+                
+                // Show the appropriate popup
+                const targetPopup = isRestaurant 
+                    ? document.querySelector('.restaurant-description')
+                    : document.querySelector('.project-description-popup:not(.restaurant-description)');
+                
+                if (targetPopup) {
+                    targetPopup.style.display = 'flex';
             requestAnimationFrame(() => {
-                projectDescriptionPopup.classList.add('active');
+                        targetPopup.classList.add('active');
                 document.body.classList.add('no-scroll');
-            });
         });
     }
+            }
+        });
+    });
     
     // Close project description popup
-    if (closeProjectDescriptionBtn) {
-        closeProjectDescriptionBtn.addEventListener('click', function() {
-            projectDescriptionPopup.classList.remove('active');
+    closeProjectDescriptionBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const popup = this.closest('.project-description-popup');
+            if (popup) {
+                popup.classList.remove('active');
             setTimeout(() => {
-                projectDescriptionPopup.style.display = 'none';
+                    popup.style.display = 'none';
                 document.body.classList.remove('no-scroll');
             }, 500); // Match the transition duration
-        });
     }
+        });
+    });
     
     // Close popup when clicking outside
-    projectDescriptionPopup.addEventListener('click', function(e) {
-        if (e.target === projectDescriptionPopup) {
-            projectDescriptionPopup.classList.remove('active');
+    projectDescriptionPopups.forEach(popup => {
+        popup.addEventListener('click', function(e) {
+            if (e.target === popup) {
+                popup.classList.remove('active');
             setTimeout(() => {
-                projectDescriptionPopup.style.display = 'none';
+                    popup.style.display = 'none';
                 document.body.classList.remove('no-scroll');
             }, 500); // Match the transition duration
         }
+        });
     });
     
     // Close popup with Escape key
     document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && projectDescriptionPopup.classList.contains('active')) {
-            projectDescriptionPopup.classList.remove('active');
+        if (e.key === 'Escape') {
+            projectDescriptionPopups.forEach(popup => {
+                if (popup.classList.contains('active')) {
+                    popup.classList.remove('active');
             setTimeout(() => {
-                projectDescriptionPopup.style.display = 'none';
+                        popup.style.display = 'none';
                 document.body.classList.remove('no-scroll');
             }, 500); // Match the transition duration
+                }
+            });
         }
     });
 });

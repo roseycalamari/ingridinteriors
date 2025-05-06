@@ -62,6 +62,15 @@
         </div>
     </header>
 
+    <!-- Mobile Homepage -->
+    <div class="mobile-homepage">
+        <div class="mobile-logo-container">
+            <h1 class="mobile-company-name">Ingrid Bergman Interiors</h1>
+            <img src="images/logo white i.png" alt="Ingrid Bergman Interiors Logo" class="mobile-logo">
+            <div class="nav-hint" data-translate="navHint">click to navigate</div>
+        </div>
+    </div>
+
     <!-- Main Content: 3-Panel Layout -->
     <main class="main-content">
         <!-- Left Panel: The Service -->
@@ -188,12 +197,31 @@
                     <h3 data-translate="projectsTitle">Ingrid's Projects</h3>
                     <div class="projects-list">
                         <div class="project-card">
-                            <img src="images/CA project done/IBICali2019-30.jpg" alt="California Home Project" class="project-image" loading="lazy">
+                            <img src="images/cali project/IBICali2019-30.jpg" alt="California Home Project" class="project-image" loading="lazy">
                             <div class="project-info">
                                 <h3 class="project-title" data-translate="projectTitle">Transforming of a family home</h3>
                                 <div class="project-location">
                                     <i class="fas fa-map-marker-alt"></i>
                                     <span data-translate="projectLocation">California, US</span>
+                                </div>
+                                <div class="project-buttons">
+                                    <button class="project-btn" data-translate="readAboutProject">
+                                        <i class="fas fa-book-open"></i>Read About the Project
+                                    </button>
+                                    <button class="project-btn gallery-btn">
+                                        <i class="fas fa-images"></i>Gallery
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="project-card">
+                            <img src="images/grill/Grill 445-1.jpg" alt="Restaurant Project" class="project-image" loading="lazy">
+                            <div class="project-info">
+                                <h3 class="project-title">A Bold New Restaurant Concept with Heart</h3>
+                                <div class="project-location">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>Restaurant Project</span>
                                 </div>
                                 <div class="project-buttons">
                                     <button class="project-btn" data-translate="readAboutProject">
@@ -223,7 +251,7 @@
             </button>
             <div class="project-description-grid">
                 <div class="project-description-image">
-                    <img src="images/CA project done/IBICali2019-30.jpg" alt="California Home Project" loading="lazy">
+                    <img src="images/cali project/IBICali2019-30.jpg" alt="California Home Project" loading="lazy">
                 </div>
                 <div class="project-description-text">
                     <h3 data-translate="projectTitle">Transforming of a family home</h3>
@@ -243,6 +271,35 @@
                     <p data-translate="projectDescription4">Every detail was selected to reflect comfort, elegance, and a touch of boldness—and
                     the result? A truly elevated family home, perfectly tailored to the lifestyle and vision of our delighted clients."</p>
                     <p class="signature" data-translate="signature">— Ingrid Bergman</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Restaurant Project Description Popup -->
+    <div class="project-description-popup restaurant-description">
+        <div class="project-description-content">
+            <button class="close-project-description">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="project-description-grid">
+                <div class="project-description-image">
+                    <img src="images/grill/Grill 445-1.jpg" alt="Restaurant Project" loading="lazy">
+                </div>
+                <div class="project-description-text">
+                    <h3>A Bold New Restaurant Concept with Heart</h3>
+                    <p>"We had the opportunity to collaborate with an experienced American restaurateur on an
+                    exciting new venture: a pub-style restaurant concept with a family-friendly twist. The
+                    vision was clear—create a space where you could grab a great steak or burger in a laid-
+                    back, stylish setting that welcomes everyone.</p>
+                    <p>From concept to completion, we were involved every step of the way. The standout
+                    feature? A stunning 35-meter-long natural stone bar that immediately draws attention
+                    and anchors the entire space. Every detail was carefully curated—from material
+                    selections and color palettes to the rich flooring textures, statement lighting, and
+                    luxurious custom booths designed to comfortably seat groups of up to 8.</p>
+                    <p>This project wasn't just about aesthetics—it was about atmosphere. The result is a
+                    warm, inviting, and elevated dining experience that feels both timeless and fresh."</p>
+                    <p class="signature">— Ingrid Bergman</p>
                 </div>
             </div>
         </div>
@@ -299,12 +356,6 @@
                             <h3 class="brand-name">Cape Umbrellas</h3>
                             <a href="https://www.capeumbrellas.com" target="_blank" class="brand-link" data-translate="visitWebsite">Visit Website</a>
                         </div>
-                        
-                        <div class="brand-item">
-                            <img src="images/C&C Milano picture for website.jpg" alt="C&C Milano" class="brand-image" loading="lazy">
-                            <h3 class="brand-name">C&C Milano</h3>
-                            <a href="https://www.cec-milano.it" target="_blank" class="brand-link" data-translate="visitWebsite">Visit Website</a>
-                        </div>
                     </div>
                 </div>
 
@@ -333,6 +384,12 @@
                             <img src="images/pavoni.jpeg" alt="Pavoni Leathers" class="brand-image" loading="lazy">
                             <h3 class="brand-name">Pavoni Leathers</h3>
                             <a href="https://pavoni.com" target="_blank" class="brand-link" data-translate="visitWebsite">Visit Website</a>
+                        </div>
+
+                        <div class="brand-item">
+                            <img src="images/C&C Milano picture for website.jpg" alt="C&C Milano" class="brand-image" loading="lazy">
+                            <h3 class="brand-name">C&C Milano</h3>
+                            <a href="https://www.cec-milano.it" target="_blank" class="brand-link" data-translate="visitWebsite">Visit Website</a>
                         </div>
                     </div>
                 </div>
@@ -374,61 +431,61 @@
                 <p data-translate="contactDescription">Get in touch with our team to discuss how we can transform your space into a stunning, functional design that reflects your unique style and needs.</p>
             </header>
             
-            <section class="contact-form-container">
-                <div class="contact-form">
-                    <h3 data-translate="contactTitle">Contact Us</h3>
-                    <p data-translate="contactDescription">Get in touch with our team to discuss how we can transform your space into a stunning, functional design that reflects your unique style and needs.</p>
-                    <form id="contactForm" class="contact-form" action="https://formspree.io/f/mldbgvra" method="POST">
-                        <div class="form-group">
-                            <label for="name" data-translate="name">Name</label>
-                            <input type="text" id="name" name="name" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="email" data-translate="email">Email</label>
-                            <input type="email" id="email" name="email" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="phone" data-translate="phone">Phone (optional)</label>
-                            <input type="tel" id="phone" name="phone">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="message" data-translate="message">Message</label>
-                            <textarea id="message" name="message" rows="5" required></textarea>
-                        </div>
-                        
-                        <button type="submit" data-translate="sendMessage" class="submit-btn">Send Message</button>
-                    </form>
+            <div class="contact-form">
+                <h3 data-translate="contactTitle">Contact Us</h3>
+                <p data-translate="contactDescription">Get in touch with our team to discuss how we can transform your space into a stunning, functional design that reflects your unique style and needs.</p>
+                <form id="contactForm" class="contact-form" action="https://formspree.io/f/mldbgvra" method="POST">
+                    <div class="form-group">
+                        <label for="name" data-translate="name">Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
                     
-                    <div class="contact-info">
-                        <div class="contact-item">
-                            <i class="fas fa-map-marker-alt"></i>
-                            <h3 data-translate="ourOffice">Our Office</h3>
-                            <p data-translate="address">Ingrid Bergman Interiors<br>Rua Fernão Lopes 279<br>Albufeira, Portugal</p>
-                        </div>
-                        
-                        <div class="contact-item">
-                            <i class="fas fa-envelope"></i>
-                            <h3 data-translate="emailUs">Email Us</h3>
-                            <p>
-                                <a href="mailto:ingrid@ingridbergmaninteriors.com">ingrid@ingridbergmaninteriors.com</a><br>
-                                <a href="mailto:ingrid@erickuster.com">ingrid@erickuster.com</a>
-                            </p>
-                        </div>
-                        
-                        <div class="contact-item">
-                            <i class="fas fa-phone-alt"></i>
-                            <h3 data-translate="callUs">Call Us</h3>
-                            <p>
-                                Portugal: <a href="tel:+351963486962">+351 963 486 962</a><br>
-                                Netherlands: <a href="tel:+31640180249">+31 6 401 80 249</a>
-                            </p>
-                        </div>
+                    <div class="form-group">
+                        <label for="email" data-translate="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone" data-translate="phone">Phone (optional)</label>
+                        <input type="tel" id="phone" name="phone">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message" data-translate="message">Message</label>
+                        <textarea id="message" name="message" rows="5" required></textarea>
+                    </div>
+                    
+                    <button type="submit" data-translate="sendMessage" class="submit-btn">Send Message</button>
+                </form>
+            </div>
+            
+            <div class="contact-info">
+                <div class="contact-grid">
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <h3 data-translate="ourOffice">Our Office</h3>
+                        <p data-translate="address">Ingrid Bergman Interiors<br>Rua Fernão Lopes 279<br>Albufeira, Portugal</p>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <h3 data-translate="emailUs">Email Us</h3>
+                        <p>
+                            <a href="mailto:ingrid@ingridbergmaninteriors.com">ingrid@ingridbergmaninteriors.com</a><br>
+                            <a href="mailto:ingrid@erickuster.com">ingrid@erickuster.com</a>
+                        </p>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <i class="fas fa-phone-alt"></i>
+                        <h3 data-translate="callUs">Call Us</h3>
+                        <p>
+                            Portugal: <a href="tel:+351963486962">+351 963 486 962</a><br>
+                            Netherlands: <a href="tel:+31640180249">+31 6 401 80 249</a>
+                        </p>
                     </div>
                 </div>
-            </section>
+            </div>
             
             <div class="contact-actions">
                 <button class="contact-back-home-btn" data-translate="returnHome">Return to Homepage</button>
@@ -522,45 +579,112 @@
             <button class="close-gallery">
                 <i class="fas fa-times"></i>
             </button>
+            <!-- California Project Slides -->
             <div class="gallery-slide active">
-                <img src="images/CA project done/IBICali2019-30.jpg" alt="California Home Project - Main View">
+                <img src="images/cali project/IBICali2019-1 - Copy - Copy.jpg" alt="California Home Project - Entry">
             </div>
             <div class="gallery-slide">
-                <img src="images/CA project done/IBICali2019-31.jpg" alt="California Home Project - Living Area">
+                <img src="images/cali project/IBICali2019-4.jpg" alt="California Home Project - Living Area">
             </div>
             <div class="gallery-slide">
-                <img src="images/CA project done/IBICali2019-33.jpg" alt="California Home Project - Kitchen">
+                <img src="images/cali project/IBICali2019-5.jpg" alt="California Home Project - Living Room Details">
             </div>
             <div class="gallery-slide">
-                <img src="images/CA project done/IBICali2019-34.jpg" alt="California Home Project - Dining Area">
+                <img src="images/cali project/IBICali2019-6.jpg" alt="California Home Project - Dining Area">
             </div>
             <div class="gallery-slide">
-                <img src="images/CA project done/IBICali2019-39.jpg" alt="California Home Project - Bedroom">
+                <img src="images/cali project/IBICali2019-9 - Copy.jpg" alt="California Home Project - Kitchen View">
             </div>
             <div class="gallery-slide">
-                <img src="images/CA project done/IBICali2019-40.jpg" alt="California Home Project - Bathroom">
+                <img src="images/cali project/IBICali2019-10 - Copy - Copy.jpg" alt="California Home Project - Kitchen Details">
             </div>
             <div class="gallery-slide">
-                <img src="images/CA project done/IBICali2019-41.jpg" alt="California Home Project - Outdoor Area">
+                <img src="images/cali project/IBICali2019-12.jpg" alt="California Home Project - Hallway">
             </div>
             <div class="gallery-slide">
-                <img src="images/CA project done/IBICali2019-42.jpg" alt="California Home Project - Garden View">
+                <img src="images/cali project/IBICali2019-15.jpg" alt="California Home Project - Bedroom">
             </div>
             <div class="gallery-slide">
-                <img src="images/CA project done/IBICali2019-43.jpg" alt="California Home Project - Pool Area">
+                <img src="images/cali project/IBICali2019-17.jpg" alt="California Home Project - Bathroom">
             </div>
             <div class="gallery-slide">
-                <img src="images/CA project done/IBICali2019-71.jpg" alt="California Home Project - Terrace">
+                <img src="images/cali project/IBICali2019-26.jpg" alt="California Home Project - Living Space">
             </div>
             <div class="gallery-slide">
-                <img src="images/CA project done/IBICali2019-351.jpg" alt="California Home Project - Interior Detail">
+                <img src="images/cali project/IBICali2019-29.jpg" alt="California Home Project - Sitting Area">
             </div>
             <div class="gallery-slide">
-                <img src="images/CA project done/IBICali2019-411.jpg" alt="California Home Project - Living Room">
+                <img src="images/cali project/IBICali2019-30.jpg" alt="California Home Project - Main View">
             </div>
             <div class="gallery-slide">
-                <img src="images/CA project done/IBICali2019-441.jpg" alt="California Home Project - Final View">
+                <img src="images/cali project/IBICali2019-33.jpg" alt="California Home Project - Kitchen">
             </div>
+            <div class="gallery-slide">
+                <img src="images/cali project/IBICali2019-39.jpg" alt="California Home Project - Bedroom View">
+            </div>
+            <div class="gallery-slide">
+                <img src="images/cali project/IBICali2019-40.jpg" alt="California Home Project - Bathroom Details">
+            </div>
+            <div class="gallery-slide">
+                <img src="images/cali project/IBICali2019-42.jpg" alt="California Home Project - Outdoor Space">
+            </div>
+            <div class="gallery-slide">
+                <img src="images/cali project/IBICali2019-43.jpg" alt="California Home Project - Pool Area">
+            </div>
+            <div class="gallery-slide">
+                <img src="images/cali project/IBICali2019-71.jpg" alt="California Home Project - Garden View">
+            </div>
+            <div class="gallery-slide">
+                <img src="images/cali project/IBICali2019-351.jpg" alt="California Home Project - Interior Detail">
+            </div>
+            <div class="gallery-slide">
+                <img src="images/cali project/IBICali2019-441.jpg" alt="California Home Project - Exterior">
+            </div>
+
+            <!-- Restaurant Project Slides -->
+            <div class="gallery-slide restaurant-slide">
+                <img src="images/grill/Grill 445-1.jpg" alt="Restaurant Project - Main View">
+            </div>
+            <div class="gallery-slide restaurant-slide">
+                <img src="images/grill/Grill 445-3.jpg" alt="Restaurant Project - Interior Detail">
+            </div>
+            <div class="gallery-slide restaurant-slide">
+                <img src="images/grill/Grill 445-5.jpg" alt="Restaurant Project - Dining Area">
+            </div>
+            <div class="gallery-slide restaurant-slide">
+                <img src="images/grill/Grill 445-8.jpg" alt="Restaurant Project - Bar Area">
+            </div>
+            <div class="gallery-slide restaurant-slide">
+                <img src="images/grill/Grill 445-9.jpg" alt="Restaurant Project - Seating Area">
+            </div>
+            <div class="gallery-slide restaurant-slide">
+                <img src="images/grill/Grill 445-11.jpg" alt="Restaurant Project - Interior View">
+            </div>
+            <div class="gallery-slide restaurant-slide">
+                <img src="images/grill/Grill 445-12.jpg" alt="Restaurant Project - Design Detail">
+            </div>
+            <div class="gallery-slide restaurant-slide">
+                <img src="images/grill/Grill 445-13.jpg" alt="Restaurant Project - Space Overview">
+            </div>
+            <div class="gallery-slide restaurant-slide">
+                <img src="images/grill/Grill 445-16.jpg" alt="Restaurant Project - Interior Element">
+            </div>
+            <div class="gallery-slide restaurant-slide">
+                <img src="images/grill/Grill 445-18.jpg" alt="Restaurant Project - Design Feature">
+            </div>
+            <div class="gallery-slide restaurant-slide">
+                <img src="images/grill/Grill 445-19.jpg" alt="Restaurant Project - Space Detail">
+            </div>
+            <div class="gallery-slide restaurant-slide">
+                <img src="images/grill/Grill 445-23.jpg" alt="Restaurant Project - Interior View">
+            </div>
+            <div class="gallery-slide restaurant-slide">
+                <img src="images/grill/Grill 445-24.jpg" alt="Restaurant Project - Design Element">
+            </div>
+            <div class="gallery-slide restaurant-slide">
+                <img src="images/grill/Grill 445-26.jpg" alt="Restaurant Project - Final View">
+            </div>
+
             <div class="gallery-controls">
                 <button class="gallery-prev-btn">
                     <i class="fas fa-chevron-left"></i>
@@ -569,7 +693,7 @@
                     <i class="fas fa-chevron-right"></i>
                 </button>
             </div>
-            <div class="gallery-counter">1 / 13</div>
+            <div class="gallery-counter">1 / 34</div>
         </div>
     </div>
 </body>
