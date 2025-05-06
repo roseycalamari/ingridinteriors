@@ -2721,9 +2721,11 @@ body.section-active .header .logo-container {
 .project-location {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 0.5rem;
     color: var(--color-text-secondary);
-    margin: 0;
+    margin: 0 auto 1rem auto;
+    text-align: center;
 }
 
 .project-buttons {

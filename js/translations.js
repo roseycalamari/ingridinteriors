@@ -13,6 +13,7 @@ const translations = {
         aboutButton: "The Person",
         viewGallery: "View Gallery",
         readAboutProject: "Read more",
+        gallery: "Gallery",
         pageTitle: "Luxury Design Portfolio",
         companyName: "Ingrid Bergman Interiors",
         
@@ -70,12 +71,19 @@ const translations = {
         projectsTitle: "Ingrid's Projects",
         projectTitle: "Transforming of a family home",
         projectLocation: "California, US",
+        restaurantProjectTitle: "A Bold New Restaurant Concept with Heart",
+        restaurantProjectLocation: "Restaurant Project",
         projectDescription1: "We recently had the pleasure of transforming a classic traditional American quinta into a refined, modern sanctuary for a young family with three children. This full-scale renovation was more than just a makeover—it was a complete reinvention of the space to align with contemporary living while preserving a warm, welcoming atmosphere.",
         projectDescription2: "The home was fully gutted to allow for a bold redesign, featuring an open floorplan that brings in natural light and flow. At the heart of the home stands a stunning, high-end Italian kitchen—both sleek and functional—paired with a custom-designed bathroom that exudes luxury and serenity.",
         projectDescription3: "Throughout the house, we laid elegant fishbone oak flooring, adding texture and timeless style. A striking fireplace became a central feature, creating a cozy gathering space for the family. Carefully curated high-end furniture from Eric Kuster, paired with limited edition art and thoughtfully chosen accessories, completed the design with sophistication and personality.",
         projectDescription4: "Every detail was selected to reflect comfort, elegance, and a touch of boldness—and the result? A truly elevated family home, perfectly tailored to the lifestyle and vision of our delighted clients.",
         signature: "— Ingrid Bergman",
-        projectsComingSoon: "Coming soon - Showcase of Ingrid's latest interior design projects"
+        projectsComingSoon: "Coming soon - Showcase of Ingrid's latest interior design projects",
+        
+        // Restaurant Project Description
+        restaurantProjectDescription1: "We had the opportunity to collaborate with an experienced American restaurateur on an exciting new venture: a pub-style restaurant concept with a family-friendly twist. The vision was clear—create a space where you could grab a great steak or burger in a laid-back, stylish setting that welcomes everyone.",
+        restaurantProjectDescription2: "From concept to completion, we were involved every step of the way. The standout feature? A stunning 35-meter-long natural stone bar that immediately draws attention and anchors the entire space. Every detail was carefully curated—from material selections and color palettes to the rich flooring textures, statement lighting, and luxurious custom booths designed to comfortably seat groups of up to 8.",
+        restaurantProjectDescription3: "This project wasn't just about aesthetics—it was about atmosphere. The result is a warm, inviting, and elevated dining experience that feels both timeless and fresh."
     },
     pt: {
         // Navigation
@@ -90,6 +98,7 @@ const translations = {
         aboutButton: "A Pessoa",
         viewGallery: "Ver Galeria",
         readAboutProject: "Ler mais",
+        gallery: "Galeria",
         pageTitle: "Portfólio de Design de Luxo",
         companyName: "Ingrid Bergman Interiors",
         
@@ -147,12 +156,19 @@ const translations = {
         projectsTitle: "Projetos da Ingrid",
         projectTitle: "Transformação de uma Casa de Família",
         projectLocation: "Califórnia, EUA",
+        restaurantProjectTitle: "Um Novo Conceito de Restaurante Ousado com Alma",
+        restaurantProjectLocation: "Projeto de Restaurante",
         projectDescription1: "Recentemente, tivemos o prazer de transformar uma quinta americana tradicional clássica num santuário moderno e refinado para uma jovem família com três filhos. Esta renovação completa foi mais do que uma simples remodelação—foi uma reinvenção total do espaço para se alinhar com a vida contemporânea, mantendo uma atmosfera acolhedora e calorosa.",
         projectDescription2: "A casa foi completamente renovada para permitir um design ousado, com um plano aberto que traz luz natural e fluidez. No coração da casa está uma cozinha italiana de luxo—elegante e funcional—combinada com uma casa de banho personalizada que exala luxo e serenidade.",
         projectDescription3: "Por toda a casa, colocámos pavimento em carvalho espinha de peixe, adicionando textura e estilo atemporal. Uma lareira impressionante tornou-se um elemento central, criando um espaço acolhedor para a família. Mobiliário de luxo cuidadosamente selecionado da Eric Kuster, combinado com arte de edição limitada e acessórios escolhidos com cuidado, completou o design com sofisticação e personalidade.",
         projectDescription4: "Cada detalhe foi selecionado para refletir conforto, elegância e um toque de ousadia—e o resultado? Uma casa de família verdadeiramente elevada, perfeitamente adaptada ao estilo de vida e visão dos nossos clientes encantados.",
         signature: "— Ingrid Bergman",
-        projectsComingSoon: "Brevemente - Mostra dos mais recentes projetos de design de interiores da Ingrid"
+        projectsComingSoon: "Brevemente - Mostra dos mais recentes projetos de design de interiores da Ingrid",
+        
+        // Restaurant Project Description
+        restaurantProjectDescription1: "Tivemos a oportunidade de colaborar com um experiente restaurador americano num novo e emocionante projeto: um conceito de restaurante estilo pub com um toque familiar. A visão era clara—criar um espaço onde se pudesse desfrutar de um excelente bife ou hambúrguer num ambiente descontraído e elegante que acolhe todos.",
+        restaurantProjectDescription2: "Do conceito à conclusão, estivemos envolvidos em cada etapa. O destaque? Uma impressionante barra de pedra natural com 35 metros de comprimento que imediatamente atrai a atenção e ancora todo o espaço. Cada detalhe foi cuidadosamente selecionado—desde a escolha de materiais e paletas de cores até às ricas texturas do pavimento, iluminação marcante e luxuosos bancos personalizados projetados para acomodar confortavelmente grupos de até 8 pessoas.",
+        restaurantProjectDescription3: "Este projeto não foi apenas sobre estética—foi sobre atmosfera. O resultado é uma experiência gastronómica acolhedora, convidativa e elevada que se sente tanto atemporal como fresca."
     }
 };
 
